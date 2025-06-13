@@ -12,7 +12,6 @@ void Triangle() {
 	LineDrawer::DrawTriangle(120, 35, 90, 5, 45, 110, framebuffer, TGAColor::white);
 	LineDrawer::DrawTriangle(115, 83, 80, 90, 85, 120, framebuffer, TGAColor::green);
 
-	framebuffer.flip_vertically();
 	framebuffer.write_tga_file("../_results/Lesson2.tga");
 }
 
@@ -29,7 +28,6 @@ void Triangle_Rasterization() {
 	Rasterizer::Triangle_Old(120, 35, 90, 5, 45, 110, framebuffer, TGAColor::white);
 	Rasterizer::Triangle_Old(115, 83, 80, 90, 85, 120, framebuffer, TGAColor::green);
 
-	framebuffer.flip_vertically();
 	framebuffer.write_tga_file("../_results/Lesson2_Rasterization.tga");
 }
 
@@ -44,7 +42,6 @@ void Triangle_Rasterization_Modern() {
 	Rasterizer::Triangle(120, 35, 90, 5, 45, 110, framebuffer, TGAColor::white);
 	Rasterizer::Triangle(115, 83, 80, 90, 85, 120, framebuffer, TGAColor::green);
 
-	framebuffer.flip_vertically();
 	framebuffer.write_tga_file("../_results/Lesson2_Rasterization_Modern.tga");
 }
 
@@ -73,13 +70,12 @@ void Triangle_Rasterization_Head() {
 		int cy = v3.Y * height;
 
 		TGAColor rnd;
-		rnd.r = std::rand() % 255;
-		rnd.g = std::rand() % 255;
-		rnd.b = std::rand() % 255;
+		rnd[0] = std::rand() % 255;
+		rnd[1] = std::rand() % 255;
+		rnd[2] = std::rand() % 255;
 		Rasterizer::Triangle(ax, ay, bx, by, cx, cy, framebuffer, rnd);
 	}
 
-	framebuffer.flip_vertically();
 	framebuffer.write_tga_file("../_results/Lesson2_Rasterization_Modern_Head.tga");
 }
 

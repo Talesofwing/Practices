@@ -3,6 +3,7 @@
 std::pair<std::vector<Vec3>, std::vector<Face>> ObjLoader::LoadObj(std::string path) {
 	Timer timer;
 	timer.Start();
+
 	std::vector<Vec3> vertices;
 	std::vector<Face> faces;
 
@@ -25,7 +26,9 @@ std::pair<std::vector<Vec3>, std::vector<Face>> ObjLoader::LoadObj(std::string p
 		if (prefix == "v") {
 			double x, y, z;
 			iss >> x >> y >> z;
-			x = (x + 1) / 2; y = (y + 1) / 2; z = (z + 1) / 2;
+			x = (x + 1) / 2;
+			y = (y + 1) / 2;
+			z = (z + 1) / 2;
 			vertices.emplace_back(x, y, z);
 		} else if (prefix == "f") {
 			char trash;
@@ -35,11 +38,15 @@ std::pair<std::vector<Vec3>, std::vector<Face>> ObjLoader::LoadObj(std::string p
 			iss >> v1 >> trash >> trash2 >> trash >> trash2
 				>> v2 >> trash >> trash2 >> trash >> trash2
 				>> v3;
-			v1--; v2--; v3--;
+			v1--;
+			v2--;
+			v3--;
 			faces.emplace_back(v1, v2, v3);
 		}
 	}
+
 	timer.Stop();
+
 	double elapsed = timer.ElapsedSecond();
 
 	std::filesystem::path p = path;

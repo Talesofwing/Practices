@@ -1,4 +1,10 @@
 #include "Rasterizer.h"
+#include "iostream"
+
+//
+// There may be some redundant calculations, such as computing the area.
+// The main purpose is to make it clearer how each step is derived.
+//
 
 void Rasterizer::Triangle_Old(
 	int ax, int ay,
@@ -7,7 +13,7 @@ void Rasterizer::Triangle_Old(
 	TGAImage& framebuffer, const TGAColor& color)
 {
 	// Check backface-culling
-	if (IsBackfaceCulling(ax, ay, bx, by, cx, cy)) return;
+	if (IsCulling(ax, ay, bx, by, cx, cy)) return;
 
 	// Sort the vertices, a,b,c in ascending y order
 	if (ay > by) { std::swap(ax, bx); std::swap(ay, by); }
@@ -45,7 +51,7 @@ void Rasterizer::Triangle(
 	int cx, int cy,
 	TGAImage& framebuffer, const TGAColor& color)
 {
-	if (IsBackfaceCulling(ax, ay, bx, by, cx, cy)) return;
+	if (IsCulling(ax, ay, bx, by, cx, cy)) return;
 
 	int xmin, ymin, xmax, ymax;
 	std::tie(xmin, ymin, xmax, ymax) = CalcAABB(ax, ay, bx, by, cx, cy);
@@ -59,7 +65,38 @@ void Rasterizer::Triangle(
 	}
 }
 
-std::tuple<int, int, int, int> Rasterizer::CalcAABB(int ax, int ay, int bx, int by, int cx, int cy) {
+void Rasterizer::Triangle(
+	int ax, int ay, int az,
+	int bx, int by, int bz,
+	int cx, int cy, int cz,
+	TGAImage& framebuffer, TGAImage& depthbuffer,
+	const TGAColor& color)
+{
+	if (IsCulling(ax, ay, bx, by, cx, cy)) return;
+
+	int xmin, ymin, xmax, ymax;
+	std::tie(xmin, ymin, xmax, ymax) = CalcAABB(ax, ay, bx, by, cx, cy);
+
+	for (int x = xmin; x <= xmax; ++x) {
+		for (int y = ymin; y <= ymax; ++y) {
+			double alpha, beta, gamma;
+			std::tie(alpha, beta, gamma) = CalcBarycentricCoordinates(ax, ay, bx, by, cx, cy, x, y);
+			if (alpha >= 0 && beta >= 0 && gamma >= 0) {
+				unsigned char z = static_cast<unsigned char> (alpha * az + beta * bz + gamma * cz);
+				if (z > depthbuffer.get(x, y)[0]) {
+					depthbuffer.set(x, y, {z});
+					framebuffer.set(x, y, color);
+				}
+			}
+		}
+	}
+}
+
+std::tuple<int, int, int, int> Rasterizer::CalcAABB(
+	int ax, int ay,
+	int bx, int by,
+	int cx, int cy)
+{
 	int xmin, xmax, ymin, ymax;
 	xmin = std::min(std::min(ax, bx), cx);
 	xmax = std::max(std::max(ax, bx), cx);
@@ -68,12 +105,41 @@ std::tuple<int, int, int, int> Rasterizer::CalcAABB(int ax, int ay, int bx, int 
 	return std::tuple<int, int, int, int>(xmin, ymin, xmax, ymax);
 }
 
-bool Rasterizer::IsBackfaceCulling(int ax, int ay, int bx, int by, int cx, int cy) {
-	int z = (bx - ax) * (cy - ay) - (by - ay) * (cx - ax);
-	return z <= 0;
+double Rasterizer::CalcSignedArea(
+	int ax, int ay,
+	int bx, int by,
+	int cx, int cy)
+{
+	return .5 * ((bx - ax) * (cy - ay) - (by - ay) * (cx - ax));
 }
 
-bool Rasterizer::IsInsideTriangle(int ax, int ay, int bx, int by, int cx, int cy, int px, int py) {
+std::tuple<double, double, double> Rasterizer::CalcBarycentricCoordinates(
+	int ax, int ay,
+	int bx, int by,
+	int cx, int cy,
+	int px, int py)
+{
+	double total_area = CalcSignedArea(ax, ay, bx, by, cx, cy);
+	double alpha = CalcSignedArea(px, py, bx, by, cx, cy) / total_area;
+	double beta = CalcSignedArea(ax, ay, px, py, cx, cy) / total_area;
+	double gamma = 1 - alpha - beta;
+	return std::make_tuple(alpha, beta, gamma);
+}
+
+bool Rasterizer::IsCulling(
+	int ax, int ay,
+	int bx, int by,
+	int cx, int cy)
+{
+	return CalcSignedArea(ax, ay, bx, by, cx, cy) <= 1;
+}
+
+bool Rasterizer::IsInsideTriangle(
+	int ax, int ay,
+	int bx, int by,
+	int cx, int cy,
+	int px, int py)
+{
 	// Using cross-product to test point inclusion in a triangle
 
 	int ab_x = bx - ax, ab_y = by - ay;

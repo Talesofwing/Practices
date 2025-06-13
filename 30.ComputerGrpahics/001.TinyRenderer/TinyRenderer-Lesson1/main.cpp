@@ -20,6 +20,7 @@ void draw_triangle() {
 
 void speed_test() {
 	TGAImage framebuffer(64, 64, TGAImage::RGB);
+	TGAImage framebuffer2(64, 64, TGAImage::RGB);
 
 	// if version
 	std::cout << "Draw line(if)" << std::endl;
@@ -36,16 +37,15 @@ void speed_test() {
 
 	// without if version (more fast)
 	std::cout << "Draw line(without if)" << std::endl;
-	framebuffer.clear();
 	timer.Start();
 	for (int i = 0; i < (1 << 24); ++i) {
 		int ax = rand() % 64, ay = rand() % 64;
 		int bx = rand() % 64, by = rand() % 64;
-		LineDrawer::DrawLine_Fast(ax, ay, bx, by, framebuffer, {(unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255)});
+		LineDrawer::DrawLine_Fast(ax, ay, bx, by, framebuffer2, {(unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255)});
 	}
 	timer.Stop();
 	timer.Display();
-	framebuffer.write_tga_file("../_results/Lesson1.tga");
+	framebuffer2.write_tga_file("../_results/Lesson1.tga");
 }
 
 void Homework() {
@@ -92,8 +92,6 @@ void Homework() {
 	}
 
 	timer.Stop();
-
-	framebuffer.flip_vertically();
 
 	std::string name = "../_results/Lesson1-" + filename + ".tga";
 	framebuffer.write_tga_file(name.c_str());
