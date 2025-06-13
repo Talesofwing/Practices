@@ -18,11 +18,25 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="include\LineDrawer.cpp" />
+    <ClCompile Include="include\tgaimage.cpp" />
+    <ClCompile Include="include\Timer.cpp" />
+    <ClCompile Include="include\ObjLoader.cpp" />
+    <ClCompile Include="include\Rasterizer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\LineDrawer.h" />
+    <ClInclude Include="include\tgaimage.h" />
+    <ClInclude Include="include\Timer.h" />
+    <ClInclude Include="include\ObjLoader.h" />
+    <ClInclude Include="include\Rasterizer.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{5f36a74c-4d77-4b98-904d-ae3ab1b0349c}</ProjectGuid>
-    <RootNamespace>TinyRendererLesson1</RootNamespace>
+    <ProjectGuid>{a117f155-6478-4034-88a7-b971ca72d1ac}</ProjectGuid>
+    <RootNamespace>TinyRendererCommon</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -46,7 +60,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -104,12 +118,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>F:\Dev\_practices\30.ComputerGrpahics\001.TinyRenderer\common;%(AdditionalLibraryDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>F:\Dev\_practices\30.ComputerGrpahics\001.TinyRenderer\common;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -120,8 +132,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>F:\Dev\_practices\30.ComputerGrpahics\001.TinyRenderer\TinyRenderer-Common\include</AdditionalIncludeDirectories>
-      <Optimization>MaxSpeed</Optimization>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -131,14 +141,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TinyRenderer-Common\TinyRenderer-Common.vcxproj">
-      <Project>{a117f155-6478-4034-88a7-b971ca72d1ac}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

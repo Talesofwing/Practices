@@ -349,3 +349,8 @@ bool TGAImage::scale(int w, int h) {
 	return true;
 }
 
+const TGAColor TGAColor::white = TGAColor(255, 255, 255, 255);
+const TGAColor TGAColor::red = TGAColor(255, 0, 0, 255);
+const TGAColor TGAColor::green = TGAColor(0, 255, 0, 255);
+const TGAColor TGAColor::blue = TGAColor(0, 0, 255, 255);
+const TGAColor TGAColor::yellow = TGAColor(0, 200, 255, 255);

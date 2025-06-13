@@ -18,8 +18,5 @@
     <ClCompile Include="main.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="..\common\tgaimage.cpp">
-      <Filter>來源檔案</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

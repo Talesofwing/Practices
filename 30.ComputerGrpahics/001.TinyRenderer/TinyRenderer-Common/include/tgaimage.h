@@ -57,8 +57,14 @@ struct TGAColor {
 		}
 		return *this;
 	}
-};
 
+public:
+	const static TGAColor white;
+	const static TGAColor red;
+	const static TGAColor green;
+	const static TGAColor blue;
+	const static TGAColor yellow;
+};
 
 class TGAImage {
 protected:
