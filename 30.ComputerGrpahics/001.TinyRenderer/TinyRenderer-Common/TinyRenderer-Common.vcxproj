@@ -24,6 +24,7 @@
     <ClCompile Include="include\Timer.cpp" />
     <ClCompile Include="include\ObjLoader.cpp" />
     <ClCompile Include="include\Rasterizer.cpp" />
+    <ClCompile Include="include\zer0Math.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\LineDrawer.h" />
@@ -31,6 +32,7 @@
     <ClInclude Include="include\Timer.h" />
     <ClInclude Include="include\ObjLoader.h" />
     <ClInclude Include="include\Rasterizer.h" />
+    <ClInclude Include="include\zer0Math.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

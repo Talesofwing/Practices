@@ -10,8 +10,8 @@ void Depth_Rasterization() {
 	TGAImage depthbuffer(width, height, TGAImage::GRAYSCALE);
 
 	std::string path = "../models/";
-	//std::string filename = "african_head";
-	std::string filename = "diablo3_pose";
+	std::string filename = "african_head";
+	//std::string filename = "diablo3_pose";
 	std::pair<std::vector<Vec3>, std::vector<Face>> obj = ObjLoader::LoadObj(path + filename + ".obj");
 
 	for (int i = 0; i < obj.second.size(); ++i) {
@@ -38,8 +38,8 @@ void Depth_Rasterization() {
 		Rasterizer::Triangle(ax, ay, az, bx, by, bz, cx, cy, cz, framebuffer, depthbuffer, rnd);
 	}
 
-	depthbuffer.write_tga_file("../_results/Lesson3_depthbuffer.tga");
-	framebuffer.write_tga_file("../_results/Lesson3.tga");
+	depthbuffer.write_tga_file("../_results/Lesson3_african_head_depthbuffer.tga");
+	framebuffer.write_tga_file("../_results/Lesson3_african_head.tga");
 }
 
 int main() {

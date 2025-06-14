@@ -1,11 +1,10 @@
 
 #include "LineDrawer.h"
 
-void LineDrawer::DrawLine_Fast(
-	int ax, int ay,
-	int bx, int by,
-	TGAImage& framebuffer, const TGAColor& color)
-{
+void LineDrawer::DrawLine_Fast(const zer0::vec2& start, const zer0::vec2& end, TGAImage& framebuffer, const TGAColor& color) {
+	int ax = start.x, ay = end.y;
+	int bx = start.y, by = end.y;
+
 	bool steep = std::abs(ax - bx) < std::abs(ay - by);
 	if (steep) {
 		std::swap(ax, ay);
@@ -32,11 +31,10 @@ void LineDrawer::DrawLine_Fast(
 	}
 }
 
-void LineDrawer::DrawLine_Slow(
-	int ax, int ay,
-	int bx, int by,
-	TGAImage& framebuffer, const TGAColor& color)
-{
+void LineDrawer::DrawLine_Slow(const zer0::vec2& start, const zer0::vec2& end, TGAImage& framebuffer, const TGAColor& color) {
+	int ax = start.x, ay = end.y;
+	int bx = start.y, by = end.y;
+
 	bool steep = std::abs(ax - bx) < std::abs(ay - by);
 	if (steep) {
 		std::swap(ax, ay);
@@ -65,15 +63,10 @@ void LineDrawer::DrawLine_Slow(
 	}
 }
 
-void LineDrawer::DrawTriangle(
-	int ax, int ay,
-	int bx, int by,
-	int cx, int cy,
-	TGAImage& framebuffer, const TGAColor& color)
+void LineDrawer::DrawTriangle(const zer0::vec2& p1, const zer0::vec2& p2, const zer0::vec2& p3, TGAImage& framebuffer, const TGAColor& color)
 {
-
-	DrawLine_Fast(ax, ay, bx, by, framebuffer, color);
-	DrawLine_Fast(cx, cy, bx, by, framebuffer, color);
-	DrawLine_Fast(cx, cy, ax, ay, framebuffer, color);
-	DrawLine_Fast(ax, ay, cx, cy, framebuffer, color);
+	DrawLine_Fast(p1, p2, framebuffer, color);
+	DrawLine_Fast(p3, p2, framebuffer, color);
+	DrawLine_Fast(p3, p1, framebuffer, color);
+	DrawLine_Fast(p1, p3, framebuffer, color);
 }
