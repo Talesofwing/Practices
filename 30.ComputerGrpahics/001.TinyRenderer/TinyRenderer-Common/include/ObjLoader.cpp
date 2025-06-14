@@ -1,11 +1,10 @@
 #include "ObjLoader.h"
 
-std::pair<std::vector<zer0::vec3>, std::vector<Face>> ObjLoader::LoadObj(std::string path) {
+mesh ObjLoader::LoadObj(std::string path) {
 	Timer timer;
 	timer.Start();
 
-	std::vector<zer0::vec3> vertices;
-	std::vector<Face> faces;
+	mesh m;
 
 	std::ifstream ifs(path);
 	std::string line;
@@ -14,7 +13,7 @@ std::pair<std::vector<zer0::vec3>, std::vector<Face>> ObjLoader::LoadObj(std::st
 	// modern compilers will optimize local variable allocation,
 	// so performance impact is negligible.
 
-	// zer0::vec3 v;
+	// vec3 v;
 	// Face f;
 
 	int c = 0;
@@ -24,24 +23,44 @@ std::pair<std::vector<zer0::vec3>, std::vector<Face>> ObjLoader::LoadObj(std::st
 		iss >> prefix;
 
 		if (prefix == "v") {
+			// vertices
+
 			double x, y, z;
 			iss >> x >> y >> z;
 			x = (x + 1) / 2;
 			y = (y + 1) / 2;
 			z = (z + 1) / 2;
-			vertices.emplace_back(x, y, z);
+			m.vertices.emplace_back(x, y, z);
 		} else if (prefix == "f") {
+			// indices
+
 			char trash;
-			int trash2;
 			int v1, v2, v3;
+			int uv1, uv2, uv3;
+			int n1, n2, n3;
 			std::string fStr;
-			iss >> v1 >> trash >> trash2 >> trash >> trash2
-				>> v2 >> trash >> trash2 >> trash >> trash2
-				>> v3;
-			v1--;
-			v2--;
-			v3--;
-			faces.emplace_back(v1, v2, v3);
+			iss >> v1 >> trash >> uv1 >> trash >> n1
+				>> v2 >> trash >> uv2 >> trash >> n2
+				>> v3 >> trash >> uv3 >> trash >> n3;
+			v1--; v2--; v3--;
+			uv1--; uv2--; uv3--;
+			n1--; n2--; n3--;
+			m.vertex_indices.emplace_back(v1);
+			m.vertex_indices.emplace_back(v2);
+			m.vertex_indices.emplace_back(v3);
+			m.uv_indcies.emplace_back(uv1);
+			m.uv_indcies.emplace_back(uv2);
+			m.uv_indcies.emplace_back(uv3);
+			m.normals_indices.emplace_back(n1);
+			m.normals_indices.emplace_back(n2);
+			m.normals_indices.emplace_back(n3);
+		} else if (prefix == "vt") {
+			// uv
+
+			double u, v, w;
+			iss >> u >> v >> w;
+
+			m.uvs.emplace_back(u, 1.0 - v);
 		}
 	}
 
@@ -51,13 +70,11 @@ std::pair<std::vector<zer0::vec3>, std::vector<Face>> ObjLoader::LoadObj(std::st
 
 	std::filesystem::path p = path;
 	std::cout << ".obj file(" << p.filename() << ") Loaded(" << elapsed << " seconds)" << std::endl;
-	std::cout << "\tVertex Count: " << vertices.size() << std::endl;
-	std::cout << "\tFace Count: " << faces.size() << std::endl;
+	std::cout << "\tVertex Count: " << m.vertices.size() << std::endl;
+	std::cout << "\tIndex Count: " << m.vertex_indices.size() / 3 << std::endl;
+	std::cout << "\tUV Count: " << m.uvs.size() << std::endl;
 
-	return {vertices, faces};
+	return m;
 }
 
-std::ostream& operator<<(std::ostream& os, const Face& f) {
-	os << "(" << f.V1 << ", " << f.V2 << ", " << f.V3 << ")";
-	return os;
-}
+

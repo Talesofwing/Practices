@@ -62,17 +62,15 @@ void homework() {
 	std::string path = "../models/";
 	//std::string filename = "diablo3_pose";
 	std::string filename = "african_head";
-	std::pair<std::vector<vec3>, std::vector<Face>> obj = ObjLoader::LoadObj(path + filename + ".obj");
+	mesh obj = ObjLoader::LoadObj(path + filename + ".obj");
 
 	Timer timer;
 	timer.Start();
 
-	for (int i = 0; i < obj.second.size(); ++i) {
-		Face& f = obj.second[i];
-
-		vec3 v1 = obj.first[f.V1];
-		vec3 v2 = obj.first[f.V2];
-		vec3 v3 = obj.first[f.V3];
+	for (int i = 0; i < obj.vertex_indices.size(); i += 3) {
+		vec3 v1 = obj.vertices[obj.vertex_indices[i]];
+		vec3 v2 = obj.vertices[obj.vertex_indices[i + 1]];
+		vec3 v3 = obj.vertices[obj.vertex_indices[i + 2]];
 
 		v1.x *= width;
 		v1.y *= height;
@@ -84,8 +82,8 @@ void homework() {
 		Rasterizer::Triangle(v1, v2, v3, framebuffer, TGAColor::red);
 	}
 
-	for (int i = 0; i < obj.first.size(); ++i) {
-		vec3& v = obj.first[i];
+	for (int i = 0; i < obj.vertices.size(); ++i) {
+		vec3& v = obj.vertices[i];
 
 		int x = static_cast<int>(v.x * width);
 		int y = static_cast<int>(v.y * width);

@@ -102,7 +102,7 @@ void Rasterizer::Triangle_Old(vec2 p1, vec2 p2, vec2 p3, TGAImage& framebuffer, 
 	}
 }
 
-void Rasterizer::Triangle(vec2 p1, vec2 p2, vec2 p3, TGAImage& framebuffer, const TGAColor& color) {
+void Rasterizer::Triangle(const vec2& p1, const vec2& p2, const vec2& p3, TGAImage& framebuffer, const TGAColor& color) {
 	if (Wireframe) {
 		Line_With_If(p1, p2, framebuffer, color);
 		Line_With_If(p1, p3, framebuffer, color);
@@ -123,7 +123,7 @@ void Rasterizer::Triangle(vec2 p1, vec2 p2, vec2 p3, TGAImage& framebuffer, cons
 	}
 }
 
-void Rasterizer::Triangle(vec3 p1, vec3 p2, vec3 p3, TGAImage& framebuffer, TGAImage& depthbuffer, const TGAColor& color) {
+void Rasterizer::Triangle(const vec3& p1, const vec3& p2, const vec3& p3, TGAImage& framebuffer, TGAImage& depthbuffer, const TGAColor& color) {
 	if (Wireframe) {
 		Line_With_If(p1, p2, framebuffer, color);
 		Line_With_If(p1, p3, framebuffer, color);
@@ -149,6 +149,79 @@ void Rasterizer::Triangle(vec3 p1, vec3 p2, vec3 p3, TGAImage& framebuffer, TGAI
 		}
 	}
 }
+
+void Rasterizer::Triangle(
+	const vec3& p1, const vec3& p2, const vec3& p3,
+	const vec2& uv1, const vec2& uv2, const vec2& uv3,
+	TGAImage& framebuffer, TGAImage& depthbuffer,
+	const TGAImage& texturebuffer)
+{
+	if (Wireframe) {
+		Line_With_If(p1, p2, framebuffer, texturebuffer.get(static_cast<const int>(uv1.x), static_cast<const int>(uv1.y)));
+		Line_With_If(p1, p3, framebuffer, texturebuffer.get(static_cast<const int>(uv2.x), static_cast<const int>(uv2.y)));
+		Line_With_If(p2, p3, framebuffer, texturebuffer.get(static_cast<const int>(uv3.x), static_cast<const int>(uv3.y)));
+	} else {
+		if (Culling && IsCulling(p1, p2, p3)) return;
+
+		int xmin, ymin, xmax, ymax;
+		std::tie(xmin, ymin, xmax, ymax) = CalcAABB(p1, p2, p3);
+
+		for (int x = xmin; x <= xmax; ++x) {
+			for (int y = ymin; y <= ymax; ++y) {
+				double alpha, beta, gamma;
+				std::tie(alpha, beta, gamma) = CalcBarycentricCoordinates(p1, p2, p3, vec2(x, y));
+				if (alpha >= 0 && beta >= 0 && gamma >= 0) {
+					unsigned char z = static_cast<unsigned char> (alpha * p1.z + beta * p2.z + gamma * p3.z);
+					int u = std::clamp(static_cast<int>((alpha * uv1.x + beta * uv2.x + gamma * uv3.x) * texturebuffer.width()), 0, texturebuffer.width() - 1);
+					int v = std::clamp(static_cast<int>((alpha * uv1.y + beta * uv2.y + gamma * uv3.y) * texturebuffer.height()), 0, texturebuffer.height() - 1);
+					if (z > depthbuffer.get(x, y)[0]) {
+						depthbuffer.set(x, y, {z});
+						framebuffer.set(x, y, texturebuffer.get(u, v));
+					}
+				}
+			}
+		}
+	}
+}
+
+void Rasterizer::Triangle(
+	const vec3& p1, const vec3& p2, const vec3& p3,
+	const vec2& uv1, const vec2& uv2, const vec2& uv3,
+	const vec3& n1, const vec3& n2, const vec3& n3,
+	TGAImage& framebuffer, TGAImage& depthbuffer,
+	const TGAImage& texturebuffer)
+{
+	if (Wireframe) {
+		Line_With_If(p1, p2, framebuffer, texturebuffer.get(static_cast<const int>(uv1.x), static_cast<const int>(uv1.y)));
+		Line_With_If(p1, p3, framebuffer, texturebuffer.get(static_cast<const int>(uv2.x), static_cast<const int>(uv2.y)));
+		Line_With_If(p2, p3, framebuffer, texturebuffer.get(static_cast<const int>(uv3.x), static_cast<const int>(uv3.y)));
+	} else {
+		if (Culling && IsCulling(p1, p2, p3)) return;
+
+		int xmin, ymin, xmax, ymax;
+		std::tie(xmin, ymin, xmax, ymax) = CalcAABB(p1, p2, p3);
+
+		for (int x = xmin; x <= xmax; ++x) {
+			for (int y = ymin; y <= ymax; ++y) {
+				double alpha, beta, gamma;
+				std::tie(alpha, beta, gamma) = CalcBarycentricCoordinates(p1, p2, p3, vec2(x, y));
+				if (alpha >= 0 && beta >= 0 && gamma >= 0) {
+					unsigned char z = static_cast<unsigned char> (alpha * p1.z + beta * p2.z + gamma * p3.z);
+					int u = std::clamp(static_cast<int>((alpha * uv1.x + beta * uv2.x + gamma * uv3.x) * texturebuffer.width()), 0, texturebuffer.width() - 1);
+					int v = std::clamp(static_cast<int>((alpha * uv1.y + beta * uv2.y + gamma * uv3.y) * texturebuffer.height()), 0, texturebuffer.height() - 1);
+					double nx = alpha * n1.x + beta * n2.x + gamma * n3.x;
+					double ny = alpha * n1.y + beta * n2.y + gamma * n3.y;
+					double nz = alpha * n1.z + beta * n2.z + gamma * n3.z;
+					if (z > depthbuffer.get(x, y)[0]) {
+						depthbuffer.set(x, y, {z});
+						framebuffer.set(x, y, texturebuffer.get(u, v));
+					}
+				}
+			}
+		}
+	}
+}
+
 
 std::tuple<int, int, int, int> Rasterizer::CalcAABB(const vec2& p1, const vec2& p2, const vec2& p3) {
 	int xmin, xmax, ymin, ymax;

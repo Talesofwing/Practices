@@ -1,7 +1,10 @@
 #pragma once
 
+#include <algorithm>
+
 #include "tgaimage.h"
 #include "zer0Math.h"
+#include "Geometry.h"
 
 using namespace zer0;
 
@@ -18,8 +21,21 @@ public:
 
 	// Triangle
 	static void Triangle_Old(vec2 p1, vec2 p2, vec2 p3, TGAImage& framebuffer, const TGAColor& color);
-	static void Triangle(vec2 p1, vec2 p2, vec2 p3, TGAImage& framebuffer, const TGAColor& color);
-	static void Triangle(vec3 p1, vec3 p2, vec3 p3, TGAImage& framebuffer, TGAImage& depthbuffer, const TGAColor& color);
+	static void Triangle(const vec2& p1, const vec2& p2, const vec2& p3, TGAImage& framebuffer, const TGAColor& color);
+	static void Triangle(const vec3& p1, const vec3& p2, const vec3& p3, TGAImage& framebuffer, TGAImage& depthbuffer, const TGAColor& color);
+
+	static void Triangle(
+		const vec3& p1, const vec3& p2, const vec3& p3,
+		const vec2& uv1, const vec2& uv2, const vec2& uv3,
+		TGAImage& framebuffer, TGAImage& depthbuffer,
+		const TGAImage& texturebuffer);
+
+	static void Triangle(
+		const vec3& p1, const vec3& p2, const vec3& p3,
+		const vec2& uv1, const vec2& uv2, const vec2& uv3,
+		const vec3& n1, const vec3& n2, const vec3& n3,
+		TGAImage& framebuffer, TGAImage& depthbuffer,
+		const TGAImage& texturebuffer);
 
 private:
 	static std::tuple<int, int, int, int> CalcAABB(const vec2& p1, const vec2& p2, const vec2& p3);

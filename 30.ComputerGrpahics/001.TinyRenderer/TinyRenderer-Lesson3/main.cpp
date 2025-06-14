@@ -13,14 +13,12 @@ void depth_rasterization() {
 	std::string path = "../models/";
 	//std::string filename = "african_head";
 	std::string filename = "diablo3_pose";
-	std::pair<std::vector<vec3>, std::vector<Face>> obj = ObjLoader::LoadObj(path + filename + ".obj");
+	mesh obj = ObjLoader::LoadObj(path + filename + ".obj");
 
-	for (int i = 0; i < obj.second.size(); ++i) {
-		Face& f = obj.second[i];
-
-		vec3 v1 = obj.first[f.V1];
-		vec3 v2 = obj.first[f.V2];
-		vec3 v3 = obj.first[f.V3];
+	for (int i = 0; i < obj.vertex_indices.size(); i += 3) {
+		vec3 v1 = obj.vertices[obj.vertex_indices[i]];
+		vec3 v2 = obj.vertices[obj.vertex_indices[i + 1]];
+		vec3 v3 = obj.vertices[obj.vertex_indices[i + 2]];
 
 		v1.x *= width;
 		v1.y *= height;
@@ -44,6 +42,50 @@ void depth_rasterization() {
 	framebuffer.write_tga_file("../_results/Lesson3-diablo3_pose.tga");
 }
 
+void texture_rasterization() {
+	constexpr int width = 1024;
+	constexpr int height = 1024;
+
+	TGAImage framebuffer(width, height, TGAImage::RGB);
+	TGAImage depthbuffer(width, height, TGAImage::GRAYSCALE);
+	TGAImage texturebuffer;
+	texturebuffer.read_tga_file("../models/african_head_diffuse.tga");
+
+	std::string path = "../models/";
+	std::string filename = "african_head";
+	mesh obj = ObjLoader::LoadObj(path + filename + ".obj");
+
+	for (int i = 0; i < obj.vertex_indices.size(); i += 3) {
+		vec3 v1 = obj.vertices[obj.vertex_indices[i]];
+		vec3 v2 = obj.vertices[obj.vertex_indices[i + 1]];
+		vec3 v3 = obj.vertices[obj.vertex_indices[i + 2]];
+		vec2 uv1 = obj.uvs[obj.uv_indcies[i]];
+		vec2 uv2 = obj.uvs[obj.uv_indcies[i + 1]];
+		vec2 uv3 = obj.uvs[obj.uv_indcies[i + 2]];
+
+		v1.x *= width;
+		v1.y *= height;
+		v1.z *= 255;
+		v2.x *= width;
+		v2.y *= height;
+		v2.z *= 255;
+		v3.x *= width;
+		v3.y *= height;
+		v3.z *= 255;
+
+		TGAColor rnd((unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255));
+
+		Rasterizer::Triangle(v1, v2, v3,
+							 uv1, uv2, uv3,
+							 framebuffer, depthbuffer,
+							 texturebuffer);
+	}
+
+	depthbuffer.write_tga_file("../_results/Lesson3-african_head_depthbuffer.tga");
+	framebuffer.write_tga_file("../_results/Lesson3-african_head_texture.tga");
+}
+
 int main() {
 	depth_rasterization();
+	texture_rasterization();
 }

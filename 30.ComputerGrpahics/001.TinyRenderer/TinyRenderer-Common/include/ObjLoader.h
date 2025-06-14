@@ -10,14 +10,9 @@
 
 #include "Timer.h"
 #include "zer0Math.h"
+#include "Geometry.h"
 
-struct Face {
-public:
-	Face(int v1, int v2, int v3) : V1(v1), V2(v2), V3(v3) {}
-
-public:
-	int V1, V2, V3;
-};
+using namespace zer0;
 
 class ObjLoader {
 	ObjLoader() = delete;
@@ -26,7 +21,5 @@ class ObjLoader {
 	ObjLoader& operator=(const ObjLoader&) = delete;
 
 public:
-	static std::pair<std::vector<zer0::vec3>, std::vector<Face>> LoadObj(std::string path);
+	static mesh LoadObj(std::string path);
 };
-
-std::ostream& operator<<(std::ostream& os, const Face& f);

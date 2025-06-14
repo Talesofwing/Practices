@@ -26,6 +26,9 @@ void triangle_rasterization() {
 
 	TGAImage framebuffer(width, height, TGAImage::RGB);
 
+	Rasterizer::Culling = true;
+	Rasterizer::Wireframe = false;
+
 	// Will render
 	Rasterizer::Triangle_Old({45, 60}, {35, 100}, {7, 45}, framebuffer, TGAColor::red);
 
@@ -42,6 +45,9 @@ void triangle_rasterization_modern() {
 
 	TGAImage framebuffer(width, height, TGAImage::RGB);
 
+	Rasterizer::Culling = true;
+	Rasterizer::Wireframe = false;
+
 	Rasterizer::Triangle({45, 60}, {35, 100}, {7, 45}, framebuffer, TGAColor::red);
 
 	Rasterizer::Triangle({120, 35}, {90, 5}, {45, 110}, framebuffer, TGAColor::white);
@@ -56,16 +62,17 @@ void triangle_rasterization_model() {
 
 	TGAImage framebuffer(width, height, TGAImage::RGB);
 
+	Rasterizer::Culling = true;
+	Rasterizer::Wireframe = false;
+
 	std::string path = "../models/";
 	std::string filename = "african_head";
-	std::pair<std::vector<vec3>, std::vector<Face>> obj = ObjLoader::LoadObj(path + filename + ".obj");
+	mesh obj = ObjLoader::LoadObj(path + filename + ".obj");
 
-	for (int i = 0; i < obj.second.size(); ++i) {
-		Face& f = obj.second[i];
-
-		vec3 v1 = obj.first[f.V1];
-		vec3 v2 = obj.first[f.V2];
-		vec3 v3 = obj.first[f.V3];
+	for (int i = 0; i < obj.vertex_indices.size(); i += 3) {
+		vec3 v1 = obj.vertices[obj.vertex_indices[i]];
+		vec3 v2 = obj.vertices[obj.vertex_indices[i + 1]];
+		vec3 v3 = obj.vertices[obj.vertex_indices[i + 2]];
 
 		v1.x *= width;
 		v1.y *= height;
