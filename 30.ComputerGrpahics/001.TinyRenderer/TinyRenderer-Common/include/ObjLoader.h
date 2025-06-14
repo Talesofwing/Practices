@@ -9,15 +9,7 @@
 #include <tuple>
 
 #include "Timer.h"
-
-struct Vec3 {
-public:
-	Vec3() : X(0), Y(0), Z(0) {}
-	Vec3(double x, double y, double z) : X(x), Y(y), Z(z) {}
-
-public:
-	double X, Y, Z;
-};
+#include "zer0Math.h"
 
 struct Face {
 public:
@@ -34,8 +26,7 @@ class ObjLoader {
 	ObjLoader& operator=(const ObjLoader&) = delete;
 
 public:
-	static std::pair<std::vector<Vec3>, std::vector<Face>> LoadObj(std::string path);
+	static std::pair<std::vector<zer0::vec3>, std::vector<Face>> LoadObj(std::string path);
 };
 
-std::ostream& operator<<(std::ostream& os, const Vec3& v);
 std::ostream& operator<<(std::ostream& os, const Face& f);

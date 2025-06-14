@@ -1,10 +1,10 @@
 #include "ObjLoader.h"
 
-std::pair<std::vector<Vec3>, std::vector<Face>> ObjLoader::LoadObj(std::string path) {
+std::pair<std::vector<zer0::vec3>, std::vector<Face>> ObjLoader::LoadObj(std::string path) {
 	Timer timer;
 	timer.Start();
 
-	std::vector<Vec3> vertices;
+	std::vector<zer0::vec3> vertices;
 	std::vector<Face> faces;
 
 	std::ifstream ifs(path);
@@ -14,7 +14,7 @@ std::pair<std::vector<Vec3>, std::vector<Face>> ObjLoader::LoadObj(std::string p
 	// modern compilers will optimize local variable allocation,
 	// so performance impact is negligible.
 
-	// Vec3 v;
+	// zer0::vec3 v;
 	// Face f;
 
 	int c = 0;
@@ -55,11 +55,6 @@ std::pair<std::vector<Vec3>, std::vector<Face>> ObjLoader::LoadObj(std::string p
 	std::cout << "\tFace Count: " << faces.size() << std::endl;
 
 	return {vertices, faces};
-}
-
-std::ostream& operator<<(std::ostream& os, const Vec3& v) {
-	os << "(" << v.X << ", " << v.Y << ", " << v.Z << ")";
-	return os;
 }
 
 std::ostream& operator<<(std::ostream& os, const Face& f) {

@@ -1,90 +1,100 @@
 #include "Rasterizer.h"
-#include "iostream"
 
 //
-// There may be some redundant calculations, such as computing the area.
+// There mp1.y be some redundant calculations, such as computing the area.
 // The main purpose is to make it clearer how each step is derived.
 //
 
-void Rasterizer::Triangle_Old(
-	int ax, int ay,
-	int bx, int by,
-	int cx, int cy,
-	TGAImage& framebuffer, const TGAColor& color)
-{
-	// Check backface-culling
-	if (IsCulling(ax, ay, bx, by, cx, cy)) return;
-
-	// Sort the vertices, a,b,c in ascending y order
-	if (ay > by) { std::swap(ax, bx); std::swap(ay, by); }
-	if (ay > cy) { std::swap(ax, cx); std::swap(ay, cy); }
-	if (by > cy) { std::swap(bx, cx); std::swap(by, cy); }
-
-	int total_height = cy - ay;
-
-	if (ay != by) {
-		int segment_height = by - ay;
-		for (int y = ay; y <= by; ++y) {
-			int x1 = ax + (y - ay) * (cx - ax) / total_height;
-			int x2 = ax + (y - ay) * (bx - ax) / segment_height;
-			for (int x = std::min(x1, x2); x <= std::max(x1, x2); ++x) {
-				framebuffer.set(x, y, color);
-			}
-		}
+void Rasterizer::Line_Without_If(vec2 start, vec2 end, TGAImage& framebuffer, const TGAColor& color) {
+	bool steep = std::abs(start.x - end.x) < std::abs(start.y - end.y);
+	if (steep) {
+		std::swap(start.x, start.y);
+		std::swap(end.x, end.y);
 	}
 
-	if (by != cy) {
-		int segment_height = cy - by;
-		for (int y = by; y <= cy; ++y) {
-			int x1 = ax + (y - ay) * (cx - ax) / total_height;
-			int x2 = bx + (y - by) * (cx - bx) / segment_height;
-			for (int x = std::min(x1, x2); x <= std::max(x1, x2); ++x) {
-				framebuffer.set(x, y, color);
-			}
+	if (start.x > end.x) {
+		std::swap(start.x, end.x);
+		std::swap(start.y, end.y);
+	}
+
+	int y = static_cast<int>(start.y);
+	int ierror = 0;
+	for (int x = static_cast<int>(start.x); x <= end.x; ++x) {
+		if (steep) {
+			framebuffer.set(y, x, color);
+		} else {
+			framebuffer.set(x, y, color);
+		}
+
+		ierror += 2 * static_cast<int>(std::abs(end.y - start.y));
+		y += (end.y > start.y ? 1 : -1) * (ierror > end.x - start.x);
+		ierror -= (2 * static_cast<int>((end.x - start.x))) * (ierror > end.x - start.x);
+	}
+}
+
+void Rasterizer::Line_With_If(vec2 start, vec2 end, TGAImage& framebuffer, const TGAColor& color) {
+	bool steep = std::abs(start.x - end.x) < std::abs(start.y - end.y);
+	if (steep) {
+		std::swap(start.x, start.y);
+		std::swap(end.x, end.y);
+	}
+
+	if (start.x > end.x) {
+		std::swap(start.x, end.x);
+		std::swap(start.y, end.y);
+	}
+
+	int y = static_cast<int>(start.y);
+	int ierror = 0;
+	for (int x = static_cast<int>(start.x); x <= end.x; ++x) {
+		if (steep) {
+			framebuffer.set(y, x, color);
+		} else {
+			framebuffer.set(x, y, color);
+		}
+
+		ierror += 2 * static_cast<int>(std::abs(end.y - start.y));
+		if (ierror > end.x - start.x) {
+			y += end.y > start.y ? 1 : -1;
+			ierror -= 2 * static_cast<int>((end.x - start.x));
 		}
 	}
 }
 
-void Rasterizer::Triangle(
-	int ax, int ay,
-	int bx, int by,
-	int cx, int cy,
-	TGAImage& framebuffer, const TGAColor& color)
+void Rasterizer::Triangle_Old(vec2 p1, vec2 p2, vec2 p3, TGAImage& framebuffer, const TGAColor& color)
 {
-	if (IsCulling(ax, ay, bx, by, cx, cy)) return;
+	if (Wireframe) {
+		Line_With_If(p1, p2, framebuffer, color);
+		Line_With_If(p1, p3, framebuffer, color);
+		Line_With_If(p2, p3, framebuffer, color);
+	} else {
+		// Check backface-culling
+		if (Culling && IsCulling(p1, p2, p3)) return;
 
-	int xmin, ymin, xmax, ymax;
-	std::tie(xmin, ymin, xmax, ymax) = CalcAABB(ax, ay, bx, by, cx, cy);
+		// Sort the vertices, a,b,c in ascending y order
+		if (p1.y > p2.y) { std::swap(p1.x, p2.x); std::swap(p1.y, p2.y); }
+		if (p1.y > p3.y) { std::swap(p1.x, p3.x); std::swap(p1.y, p3.y); }
+		if (p2.y > p3.y) { std::swap(p2.x, p3.x); std::swap(p2.y, p3.y); }
 
-	for (int x = xmin; x <= xmax; ++x) {
-		for (int y = ymin; y <= ymax; ++y) {
-			if (IsInsideTriangle(ax, ay, bx, by, cx, cy, x, y)) {
-				framebuffer.set(x, y, color);
+		int total_height = static_cast<int>(p3.y - p1.y);
+
+		if (p1.y != p2.y) {
+			int segment_height = static_cast<int>(p2.y - p1.y);
+			for (int y = static_cast<int>(p1.y); y <= p2.y; ++y) {
+				int x1 = static_cast<int>(p1.x + (y - p1.y) * (p3.x - p1.x) / total_height);
+				int x2 = static_cast<int>((p1.x + (y - p1.y) * (p2.x - p1.x) / segment_height));
+				for (int x = std::min(x1, x2); x <= std::max(x1, x2); ++x) {
+					framebuffer.set(x, y, color);
+				}
 			}
 		}
-	}
-}
 
-void Rasterizer::Triangle(
-	int ax, int ay, int az,
-	int bx, int by, int bz,
-	int cx, int cy, int cz,
-	TGAImage& framebuffer, TGAImage& depthbuffer,
-	const TGAColor& color)
-{
-	if (IsCulling(ax, ay, bx, by, cx, cy)) return;
-
-	int xmin, ymin, xmax, ymax;
-	std::tie(xmin, ymin, xmax, ymax) = CalcAABB(ax, ay, bx, by, cx, cy);
-
-	for (int x = xmin; x <= xmax; ++x) {
-		for (int y = ymin; y <= ymax; ++y) {
-			double alpha, beta, gamma;
-			std::tie(alpha, beta, gamma) = CalcBarycentricCoordinates(ax, ay, bx, by, cx, cy, x, y);
-			if (alpha >= 0 && beta >= 0 && gamma >= 0) {
-				unsigned char z = static_cast<unsigned char> (alpha * az + beta * bz + gamma * cz);
-				if (z > depthbuffer.get(x, y)[0]) {
-					depthbuffer.set(x, y, {z});
+		if (p2.y != p3.y) {
+			int segment_height = static_cast<int>(p3.y - p2.y);
+			for (int y = static_cast<int>(p2.y); y <= p3.y; ++y) {
+				int x1 = static_cast<int>(p1.x + (y - p1.y) * (p3.x - p1.x) / total_height);
+				int x2 = static_cast<int>(p2.x + (y - p2.y) * (p3.x - p2.x) / segment_height);
+				for (int x = std::min(x1, x2); x <= std::max(x1, x2); ++x) {
 					framebuffer.set(x, y, color);
 				}
 			}
@@ -92,66 +102,92 @@ void Rasterizer::Triangle(
 	}
 }
 
-std::tuple<int, int, int, int> Rasterizer::CalcAABB(
-	int ax, int ay,
-	int bx, int by,
-	int cx, int cy)
-{
+void Rasterizer::Triangle(vec2 p1, vec2 p2, vec2 p3, TGAImage& framebuffer, const TGAColor& color) {
+	if (Wireframe) {
+		Line_With_If(p1, p2, framebuffer, color);
+		Line_With_If(p1, p3, framebuffer, color);
+		Line_With_If(p2, p3, framebuffer, color);
+	} else {
+		if (Culling && IsCulling(p1, p2, p3)) return;
+
+		int xmin, ymin, xmax, ymax;
+		std::tie(xmin, ymin, xmax, ymax) = CalcAABB(p1, p2, p3);
+
+		for (int x = xmin; x <= xmax; ++x) {
+			for (int y = ymin; y <= ymax; ++y) {
+				if (IsInsideTriangle(p1, p2, p3, vec2(x, y))) {
+					framebuffer.set(x, y, color);
+				}
+			}
+		}
+	}
+}
+
+void Rasterizer::Triangle(vec3 p1, vec3 p2, vec3 p3, TGAImage& framebuffer, TGAImage& depthbuffer, const TGAColor& color) {
+	if (Wireframe) {
+		Line_With_If(p1, p2, framebuffer, color);
+		Line_With_If(p1, p3, framebuffer, color);
+		Line_With_If(p2, p3, framebuffer, color);
+	} else {
+		if (Culling && IsCulling(p1, p2, p3)) return;
+
+		int xmin, ymin, xmax, ymax;
+		std::tie(xmin, ymin, xmax, ymax) = CalcAABB(p1, p2, p3);
+
+		for (int x = xmin; x <= xmax; ++x) {
+			for (int y = ymin; y <= ymax; ++y) {
+				double alpha, beta, gamma;
+				std::tie(alpha, beta, gamma) = CalcBarycentricCoordinates(p1, p2, p3, vec2(x, y));
+				if (alpha >= 0 && beta >= 0 && gamma >= 0) {
+					unsigned char z = static_cast<unsigned char> (alpha * p1.z + beta * p2.z + gamma * p3.z);
+					if (z > depthbuffer.get(x, y)[0]) {
+						depthbuffer.set(x, y, {z});
+						framebuffer.set(x, y, color);
+					}
+				}
+			}
+		}
+	}
+}
+
+std::tuple<int, int, int, int> Rasterizer::CalcAABB(const vec2& p1, const vec2& p2, const vec2& p3) {
 	int xmin, xmax, ymin, ymax;
-	xmin = std::min(std::min(ax, bx), cx);
-	xmax = std::max(std::max(ax, bx), cx);
-	ymin = std::min(std::min(ay, by), cy);
-	ymax = std::max(std::max(ay, by), cy);
+	xmin = static_cast<int>(std::min(std::min(p1.x, p2.x), p3.x));
+	xmax = static_cast<int>(std::max(std::max(p1.x, p2.x), p3.x));
+	ymin = static_cast<int>(std::min(std::min(p1.y, p2.y), p3.y));
+	ymax = static_cast<int>(std::max(std::max(p1.y, p2.y), p3.y));
 	return std::tuple<int, int, int, int>(xmin, ymin, xmax, ymax);
 }
 
-double Rasterizer::CalcSignedArea(
-	int ax, int ay,
-	int bx, int by,
-	int cx, int cy)
-{
-	return .5 * ((bx - ax) * (cy - ay) - (by - ay) * (cx - ax));
+double Rasterizer::CalcSignedArea(const vec2& p1, const vec2& p2, const vec2& p3) {
+	return .5 * ((p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x));
 }
 
-std::tuple<double, double, double> Rasterizer::CalcBarycentricCoordinates(
-	int ax, int ay,
-	int bx, int by,
-	int cx, int cy,
-	int px, int py)
-{
-	double total_area = CalcSignedArea(ax, ay, bx, by, cx, cy);
-	double alpha = CalcSignedArea(px, py, bx, by, cx, cy) / total_area;
-	double beta = CalcSignedArea(ax, ay, px, py, cx, cy) / total_area;
+std::tuple<double, double, double> Rasterizer::CalcBarycentricCoordinates(const vec2& p1, const vec2& p2, const vec2& p3, const vec2& p) {
+	double total_area = CalcSignedArea(p1, p2, p3);
+	double alpha = CalcSignedArea(p, p2, p3) / total_area;
+	double beta = CalcSignedArea(p1, p, p3) / total_area;
 	double gamma = 1 - alpha - beta;
 	return std::make_tuple(alpha, beta, gamma);
 }
 
-bool Rasterizer::IsCulling(
-	int ax, int ay,
-	int bx, int by,
-	int cx, int cy)
-{
-	return CalcSignedArea(ax, ay, bx, by, cx, cy) <= 1;
+bool Rasterizer::IsCulling(const vec2& p1, const vec2& p2, const vec2& p3) {
+	return CalcSignedArea(p1, p2, p3) <= 1;
 }
 
-bool Rasterizer::IsInsideTriangle(
-	int ax, int ay,
-	int bx, int by,
-	int cx, int cy,
-	int px, int py)
-{
+bool Rasterizer::IsInsideTriangle(const vec2& p1, const vec2& p2, const vec2& p3, const vec2& p) {
 	// Using cross-product to test point inclusion in a triangle
 
-	int ab_x = bx - ax, ab_y = by - ay;
-	int bc_x = cx - bx, bc_y = cy - by;
-	int ca_x = ax - cx, ca_y = ay - cy;
-	int ap_x = px - ax, ap_y = py - ay;
-	int bp_x = px - bx, bp_y = py - by;
-	int cp_x = px - cx, cp_y = py - cy;
+	vec2 p1p2 = p2 - p1;
+	vec2 p2p3 = p3 - p2;
+	vec2 p3p1 = p1 - p3;
+	vec2 p1p = p - p1;
+	vec2 p2p = p - p2;
+	vec2 p3p = p - p3;
 
-	int sign1 = ab_x * ap_y - ab_y * ap_x;
-	int sign2 = bc_x * bp_y - bc_y * bp_x;
-	int sign3 = ca_x * cp_y - ca_y * cp_x;
+	int sign1 = static_cast<int>(p1p2.x * p1p.y - p1p2.y * p1p.x);
+	int sign2 = static_cast<int>(p2p3.x * p2p.y - p2p3.y * p2p.x);
+	int sign3 = static_cast<int>(p3p1.x * p3p.y - p3p1.y * p3p.x);
 
 	return (sign1 > 0 && sign2 > 0 && sign3 > 0) || (sign1 < 0 && sign2 < 0 && sign3 < 0);
 }

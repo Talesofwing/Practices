@@ -1,51 +1,56 @@
-#include "LineDrawer.h"
 #include "Rasterizer.h"
 #include "ObjLoader.h"
+#include "zer0Math.h"
 
-void Triangle() {
+using namespace zer0;
+
+void triangle_wireframe() {
 	constexpr int width = 128;
 	constexpr int height = 128;
 
 	TGAImage framebuffer(width, height, TGAImage::RGB);
 
-	LineDrawer::DrawTriangle(45, 60, 35, 100, 7, 45, framebuffer, TGAColor::red);
-	LineDrawer::DrawTriangle(120, 35, 90, 5, 45, 110, framebuffer, TGAColor::white);
-	LineDrawer::DrawTriangle(115, 83, 80, 90, 85, 120, framebuffer, TGAColor::green);
+	Rasterizer::Culling = false;
+	Rasterizer::Wireframe = true;
 
-	framebuffer.write_tga_file("../_results/Lesson2.tga");
+	Rasterizer::Triangle({45, 60}, {35, 100}, {7, 45}, framebuffer, TGAColor::red);
+	Rasterizer::Triangle({120, 35}, {90, 5}, {45, 110}, framebuffer, TGAColor::white);
+	Rasterizer::Triangle({115, 83}, {80, 90}, {85, 120}, framebuffer, TGAColor::green);
+
+	framebuffer.write_tga_file("../_results/Lesson2-triangle.tga");
 }
 
-void Triangle_Rasterization() {
+void triangle_rasterization() {
 	constexpr int width = 128;
 	constexpr int height = 128;
 
 	TGAImage framebuffer(width, height, TGAImage::RGB);
 
 	// Will render
-	Rasterizer::Triangle_Old(45, 60, 35, 100, 7, 45, framebuffer, TGAColor::red);
+	Rasterizer::Triangle_Old({45, 60}, {35, 100}, {7, 45}, framebuffer, TGAColor::red);
 
 	// Won't render (backface-culling)
-	Rasterizer::Triangle_Old(120, 35, 90, 5, 45, 110, framebuffer, TGAColor::white);
-	Rasterizer::Triangle_Old(115, 83, 80, 90, 85, 120, framebuffer, TGAColor::green);
+	Rasterizer::Triangle_Old({120, 35}, {90, 5}, {45, 110}, framebuffer, TGAColor::white);
+	Rasterizer::Triangle_Old({115, 83}, {80, 90}, {85, 120}, framebuffer, TGAColor::green);
 
-	framebuffer.write_tga_file("../_results/Lesson2_Rasterization.tga");
+	framebuffer.write_tga_file("../_results/Lesson2-rasterization.tga");
 }
 
-void Triangle_Rasterization_Modern() {
+void triangle_rasterization_modern() {
 	constexpr int width = 128;
 	constexpr int height = 128;
 
 	TGAImage framebuffer(width, height, TGAImage::RGB);
 
-	Rasterizer::Triangle(45, 60, 35, 100, 7, 45, framebuffer, TGAColor::red);
+	Rasterizer::Triangle({45, 60}, {35, 100}, {7, 45}, framebuffer, TGAColor::red);
 
-	Rasterizer::Triangle(120, 35, 90, 5, 45, 110, framebuffer, TGAColor::white);
-	Rasterizer::Triangle(115, 83, 80, 90, 85, 120, framebuffer, TGAColor::green);
+	Rasterizer::Triangle({120, 35}, {90, 5}, {45, 110}, framebuffer, TGAColor::white);
+	Rasterizer::Triangle({115, 83}, {80, 90}, {85, 120}, framebuffer, TGAColor::green);
 
-	framebuffer.write_tga_file("../_results/Lesson2_Rasterization_Modern.tga");
+	framebuffer.write_tga_file("../_results/Lesson2-rasterization_modern.tga");
 }
 
-void Triangle_Rasterization_Head() {
+void triangle_rasterization_model() {
 	constexpr int width = 1024;
 	constexpr int height = 1024;
 
@@ -53,37 +58,35 @@ void Triangle_Rasterization_Head() {
 
 	std::string path = "../models/";
 	std::string filename = "african_head";
-	std::pair<std::vector<Vec3>, std::vector<Face>> obj = ObjLoader::LoadObj(path + filename + ".obj");
+	std::pair<std::vector<vec3>, std::vector<Face>> obj = ObjLoader::LoadObj(path + filename + ".obj");
 
 	for (int i = 0; i < obj.second.size(); ++i) {
 		Face& f = obj.second[i];
 
-		Vec3& v1 = obj.first[f.V1];
-		Vec3& v2 = obj.first[f.V2];
-		Vec3& v3 = obj.first[f.V3];
+		vec3 v1 = obj.first[f.V1];
+		vec3 v2 = obj.first[f.V2];
+		vec3 v3 = obj.first[f.V3];
 
-		int ax = v1.X * width;
-		int ay = v1.Y * height;
-		int bx = v2.X * width;
-		int by = v2.Y * height;
-		int cx = v3.X * width;
-		int cy = v3.Y * height;
+		v1.x *= width;
+		v1.y *= height;
+		v2.x *= width;
+		v2.y *= height;
+		v3.x *= width;
+		v3.y *= height;
 
-		TGAColor rnd;
-		rnd[0] = std::rand() % 255;
-		rnd[1] = std::rand() % 255;
-		rnd[2] = std::rand() % 255;
-		Rasterizer::Triangle(ax, ay, bx, by, cx, cy, framebuffer, rnd);
+		TGAColor rnd((unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255));
+
+		Rasterizer::Triangle(v1, v2, v3, framebuffer, rnd);
 	}
 
-	framebuffer.write_tga_file("../_results/Lesson2_Rasterization_Modern_Head.tga");
+	framebuffer.write_tga_file("../_results/Lesson2-rasterization_african_head.tga");
 }
 
 int main() {
-	std::srand(std::time({}));
+	std::srand(static_cast<unsigned int>(std::time({})));
 
-	//Triangle();
-	//Triangle_Rasterization();
-	//Triangle_Rasterization_Modern();
-	Triangle_Rasterization_Head();
+	triangle_wireframe();
+	triangle_rasterization();
+	triangle_rasterization_modern();
+	triangle_rasterization_model();
 }

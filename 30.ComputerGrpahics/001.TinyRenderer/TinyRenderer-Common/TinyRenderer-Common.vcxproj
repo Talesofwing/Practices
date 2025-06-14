@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="include\LineDrawer.cpp" />
     <ClCompile Include="include\tgaimage.cpp" />
     <ClCompile Include="include\Timer.cpp" />
     <ClCompile Include="include\ObjLoader.cpp" />
@@ -27,7 +26,6 @@
     <ClCompile Include="include\zer0Math.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\LineDrawer.h" />
     <ClInclude Include="include\tgaimage.h" />
     <ClInclude Include="include\Timer.h" />
     <ClInclude Include="include\ObjLoader.h" />

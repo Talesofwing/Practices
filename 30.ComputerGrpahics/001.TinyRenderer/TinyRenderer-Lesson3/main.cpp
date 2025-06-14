@@ -1,8 +1,9 @@
 #include "tgaimage.h"
 #include "ObjLoader.h"
 #include "Rasterizer.h"
+#include "zer0Math.h"
 
-void Depth_Rasterization() {
+void depth_rasterization() {
 	constexpr int width = 1024;
 	constexpr int height = 1024;
 
@@ -10,38 +11,39 @@ void Depth_Rasterization() {
 	TGAImage depthbuffer(width, height, TGAImage::GRAYSCALE);
 
 	std::string path = "../models/";
-	std::string filename = "african_head";
-	//std::string filename = "diablo3_pose";
-	std::pair<std::vector<Vec3>, std::vector<Face>> obj = ObjLoader::LoadObj(path + filename + ".obj");
+	//std::string filename = "african_head";
+	std::string filename = "diablo3_pose";
+	std::pair<std::vector<vec3>, std::vector<Face>> obj = ObjLoader::LoadObj(path + filename + ".obj");
 
 	for (int i = 0; i < obj.second.size(); ++i) {
 		Face& f = obj.second[i];
 
-		Vec3& v1 = obj.first[f.V1];
-		Vec3& v2 = obj.first[f.V2];
-		Vec3& v3 = obj.first[f.V3];
+		vec3 v1 = obj.first[f.V1];
+		vec3 v2 = obj.first[f.V2];
+		vec3 v3 = obj.first[f.V3];
 
-		int ax = v1.X * width;
-		int ay = v1.Y * height;
-		int az = v1.Z * 255;
-		int bx = v2.X * width;
-		int by = v2.Y * height;
-		int bz = v2.Z * 255;
-		int cx = v3.X * width;
-		int cy = v3.Y * height;
-		int cz = v3.Z * 255;
+		v1.x *= width;
+		v1.y *= height;
+		v1.z *= 255;
+		v2.x *= width;
+		v2.y *= height;
+		v2.z *= 255;
+		v3.x *= width;
+		v3.y *= height;
+		v3.z *= 255;
 
-		TGAColor rnd;
-		rnd[0] = std::rand() % 255;
-		rnd[1] = std::rand() % 255;
-		rnd[2] = std::rand() % 255;
-		Rasterizer::Triangle(ax, ay, az, bx, by, bz, cx, cy, cz, framebuffer, depthbuffer, rnd);
+		TGAColor rnd((unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255));
+
+		Rasterizer::Triangle(v1, v2, v3, framebuffer, depthbuffer, rnd);
 	}
 
-	depthbuffer.write_tga_file("../_results/Lesson3_african_head_depthbuffer.tga");
-	framebuffer.write_tga_file("../_results/Lesson3_african_head.tga");
+	//depthbuffer.write_tga_file("../_results/Lesson3-african_head_depthbuffer.tga");
+	//framebuffer.write_tga_file("../_results/Lesson3-african_head.tga");
+
+	depthbuffer.write_tga_file("../_results/Lesson3-diablo3_pose_depthbuffer.tga");
+	framebuffer.write_tga_file("../_results/Lesson3-diablo3_pose.tga");
 }
 
 int main() {
-	Depth_Rasterization();
+	depth_rasterization();
 }

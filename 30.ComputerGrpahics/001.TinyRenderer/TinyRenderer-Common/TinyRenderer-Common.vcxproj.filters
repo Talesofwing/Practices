@@ -24,9 +24,6 @@
     <ClCompile Include="include\ObjLoader.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="include\LineDrawer.cpp">
-      <Filter>來源檔案</Filter>
-    </ClCompile>
     <ClCompile Include="include\Rasterizer.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
@@ -42,9 +39,6 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="include\ObjLoader.h">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
-    <ClInclude Include="include\LineDrawer.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="include\Rasterizer.h">
