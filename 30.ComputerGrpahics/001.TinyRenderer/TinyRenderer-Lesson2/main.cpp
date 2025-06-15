@@ -65,7 +65,7 @@ void triangle_rasterization_model() {
 	Rasterizer::Culling = true;
 	Rasterizer::Wireframe = false;
 
-	std::string path = "../models/";
+	std::string path = "../models/african_head/";
 	std::string filename = "african_head";
 	mesh obj = ObjLoader::LoadObj(path + filename + ".obj");
 
@@ -86,11 +86,13 @@ void triangle_rasterization_model() {
 		Rasterizer::Triangle(v1, v2, v3, framebuffer, rnd);
 	}
 
-	framebuffer.write_tga_file("../_results/Lesson2-rasterization_african_head.tga");
+	framebuffer.write_tga_file("../_results/Lesson2-african_head_rasterization.tga");
 }
 
 int main() {
 	std::srand(static_cast<unsigned int>(std::time({})));
+
+	std::cout << "===== Lesson 2 =====" << std::endl << std::endl;
 
 	triangle_wireframe();
 	triangle_rasterization();

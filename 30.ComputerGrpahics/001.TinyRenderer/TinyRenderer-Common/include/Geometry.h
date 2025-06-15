@@ -14,5 +14,3 @@ struct mesh {
 	std::vector<unsigned int> uv_indcies;
 	std::vector<unsigned int> normals_indices;
 };
-
-std::ostream& operator<<(std::ostream& os, const mesh& m);

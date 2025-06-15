@@ -4,6 +4,7 @@
 #include <iostream>
 
 namespace zer0 {
+	constexpr double M_PI = 3.14159;
 
 	template<int n>
 	struct vec {
@@ -16,8 +17,13 @@ namespace zer0 {
 
 		vec<n> operator+(const vec<n>& other) const;
 		vec<n> operator-(const vec<n>& other) const;
+		vec<n> operator*(const double value) const;
+		vec<n> operator/(const double value) const;
+
 		vec<n>& operator+=(const vec<n>& other);
 		vec<n>& operator-=(const vec<n>& other);
+		vec<n>& operator*=(const double value);
+		vec<n>& operator/=(const double value);
 
 		double data[n] = {0};
 	};
@@ -37,8 +43,13 @@ namespace zer0 {
 
 		vec<2> operator+(const vec<2>& other) const;
 		vec<2> operator-(const vec<2>& other) const;
+		vec<2> operator*(const double value) const;
+		vec<2> operator/(const double value) const;
+
 		vec<2>& operator+=(const vec<2>& other);
 		vec<2>& operator-=(const vec<2>& other);
+		vec<2>& operator*=(const double value);
+		vec<2>& operator/=(const double value);
 
 		double x = 0, y = 0;
 	};
@@ -56,8 +67,13 @@ namespace zer0 {
 
 		vec<3> operator+(const vec<3>& other) const;
 		vec<3> operator-(const vec<3>& other) const;
+		vec<3> operator*(const double value) const;
+		vec<3> operator/(const double value) const;
+
 		vec<3>& operator+=(const vec<3>& other);
 		vec<3>& operator-=(const vec<3>& other);
+		vec<3>& operator*=(const double value);
+		vec<3>& operator/=(const double value);
 
 		double x = 0, y = 0, z = 0;
 	};
@@ -75,8 +91,13 @@ namespace zer0 {
 
 		vec<4> operator+(const vec<4>& other) const;
 		vec<4> operator-(const vec<4>& other) const;
+		vec<4> operator*(const double value) const;
+		vec<4> operator/(const double value) const;
+
 		vec<4>& operator+=(const vec<4>& other);
 		vec<4>& operator-=(const vec<4>& other);
+		vec<4>& operator*=(const double value);
+		vec<4>& operator/=(const double value);
 
 		double x = 0, y = 0, z = 0, w = 0;
 	};
@@ -100,4 +121,23 @@ namespace zer0 {
 		return out;
 	}
 
+	// For convenience, only a 3x3 matrix is implemented.
+	// If translation is required, use an affine transfomration.
+
+	// row-major
+	struct mat3x3 {
+		union  {
+			struct {
+				double a, b, c,
+					d, e, f,
+					g, h, i;
+			};
+
+			double data[9];
+			double m[3][3];
+		};
+	};
+
+	vec<3> operator*(const mat3x3& m, const vec3& v);
+	vec<3> operator*(const vec3& v, const mat3x3& m);
 }

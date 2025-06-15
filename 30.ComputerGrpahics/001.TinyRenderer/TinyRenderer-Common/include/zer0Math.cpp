@@ -42,6 +42,26 @@ namespace zer0 {
 	}
 
 	template<int n>
+	vec<n> vec<n>::operator*(const double value) const {
+		vec<n> result;
+		for (int i = 0; i < n; ++i)
+			result.data[i] = data[i] * value;
+
+		return result;
+	}
+
+	template<int n>
+	vec<n> vec<n>::operator/(const double value) const {
+		assert(value != 0);
+
+		vec<n> result;
+		for (int i = 0; i < n; ++i)
+			result.data[i] = data[i] / value;
+
+		return result;
+	}
+
+	template<int n>
 	vec<n>& vec<n>::operator+=(const vec<n>& other) {
 		for (int i = 0; i < n; ++i)
 			data[i] += other[i];
@@ -53,6 +73,24 @@ namespace zer0 {
 	vec<n>& vec<n>::operator-=(const vec<n>& other) {
 		for (int i = 0; i < n; ++i)
 			data[i] -= other[i];
+
+		return *this;
+	}
+
+	template<int n>
+	vec<n>& vec<n>::operator*=(const double value) {
+		for (int i = 0; i < n; ++i)
+			data[i] *= value;
+
+		return *this;
+	}
+
+	template<int n>
+	vec<n>& vec<n>::operator/=(const double value) {
+		assert(value != 0);
+
+		for (int i = 0; i < n; ++i)
+			data[i] /= value;
 
 		return *this;
 	}
@@ -97,6 +135,22 @@ namespace zer0 {
 		return result;
 	}
 
+	vec<2> vec<2>::operator*(const double value) const {
+		vec<2> result;
+		result.x = x * value;
+		result.y = y * value;
+		return result;
+	}
+
+	vec<2> vec<2>::operator/(const double value) const {
+		assert(value != 0);
+
+		vec<2> result;
+		result.x = x / value;
+		result.y = y / value;
+		return result;
+	}
+
 	vec<2>& vec<2>::operator+=(const vec<2>& other) {
 		x += other.x;
 		y += other.y;
@@ -106,6 +160,22 @@ namespace zer0 {
 	vec<2>& vec<2>::operator-=(const vec<2>& other) {
 		x -= other.x;
 		y -= other.y;
+		return *this;
+	}
+
+	vec<2>& vec<2>::operator*=(const double value) {
+		x *= value;
+		y *= value;
+
+		return *this;
+	}
+
+	vec<2>& vec<2>::operator/=(const double value) {
+		assert(value != 0);
+
+		x /= value;
+		y /= value;
+
 		return *this;
 	}
 
@@ -149,6 +219,24 @@ namespace zer0 {
 		return result;
 	}
 
+	vec<3> vec<3>::operator*(const double value) const {
+		vec<3> result;
+		result.x = x * value;
+		result.y = y * value;
+		result.z = z * value;
+		return result;
+	}
+
+	vec<3> vec<3>::operator/(const double value) const {
+		assert(value != 0);
+
+		vec<3> result;
+		result.x = x / value;
+		result.y = y / value;
+		result.z = z / value;
+		return result;
+	}
+
 	vec<3>& vec<3>::operator+=(const vec<3>& other) {
 		x += other.x;
 		y += other.y;
@@ -160,6 +248,24 @@ namespace zer0 {
 		x -= other.x;
 		y -= other.y;
 		z -= other.z;
+		return *this;
+	}
+
+	vec<3>& vec<3>::operator*=(const double value) {
+		x *= value;
+		y *= value;
+		z *= value;
+
+		return *this;
+	}
+
+	vec<3>& vec<3>::operator/=(const double value) {
+		assert(value != 0);
+
+		x /= value;
+		y /= value;
+		z /= value;
+
 		return *this;
 	}
 
@@ -207,6 +313,26 @@ namespace zer0 {
 		return result;
 	}
 
+	vec<4> vec<4>::operator*(const double value) const {
+		vec<4> result;
+		result.x = x * value;
+		result.y = y * value;
+		result.z = z * value;
+		result.w = w * value;
+		return result;
+	}
+
+	vec<4> vec<4>::operator/(const double value) const {
+		assert(value != 0);
+
+		vec<4> result;
+		result.x = x / value;
+		result.y = y / value;
+		result.z = z / value;
+		result.w = w / value;
+		return result;
+	}
+
 	vec<4>& vec<4>::operator+=(const vec<4>& other) {
 		x += other.x;
 		y += other.y;
@@ -220,6 +346,26 @@ namespace zer0 {
 		y -= other.y;
 		z -= other.z;
 		w -= other.w;
+		return *this;
+	}
+
+	vec<4>& vec<4>::operator*=(const double value) {
+		x *= value;
+		y *= value;
+		z *= value;
+		w *= value;
+
+		return *this;
+	}
+
+	vec<4>& vec<4>::operator/=(const double value) {
+		assert(value != 0);
+
+		x /= value;
+		y /= value;
+		z /= value;
+		w /= value;
+
 		return *this;
 	}
 
@@ -244,6 +390,22 @@ namespace zer0 {
 		result.x = v1.y * v2.z - v1.z * v2.y;
 		result.y = v1.z * v2.x - v1.x * v2.z;
 		result.z = v1.x * v2.y - v1.y * v2.x;
+		return result;
+	}
+
+	vec<3> operator*(const mat3x3& m, const vec3& v) {
+		vec<3> result;
+		result.x = m.a * v.x + m.b * v.y + m.c * v.z;
+		result.y = m.d * v.x + m.e * v.y + m.f * v.z;
+		result.z = m.g * v.x + m.h * v.y + m.i * v.z;
+		return result;
+	}
+
+	vec<3> operator*(const vec3& v, const mat3x3& m) {
+		vec<3> result;
+		result.x = m.a * v.x + m.d * v.y + m.g * v.z;
+		result.y = m.b * v.x + m.e * v.y + m.h * v.z;
+		result.z = m.c * v.x + m.f * v.y + m.i * v.z;
 		return result;
 	}
 }

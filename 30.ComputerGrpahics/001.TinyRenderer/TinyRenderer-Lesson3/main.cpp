@@ -10,7 +10,8 @@ void depth_rasterization() {
 	TGAImage framebuffer(width, height, TGAImage::RGB);
 	TGAImage depthbuffer(width, height, TGAImage::GRAYSCALE);
 
-	std::string path = "../models/";
+	//std::string path = "../models/african_head/";
+	 std::string path = "../models/diablo3_pose/";
 	//std::string filename = "african_head";
 	std::string filename = "diablo3_pose";
 	mesh obj = ObjLoader::LoadObj(path + filename + ".obj");
@@ -49,9 +50,9 @@ void texture_rasterization() {
 	TGAImage framebuffer(width, height, TGAImage::RGB);
 	TGAImage depthbuffer(width, height, TGAImage::GRAYSCALE);
 	TGAImage texturebuffer;
-	texturebuffer.read_tga_file("../models/african_head_diffuse.tga");
+	texturebuffer.read_tga_file("../models/african_head/african_head_diffuse.tga");
 
-	std::string path = "../models/";
+	std::string path = "../models/african_head/";
 	std::string filename = "african_head";
 	mesh obj = ObjLoader::LoadObj(path + filename + ".obj");
 
@@ -73,8 +74,6 @@ void texture_rasterization() {
 		v3.y *= height;
 		v3.z *= 255;
 
-		TGAColor rnd((unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255));
-
 		Rasterizer::Triangle(v1, v2, v3,
 							 uv1, uv2, uv3,
 							 framebuffer, depthbuffer,
@@ -86,6 +85,8 @@ void texture_rasterization() {
 }
 
 int main() {
+	std::cout << "===== Lesson 3 =====" << std::endl << std::endl;
+
 	depth_rasterization();
 	texture_rasterization();
 }

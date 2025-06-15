@@ -1,6 +1,6 @@
 #include "ObjLoader.h"
 
-mesh ObjLoader::LoadObj(std::string path) {
+mesh ObjLoader::LoadObj(std::string path, bool fit) {
 	Timer timer;
 	timer.Start();
 
@@ -27,9 +27,14 @@ mesh ObjLoader::LoadObj(std::string path) {
 
 			double x, y, z;
 			iss >> x >> y >> z;
-			x = (x + 1) / 2;
-			y = (y + 1) / 2;
-			z = (z + 1) / 2;
+
+			if (fit) {
+			// Will affect perspective
+				x = (x + 1) / 2;
+				y = (y + 1) / 2;
+				z = (z + 1) / 2;
+			}
+
 			m.vertices.emplace_back(x, y, z);
 		} else if (prefix == "f") {
 			// indices

@@ -59,9 +59,10 @@ void homework() {
 
 	TGAImage framebuffer(width, height, TGAImage::RGB);
 
-	std::string path = "../models/";
-	//std::string filename = "diablo3_pose";
-	std::string filename = "african_head";
+	std::string path = "../models/diablo3_pose/";
+	//std::string path = "../models/african_head/";
+	std::string filename = "diablo3_pose";
+	//std::string filename = "african_head";
 	mesh obj = ObjLoader::LoadObj(path + filename + ".obj");
 
 	Timer timer;
@@ -101,6 +102,8 @@ void homework() {
 int main(int argc, char** argv) {
 	std::srand(static_cast<unsigned int>(std::time({})));
 	std::cout << std::fixed;
+
+	std::cout << "===== Lesson 1 =====" << std::endl << std::endl;
 
 	Rasterizer::Culling = false;
 	Rasterizer::Wireframe = true;

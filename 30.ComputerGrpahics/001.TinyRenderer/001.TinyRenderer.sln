@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Lesson2", "Tin
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Lesson3", "TinyRenderer-Lesson3\TinyRenderer-Lesson3.vcxproj", "{60CE7AF5-71DA-4103-BC0D-9F6C212BBE18}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Lesson4", "TinyRenderer-Lesson4\TinyRenderer-Lesson4.vcxproj", "{4E0AB177-89CB-4648-B8A9-84E44FA41C22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -61,6 +63,14 @@ Global
 		{60CE7AF5-71DA-4103-BC0D-9F6C212BBE18}.Release|x64.Build.0 = Release|x64
 		{60CE7AF5-71DA-4103-BC0D-9F6C212BBE18}.Release|x86.ActiveCfg = Release|Win32
 		{60CE7AF5-71DA-4103-BC0D-9F6C212BBE18}.Release|x86.Build.0 = Release|Win32
+		{4E0AB177-89CB-4648-B8A9-84E44FA41C22}.Debug|x64.ActiveCfg = Debug|x64
+		{4E0AB177-89CB-4648-B8A9-84E44FA41C22}.Debug|x64.Build.0 = Debug|x64
+		{4E0AB177-89CB-4648-B8A9-84E44FA41C22}.Debug|x86.ActiveCfg = Debug|Win32
+		{4E0AB177-89CB-4648-B8A9-84E44FA41C22}.Debug|x86.Build.0 = Debug|Win32
+		{4E0AB177-89CB-4648-B8A9-84E44FA41C22}.Release|x64.ActiveCfg = Release|x64
+		{4E0AB177-89CB-4648-B8A9-84E44FA41C22}.Release|x64.Build.0 = Release|x64
+		{4E0AB177-89CB-4648-B8A9-84E44FA41C22}.Release|x86.ActiveCfg = Release|Win32
+		{4E0AB177-89CB-4648-B8A9-84E44FA41C22}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
