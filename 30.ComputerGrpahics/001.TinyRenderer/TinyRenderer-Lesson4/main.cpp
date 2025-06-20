@@ -2,43 +2,44 @@
 #include "ObjLoader.h"
 #include "zer0Math.h"
 
-vec3 rotate(vec3 v) {
-	constexpr double a = M_PI / 6;
+constexpr int width = 1024;
+constexpr int height = 1024;
+
+vec3 world(vec3 v) {
+	constexpr double theta = M_PI / 6;
 
 	// Non-literal type, because of union
-	mat3x3 Ry = {
-		std::cos(a), 0, std::sin(a),
+	mat3x3 m = {
+		std::cos(theta), 0, std::sin(theta),
 		0, 1, 0,
-		-std::sin(a), 0, std::cos(a)
+		-std::sin(theta), 0, std::cos(theta)
 	};
 
-	return Ry * v;
+	return m * v;
 }
 
-vec3 persp(vec3 v) {
-	constexpr double c = 10;
+vec3 proj(vec3 v) {
+	constexpr double c = 5;
 
-	double z = v.z;
-	v /= (1 - v.z / c);
-	v.z = z;
+	v.x /= (1 - v.z / c);
+	v.y /= (1 - v.z / c);
+
+	return v;
+}
+
+vec3 viewport(vec3 v) {
+	v.x = (v.x + 1) * 0.5 * width;
+	v.y = (v.y + 1) * 0.5 * height;
+	v.z = (v.z + 1) * 0.5 * 255;
 
 	return v;
 }
 
 vec3 transform(vec3 v) {
-	return persp(rotate(v));
+	return viewport(proj(world(v)));
 }
 
-void fit(vec3& v, int width, int height) {
-	v.x = (v.x + 1) * width * 0.5;
-	v.y = (v.y + 1) * height * 0.5;
-	v.z = (v.z + 1) * 255 * 0.5;
-}
-
-void perspective_model() {
-	constexpr int width = 1024;
-	constexpr int height = 1024;
-
+void render() {
 	TGAImage framebuffer(width, height, TGAImage::RGB);
 	TGAImage depthbuffer(width, height, TGAImage::GRAYSCALE);
 	TGAImage texturebuffer;
@@ -59,10 +60,6 @@ void perspective_model() {
 		vec2 uv2 = obj.uvs[obj.uv_indcies[i + 1]];
 		vec2 uv3 = obj.uvs[obj.uv_indcies[i + 2]];
 
-		fit(v1, width, height);
-		fit(v2, width, height);
-		fit(v3, width, height);
-
 		Rasterizer::Triangle(v1, v2, v3,
 							 uv1, uv2, uv3,
 							 framebuffer, depthbuffer,
@@ -74,9 +71,6 @@ void perspective_model() {
 }
 
 void homework() {
-	constexpr int width = 1024;
-	constexpr int height = 1024;
-
 	TGAImage framebuffer(width, height, TGAImage::RGB);
 	TGAImage depthbuffer(width, height, TGAImage::GRAYSCALE);
 	TGAImage texturebuffer;
@@ -97,10 +91,6 @@ void homework() {
 		vec2 uv2 = obj.uvs[obj.uv_indcies[i + 1]];
 		vec2 uv3 = obj.uvs[obj.uv_indcies[i + 2]];
 
-		fit(v1, width, height);
-		fit(v2, width, height);
-		fit(v3, width, height);
-
 		Rasterizer::Triangle(v1, v2, v3,
 							 uv1, uv2, uv3,
 							 framebuffer, depthbuffer,
@@ -114,6 +104,6 @@ void homework() {
 int main() {
 	std::cout << "===== Lesson 4 =====" << std::endl << std::endl;
 
-	perspective_model();
+	render();
 	homework();
 }

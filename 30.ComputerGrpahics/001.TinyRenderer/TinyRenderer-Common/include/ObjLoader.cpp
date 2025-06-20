@@ -29,7 +29,7 @@ mesh ObjLoader::LoadObj(std::string path, bool fit) {
 			iss >> x >> y >> z;
 
 			if (fit) {
-			// Will affect perspective
+				// Will affect perspective
 				x = (x + 1) / 2;
 				y = (y + 1) / 2;
 				z = (z + 1) / 2;

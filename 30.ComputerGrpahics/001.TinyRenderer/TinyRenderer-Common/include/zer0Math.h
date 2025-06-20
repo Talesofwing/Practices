@@ -12,6 +12,11 @@ namespace zer0 {
 		vec<n>(int v);
 		vec<n>(double v);
 
+		double length() const;
+
+		vec<n> normalize() const;
+		void normalized();
+
 		double& operator[](const int i);
 		double operator[] (const int i) const;
 
@@ -37,6 +42,10 @@ namespace zer0 {
 		vec<2>(const vec<4>& v);
 
 		vec<2> orthogonal() const;
+		double length() const;
+
+		vec<2> normalize() const;
+		void normalized();
 
 		double& operator[](const int i);
 		double operator[] (const int i) const;
@@ -62,6 +71,11 @@ namespace zer0 {
 		vec<3>(const vec<2>& v);
 		vec<3>(const vec<4>& v);
 
+		double length() const;
+
+		vec<3> normalize() const;
+		void normalized();
+
 		double& operator[](const int i);
 		double operator[] (const int i) const;
 
@@ -86,6 +100,11 @@ namespace zer0 {
 		vec<4>(const vec<2>& v);
 		vec<4>(const vec<3>& v);
 
+		double length() const;
+
+		vec<4> normalize() const;
+		void normalized();
+
 		double& operator[](const int i);
 		double operator[] (const int i) const;
 
@@ -107,7 +126,13 @@ namespace zer0 {
 	typedef vec<4> vec4;
 
 	template<int n>
-	double dot(const vec<n>& v1, const vec<n>& v2);
+	double dot(const vec<n>& v1, const vec<n>& v2) {
+		double result = 0;
+		for (int i = 0; i < n; ++i)
+			result += v1[i] * v2[i];
+
+		return result;
+	}
 
 	double cross(const vec<2>& v1, const vec<2>& v2);
 
@@ -121,12 +146,29 @@ namespace zer0 {
 		return out;
 	}
 
-	// For convenience, only a 3x3 matrix is implemented.
-	// If translation is required, use an affine transfomration.
+	//
+	// Matrix
+	//   row-major
+	//
 
-	// row-major
 	struct mat3x3 {
-		union  {
+		static mat3x3 zero() {
+			return {
+				0, 0, 0,
+				0, 0, 0,
+				0, 0, 0,
+			};
+		}
+
+		static mat3x3 identity() {
+			return {
+				1, 0, 0,
+				0, 1, 0,
+				0, 0, 1
+			};;
+		}
+
+		union {
 			struct {
 				double a, b, c,
 					d, e, f,
@@ -134,10 +176,45 @@ namespace zer0 {
 			};
 
 			double data[9];
-			double m[3][3];
+			double mat[3][3];
 		};
 	};
 
-	vec<3> operator*(const mat3x3& m, const vec3& v);
-	vec<3> operator*(const vec3& v, const mat3x3& m);
+	vec<3> operator*(const mat3x3& m, const vec<3>& v);
+	vec<3> operator*(const vec<3>& v, const mat3x3& m);
+
+	struct mat4x4 {
+		static mat4x4 zero() {
+			return {
+				0, 0, 0, 0,
+				0, 0, 0, 0,
+				0, 0, 0, 0,
+				0, 0, 0, 0
+			};
+		}
+
+		static mat4x4 identity() {
+			return {
+				1, 0, 0, 0,
+				0, 1, 0, 0,
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};;
+		}
+
+		union {
+			struct {
+				double a, b, c, d,
+					   e, f, g, h,
+					   i, j, k, l,
+					   m, n, o, p;
+			};
+
+			double data[12];
+			double mat[4][4];
+		};
+	};
+
+	vec<4> operator*(const mat4x4& m, const vec<4>& v);
+	vec<4> operator*(const vec<4>& v, const mat4x4& m);
 }
