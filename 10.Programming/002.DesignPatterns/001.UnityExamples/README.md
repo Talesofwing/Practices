@@ -5,7 +5,11 @@
 This example is created using Unity. The main purpose is to illustrate the explanation in conjunction with examples related to game development.
 
 ### Contents
+#### Behavioral Patterns
 1. [Command](docs/Command.md)
+
+#### Structural Patterns
+1. [Flyweight](docs/Flyweight.md)
 
 ### Notes
 

@@ -9,6 +9,7 @@ namespace DesignPattern.Command
 	{
 		private bool _isJump = false;
 
+
 		private void Start()
 		{
 			GenerateCommand();
