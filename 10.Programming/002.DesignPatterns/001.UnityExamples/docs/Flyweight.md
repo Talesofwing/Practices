@@ -1,6 +1,6 @@
 # Flyweight Pattern
 
-The purpose of the Flyweight pattern is to reduce memory usage by sharing data (Intrinsic state).
+The purpose of the `Flyweight pattern` is to reduce memory usage by sharing data (Intrinsic state).
 
 Flyweight is divided into two parts:
 - Intrinsic: the shared data

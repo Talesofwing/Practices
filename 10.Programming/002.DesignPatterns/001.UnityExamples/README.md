@@ -7,6 +7,7 @@ This example is created using Unity. The main purpose is to illustrate the expla
 ### Contents
 #### Behavioral Patterns
 1. [Command](docs/Command.md)
+2. [Observer](docs/Observer.md)
 
 #### Structural Patterns
 1. [Flyweight](docs/Flyweight.md)
