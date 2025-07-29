@@ -14,15 +14,15 @@ This example is created using Unity. The main purpose is to illustrate the expla
 
 ### Notes
 
-#### The difference between Command and Strategy
+#### The difference between [Command](docs/Command.md) and [Strategy](docs/Strategy.md)
 
-The Strategy Pattern is designed for interchangeable behaviors. For example:
+The [Strategy pattern](docs/Strategy.md) is designed for interchangeable behaviors. For example:
 - Attack: different attack methods
 - Movement: different movement types
 
 In other words, the same type can have different strategies to execute varying behaviors.
 
-The Command Pattern is intended to encapsulate requests, operations, or actions, which may not necessarily be interchangeable. For example:
+The [Command Pattern](docs/Command.md) is intended to encapsulate requests, operations, or actions, which may not necessarily be interchangeable. For example:
 
 - Button actions: a certain key may perform `Jump` or `Attack`
 
