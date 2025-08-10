@@ -217,4 +217,19 @@ namespace zer0 {
 
 	vec<4> operator*(const mat4x4& m, const vec<4>& v);
 	vec<4> operator*(const vec<4>& v, const mat4x4& m);
+
+	// >> Chapter 6 
+	//	Transformation Matrics
+
+	// Ignored Model Transformation
+
+	mat4x4 view(const vec3& eye, const vec3& up, const vec3& center);
+	mat4x4 proj(const double coeff = 0.f);
+	mat4x4 viewport(const int width, const int height);
+
+	vec4 transform(
+		vec4 v,
+		const vec3& eye, const vec3& up, const vec3& center,
+		const int width, const int height
+	);
 }

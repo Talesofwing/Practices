@@ -25,6 +25,7 @@
     <ClCompile Include="include\ObjLoader.cpp" />
     <ClCompile Include="include\Rasterizer.cpp" />
     <ClCompile Include="include\zer0Math.cpp" />
+    <ClCompile Include="include\IShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Geometry.h" />
@@ -33,6 +34,7 @@
     <ClInclude Include="include\ObjLoader.h" />
     <ClInclude Include="include\Rasterizer.h" />
     <ClInclude Include="include\zer0Math.h" />
+    <ClInclude Include="include\IShader.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

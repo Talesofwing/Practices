@@ -6,6 +6,7 @@
 #include "tgaimage.h"
 #include "zer0Math.h"
 #include "Geometry.h"
+#include "IShader.h"
 
 using namespace zer0;
 
@@ -39,6 +40,15 @@ public:
 		const vec2& uv1, const vec2& uv2, const vec2& uv3,
 		TGAImage& framebuffer, TGAImage& depthbuffer,
 		const TGAImage& texturebuffer
+	);
+
+	// >> Chapter 6
+
+	// Draw with shader
+	static void Triangle(
+		const mesh& model, const int i1, int i2, int i3,
+		IShader& shader, TGAImage& framebuffer, TGAImage& depthbuffer,
+		std::vector<std::vector<double>>& depth
 	);
 
 private:

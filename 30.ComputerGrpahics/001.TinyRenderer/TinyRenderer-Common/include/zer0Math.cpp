@@ -515,4 +515,55 @@ namespace zer0 {
 		result.w = m.d * v.x + m.h * v.y + m.l * v.z + m.p * v.w;
 		return result;
 	}
+
+	// >> Chapter 6 
+	//	Transformation Matrics
+
+	mat4x4 view(const vec3& eye, const vec3& up, const vec3& center) {
+		vec3 z = (eye - center).normalize();	// right-handed coordinate
+		vec3 x = cross(up, z).normalize();
+		vec3 y = cross(z, x).normalize();
+		mat4x4 m {
+			x.x, x.y, x.z, -dot(x, center),
+			y.x, y.y, y.z, -dot(y, center),
+			z.x, z.y, z.z, -dot(z, center),
+			0, 0, 0., 1
+		};
+
+		return m;
+	}
+
+	mat4x4 proj(const double coeff) {
+		return {
+			1, 0, 0, 0,
+			0, 1, 0, 0,
+			0, 0, 1, 0,
+			0, 0, -1 / coeff, 1
+		};
+	}
+
+	mat4x4 viewport(const int width, const int height) {
+		return {
+			width * 0.5, 0, 0, width * 0.5,
+			0, height * 0.5, 0, height * 0.5,
+			0, 0, 1, 0,
+			0, 0, 0, 1
+		};
+	}
+
+	vec4 transform(
+		vec4 v,
+		const vec3& eye, const vec3& up, const vec3& center,
+		const int width, const int height)
+	{
+		mat4x4 vm = view(eye, up, center);
+		mat4x4 pm = proj((eye - center).length());
+		mat4x4 vpm = viewport(width, height);
+
+		v = pm * (vm * v);
+		v /= v.w;		// ndc
+		v = vpm * v;
+
+		return v;
+	}
 }

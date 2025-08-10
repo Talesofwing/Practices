@@ -66,6 +66,13 @@ mesh ObjLoader::LoadObj(std::string path, bool fit) {
 			iss >> u >> v >> w;
 
 			m.uvs.emplace_back(u, 1.0 - v);
+		} else if (prefix == "vn") {
+			// normal
+
+			double x, y, z;
+			iss >> x >> y >> z;
+
+			m.normals.emplace_back(x, y, z);
 		}
 	}
 
@@ -78,6 +85,7 @@ mesh ObjLoader::LoadObj(std::string path, bool fit) {
 	std::cout << "\tVertex Count: " << m.vertices.size() << std::endl;
 	std::cout << "\tIndex Count: " << m.vertex_indices.size() / 3 << std::endl;
 	std::cout << "\tUV Count: " << m.uvs.size() << std::endl;
+	std::cout << "\tNormal Count: " << m.normals.size() << std::endl;
 
 	return m;
 }
