@@ -1,5 +1,15 @@
 # Flyweight Pattern
 
+> Structural Pattern
+
+> **Gof**
+>
+> Use sharing to support large numbers of fine-grained objects efficiently.
+
+> **Refactoring guru**
+>
+> **Flyweight** is a structural design pattern that allows programs to support vast quantities of objects by keeping their memory consumption low.
+
 The purpose of the `Flyweight pattern` is to reduce memory usage by sharing data (Intrinsic state).
 
 Flyweight is divided into two parts:

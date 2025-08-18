@@ -1,9 +1,13 @@
 # Prototype Pattern
 
+> Creational Pattern
+
 > **Gof**
+>
 > Specify the kinds of objects to create using a prototypical instance, and create new objects by copying this prototype.
 
 > **Refactoring guru**
+>
 > **Prototype** is a creational design pattern that lets you copy existing objects without making your code dependent on their classes.
 
 The purpose of the `Prototype pattern` is to define the type of object to be created through a prototypical instance, and to generate new objects by copying this prototype, thereby reducing creation costs and decoupling the system from concrete classes and complex construction processes.

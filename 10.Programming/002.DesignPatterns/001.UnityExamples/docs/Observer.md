@@ -1,5 +1,15 @@
 # Observer Pattern
 
+> Behavioral Pattern
+
+> **Gof**
+>
+> Define a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically.
+
+> **Refactoring guru**
+>
+> **Observer** is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they’re observing.
+
 The purpose of the `Observer pattern` is decouple the communication between objects and facilitate a one-to-many relationship, where one subject notifies multiple observers of state changes.
 
 In modern implementations, `observers` are generally not `instances` but `functions`.
