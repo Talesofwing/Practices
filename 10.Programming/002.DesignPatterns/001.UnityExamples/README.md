@@ -14,6 +14,7 @@ This example is created using Unity. The main purpose is to illustrate the expla
 
 #### Creational Patterns
 1. [Prototype](docs/Prototype.md)
+2. [Singleton](docs/Singleton.md)
 
 ### Notes
 
