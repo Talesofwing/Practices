@@ -12,6 +12,9 @@ This example is created using Unity. The main purpose is to illustrate the expla
 #### Structural Patterns
 1. [Flyweight](docs/Flyweight.md)
 
+#### Creational Patterns
+1. [Prototype](docs/Prototype.md)
+
 ### Notes
 
 #### The difference between [Command](docs/Command.md) and [Strategy](docs/Strategy.md)
