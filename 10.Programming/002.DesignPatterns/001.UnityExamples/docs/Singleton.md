@@ -10,13 +10,14 @@
 >
 > **Singleton** is a creational design pattern that lets you ensure that a class has only one instance, while providing a global access point to this instance.
 
-Key points
+### Key points
+
 1. Restricting a class to one instance
 2. Providing a global point of access
 
 > Violates the Single Responsibility Principle
 
-Advantages
+### Advantages
 
 1. Lazy Initialization
 
@@ -30,7 +31,7 @@ Advantages
 
 	Unlike static classes where the initialization order is uncontrollable, a Singleton can be initialized at runtime, making dependency management easier.
 
-Disadvantages
+### Disadvantages
 
 1. Global Variable Nature
 
@@ -47,15 +48,20 @@ Disadvantages
 
 	In large systems, this may cause stalls at critical moments—for instance, when the sound system is initialized during battle, causing a noticeable pause.
 
-Alternatives to `Singleton`
+### Alternatives to `Singleton`
+
 1. Service Locator Pattern
+
 2. Static Class
+
 3. Dependency Passing (Parameter Injection)
+
 4. Subclass Sandbox Pattern (using static variables from parent classes)
 
 > In summary, the further a project progresses, the harder it becomes to modify a Singleton. However, Singleton is not inherently unusable—it just needs to be applied cautiously and never overused.
 
 ### Singleton Pattern vs Static Class
+
 - Utility Functions (stateless) : Use Static Class
 - Stateful with OOP Features : Use Singleton
 - Testability Concerns : Avoid Singleton and use DI instead
