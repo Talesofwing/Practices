@@ -12,4 +12,4 @@ link_directories(${CMAKE_SOURCE_DIR}/../3rdparty/opencv/lib)
 
 add_executable(Transformation main.cpp)
 
-target_link_libraries(Transformation PRIVATE opencv_core4120 opencv_imgproc4120 opencv_highgui4120 opencv_imgcodecs4120)
+target_link_libraries(Transformation)
