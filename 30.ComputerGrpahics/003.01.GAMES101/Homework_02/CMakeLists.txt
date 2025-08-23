@@ -1,11 +1,15 @@
 cmake_minimum_required(VERSION 3.10)
-project(Rasterizer)
+project(Transformation)
 
-find_package(OpenCV REQUIRED)
+# Add eigen & opencv include path
+include_directories(
+	${CMAKE_SOURCE_DIR}/../3rdparty
+	${CMAKE_SOURCE_DIR}/../3rdparty/opencv/include
+)
 
-set(CMAKE_CXX_STANDARD 17)
+# Link eigen & opencv lib
+link_directories(${CMAKE_SOURCE_DIR}/../3rdparty/opencv/lib)
 
-include_directories(/usr/local/include)
+add_executable(Transformation main.cpp Triangle.cpp rasterizer.cpp)
 
-add_executable(Rasterizer main.cpp rasterizer.hpp rasterizer.cpp global.hpp Triangle.hpp Triangle.cpp)
-target_link_libraries(Rasterizer ${OpenCV_LIBRARIES})
+target_link_libraries(Transformation PRIVATE opencv_core4120 opencv_imgproc4120 opencv_highgui4120 opencv_imgcodecs4120)
