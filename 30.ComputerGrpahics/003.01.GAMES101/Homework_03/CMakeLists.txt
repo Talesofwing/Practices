@@ -1,12 +1,17 @@
 cmake_minimum_required(VERSION 3.10)
 project(Rasterizer)
 
-find_package(OpenCV REQUIRED)
+# Add eigen & opencv include path
+include_directories(
+	${CMAKE_SOURCE_DIR}/../3rdparty
+	${CMAKE_SOURCE_DIR}/../3rdparty/opencv/include
+)
 
-set(CMAKE_CXX_STANDARD 17)
+# Link eigen & opencv lib
+link_directories(${CMAKE_SOURCE_DIR}/../3rdparty/opencv/lib)
 
-include_directories(/usr/local/include ./include)
+add_executable(Rasterizer
+	main.cpp Triangle.cpp rasterizer.cpp Texture.cpp
+)
 
-add_executable(Rasterizer main.cpp rasterizer.hpp rasterizer.cpp global.hpp Triangle.hpp Triangle.cpp Texture.hpp Texture.cpp Shader.hpp OBJ_Loader.h)
-target_link_libraries(Rasterizer ${OpenCV_LIBRARIES})
-#target_compile_options(Rasterizer PUBLIC -Wall -Wextra -pedantic)
+target_link_libraries(Rasterizer PRIVATE opencv_core4120 opencv_imgproc4120 opencv_highgui4120 opencv_imgcodecs4120)
