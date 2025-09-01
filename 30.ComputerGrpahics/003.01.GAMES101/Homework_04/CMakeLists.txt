@@ -1,10 +1,15 @@
 cmake_minimum_required(VERSION 3.10)
 project(BezierCurve)
 
-find_package(OpenCV REQUIRED)
+# Add eigen & opencv include path
+include_directories(
+	${CMAKE_SOURCE_DIR}/../3rdparty
+	${CMAKE_SOURCE_DIR}/../3rdparty/opencv/include
+)
 
-set(CMAKE_CXX_STANDARD 14)
+# Link eigen & opencv lib
+link_directories(${CMAKE_SOURCE_DIR}/../3rdparty/opencv/lib)
 
 add_executable(BezierCurve main.cpp)
 
-target_link_libraries(BezierCurve ${OpenCV_LIBRARIES})
+target_link_libraries(BezierCurve PRIVATE opencv_core4120 opencv_imgproc4120 opencv_highgui4120 opencv_imgcodecs4120)
