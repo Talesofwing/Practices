@@ -19,3 +19,6 @@ In this example:
 - Client: `CommandUse`
 
 It also supports `undo` and `redo` operations.
+
+### References
+- [Difference from the Strategy Pattern](../README.md#the-difference-between-command-and-strategy)
