@@ -1,9 +1,17 @@
 cmake_minimum_required(VERSION 3.10)
-project(RayTracing)
+project(Raytracing)
 
-set(CMAKE_CXX_STANDARD 17)
+# Add eigen & opencv include path
+include_directories(
+	${CMAKE_SOURCE_DIR}/../3rdparty
+	${CMAKE_SOURCE_DIR}/../3rdparty/opencv/include
+)
 
-add_executable(RayTracing main.cpp Object.hpp Vector.hpp Sphere.hpp global.hpp Triangle.hpp Scene.cpp Scene.hpp Light.hpp Renderer.cpp)
-target_compile_options(RayTracing PUBLIC -Wall -Wextra -pedantic -Wshadow -Wreturn-type -fsanitize=undefined)
-target_compile_features(RayTracing PUBLIC cxx_std_17)
-target_link_libraries(RayTracing PUBLIC -fsanitize=undefined)
+# Link eigen & opencv lib
+link_directories(${CMAKE_SOURCE_DIR}/../3rdparty/opencv/lib)
+
+add_executable(Raytracing
+	main.cpp Renderer.cpp Scene.cpp
+)
+
+target_link_libraries(Raytracing PRIVATE opencv_core4120 opencv_imgproc4120 opencv_highgui4120 opencv_imgcodecs4120)
