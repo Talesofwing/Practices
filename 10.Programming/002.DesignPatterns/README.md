@@ -17,6 +17,9 @@ This chapter will describe the uses of each pattern with practical examples from
 1. [Prototype](docs/Prototype.md)
 2. [Singleton](docs/Singleton.md)
 
+#### Game Programming Patterns
+1. [Double Buffer](docs/DoubleBuffer.md)
+
 ### Notes
 
 #### The difference between [Command](docs/Command.md) and [Strategy](docs/Strategy.md)
