@@ -1,6 +1,7 @@
 # Double Buffer
 
 > Game Programming Pattern
+>
 > Cause a series of sequential operations to appear instantaneous or simultaneous.
 
 It is mainly used to unify behavior. For example, in rendering, the commonly used `double buffering`. The core idea is to split the act of `changing state` into two steps:
