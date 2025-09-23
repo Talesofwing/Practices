@@ -20,6 +20,7 @@ This chapter will describe the uses of each pattern with practical examples from
 #### Game Programming Patterns
 1. [Double Buffer](docs/DoubleBuffer.md)
 2. [GameLoop](docs/GameLoop.md)
+3. [Update Method](docs/UpdateMethod.md)
 
 ### Notes
 
