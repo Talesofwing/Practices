@@ -18,3 +18,6 @@ Check whether it can be handled:
 This continues until the last handler in the chain.
 
 > The key is a chain of responsibility, where each handler in the chain is responsible for processing the event.
+
+#### References
+- [Difference from the Decorator Pattern](../README.md#the-difference-between-cor-and-decorator)

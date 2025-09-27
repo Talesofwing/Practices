@@ -58,7 +58,14 @@ For example, a sorting Context can choose between `Quick Sort`, `Merge Sort`, et
 
 #### The difference between [CoR](docs/ChainOfResponsibility.md) and [Decorator](docs/Decorator.md)
 
+Both patterns look like they chain multiple objects together, but their purposes are different:
 
+- CoR (Chain of Responsibility)
+
+	Each Handler can choose to handle a request or pass it to the next one; emphasizes responsibility delegation, and execution is optional.
+- Decorator
+
+	Each Decorator is only responsible for enhancing or modifying the original functionality; emphasizes functionality accumulation, and execution usually occurs.
 
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)
