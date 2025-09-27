@@ -9,6 +9,7 @@ This chapter will describe the uses of each pattern with practical examples from
 1. [Command](docs/Command.md)
 2. [Observer](docs/Observer.md)
 3. [State](docs/State.md)
+4. [Chain of Responsibility](docs/ChainOfResponsibility.md)
 
 #### Structural Patterns
 1. [Flyweight](docs/Flyweight.md)
@@ -54,6 +55,10 @@ The granularity of [Strategy Pattern](docs/Strategy.md) is usually smaller; each
 For example, a sorting Context can choose between `Quick Sort`, `Merge Sort`, etc. Each strategy is single-purpose and independent.
 
 > In short, the [State Pattern](docs/State.md) is like a less constrained version of the [Strategy Pattern](docs/Strategy). States are not independent from each other and can change the Context’s state.
+
+#### The difference between [CoR](docs/ChainOfResponsibility.md) and [Decorator](docs/Decorator.md)
+
+
 
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)
