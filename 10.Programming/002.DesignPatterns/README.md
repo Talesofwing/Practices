@@ -10,6 +10,7 @@ This chapter will describe the uses of each pattern with practical examples from
 2. [Observer](docs/Observer.md)
 3. [State](docs/State.md)
 4. [Chain of Responsibility](docs/ChainOfResponsibility.md)
+5. [Iteartor](docs/Iteartor.md)
 
 #### Structural Patterns
 1. [Flyweight](docs/Flyweight.md)
