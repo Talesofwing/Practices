@@ -4,9 +4,9 @@
 >
 > Give behavior the flexibility of data by encoding it as instructions for a virtual machine.
 
-Very similar to the [Interpreter Pattern](../docs/Interpreter.md), but with an added layer of VM + IR, like C#/Java, where a VM executes the corresponding IR instructions.
+Very similar to the [Interpreter Pattern](../docs/Interpreter.md).
 
-The Lua scripting language is also a kind of `Bytecode` implementation: it is interpreted by a VM and executes the corresponding behavior.
+The Lua scripting language is also a form of `Bytecode` implementation; it can be compiled with `luac`, reducing the runtime overhead of parsing and analysis.
 
 `Bytecode` is precompiled into a linear sequence of instructions, so execution only requires sequential interpretation of instructions. Its core is:
 - Tree structure → linear instruction sequence
