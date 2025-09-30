@@ -20,9 +20,12 @@ This chapter will describe the uses of each pattern with practical examples from
 2. [Singleton](docs/Singleton.md)
 
 #### Game Programming Patterns
+##### Sequencing Patterns
 1. [Double Buffer](docs/DoubleBuffer.md)
 2. [GameLoop](docs/GameLoop.md)
 3. [Update Method](docs/UpdateMethod.md)
+##### Behavioral Patterns
+1. [Bytecode](docs/Bytecode.md)
 
 ### Notes
 
@@ -67,6 +70,20 @@ Both patterns look like they chain multiple objects together, but their purposes
 - Decorator
 
 	Each Decorator is only responsible for enhancing or modifying the original functionality; emphasizes functionality accumulation, and execution usually occurs.
+
+#### The difference between [Bytecode](docs/Bytecode.md) and [Interpreter](docs/Interpreter.md)
+
+Both are basically designed to solve the same problem, but their core implementations are different.
+
+- Interpreter Pattern
+
+	Each execution requires traversing the tree structure, and a large amount of syntax must be analyzed every time.
+
+- Bytecode
+
+	Precompiled into a linear sequence of instructions, execution only requires sequential interpretation of the instructions.
+
+Bytecode moves the entire front-end compilation process ahead of time, generating an intermediate format that is more suitable for machine execution.
 
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)
