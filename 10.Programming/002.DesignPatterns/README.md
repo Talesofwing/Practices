@@ -11,6 +11,7 @@ This chapter will describe the uses of each pattern with practical examples from
 3. [State](docs/State.md)
 4. [Chain of Responsibility](docs/ChainOfResponsibility.md)
 5. [Iteartor](docs/Iteartor.md)
+6. [Mediator](docs/Mediator.md)
 
 #### Structural Patterns
 1. [Flyweight](docs/Flyweight.md)
@@ -24,6 +25,7 @@ This chapter will describe the uses of each pattern with practical examples from
 1. [Double Buffer](docs/DoubleBuffer.md)
 2. [GameLoop](docs/GameLoop.md)
 3. [Update Method](docs/UpdateMethod.md)
+
 ##### Behavioral Patterns
 1. [Bytecode](docs/Bytecode.md)
 
@@ -84,6 +86,18 @@ Both are basically designed to solve the same problem, but their core implementa
 	Precompiled into a linear sequence of instructions, execution only requires sequential interpretation of the instructions.
 
 Bytecode moves the entire front-end compilation process ahead of time, generating an intermediate format that is more suitable for machine execution.
+
+#### The difference between [Mediator](docs/Mediator.md) and [Facade](docs/Facade.md)
+
+Both aim to reduce coupling between components, but their core purposes are different:
+
+- Mediator Pattern
+
+	Adds logic; components cannot interact directly and must communicate through the Mediator.
+
+- Facade Pattern
+
+	Provides a simplified interface without changing the underlying logic; components can still interact directly and are unaware of the Facade’s existence.
 
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)
