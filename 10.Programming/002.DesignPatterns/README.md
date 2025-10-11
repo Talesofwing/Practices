@@ -28,6 +28,7 @@ This chapter will describe the uses of each pattern with practical examples from
 
 ##### Behavioral Patterns
 1. [Bytecode](docs/Bytecode.md)
+2. [SubclassSandbox](docs/SubclassSandbox.md)
 
 ### Notes
 
@@ -98,6 +99,24 @@ Both aim to reduce coupling between components, but their core purposes are diff
 - Facade Pattern
 
 	Provides a simplified interface without changing the underlying logic; components can still interact directly and are unaware of the Facade’s existence.
+
+#### The difference between [Subclass Sandbox](docs/SubclassSandbox.md) and [Template](docs/Template.md)
+
+Both deal with the relationship between base classes and subclasses.
+
+- Subclass Sandbox
+
+The algorithm’s skeleton is implemented by the subclass, while the base class provides a set of protected utility methods that the subclass can safely use. This encapsulates shared functionality within the base class, allowing subclasses to use it without modifying the base class’s behavior.
+
+Example: The attack flow is implemented by the subclass, while the functions used during the attack are provided by the base class.
+
+- Template Pattern
+
+The algorithm’s skeleton is implemented by the base class, and each step of the skeleton is implemented or overridden by subclasses. This ensures that the overall flow remains controlled and cannot be arbitrarily modified.
+
+Example: The attack flow is implemented by the base class, while each part of the attack flow is implemented by the subclasses.
+
+In practice, both patterns can be used together.
 
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)
