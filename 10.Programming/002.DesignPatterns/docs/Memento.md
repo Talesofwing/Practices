@@ -12,7 +12,7 @@
 
 The purpose of the `Memento Pattern` is to preserve a certain state and restore it later. For example, in a game checkpoint, the game world’s state is saved and restored when the player dies.
 
-The originator is responsible for creating a snapshot (Memento), and the snapshot (Memento) is responsible for restoring it. For instance, saving a character’s:
+The originator is responsible for creating and restoring snapshots.
 - HP (health)
 - Attack power
 - Defense power
