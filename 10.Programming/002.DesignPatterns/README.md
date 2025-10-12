@@ -106,17 +106,29 @@ Both deal with the relationship between base classes and subclasses.
 
 - Subclass Sandbox
 
-The algorithm’s skeleton is implemented by the subclass, while the base class provides a set of protected utility methods that the subclass can safely use. This encapsulates shared functionality within the base class, allowing subclasses to use it without modifying the base class’s behavior.
+	The algorithm’s skeleton is implemented by the subclass, while the base class provides a set of protected utility methods that the subclass can safely use. This encapsulates shared functionality within the base class, allowing subclasses to use it without modifying the base class’s behavior.
 
-Example: The attack flow is implemented by the subclass, while the functions used during the attack are provided by the base class.
+	Example: The attack flow is implemented by the subclass, while the functions used during the attack are provided by the base class.
 
 - Template Pattern
 
-The algorithm’s skeleton is implemented by the base class, and each step of the skeleton is implemented or overridden by subclasses. This ensures that the overall flow remains controlled and cannot be arbitrarily modified.
+	The algorithm’s skeleton is implemented by the base class, and each step of the skeleton is implemented or overridden by subclasses. This ensures that the overall flow remains controlled and cannot be arbitrarily modified.
 
-Example: The attack flow is implemented by the base class, while each part of the attack flow is implemented by the subclasses.
+	Example: The attack flow is implemented by the base class, while each part of the attack flow is implemented by the subclasses.
 
 In practice, both patterns can be used together.
+
+#### The difference between [Memento](docs/Memento.md) and [Prototype](docs/Prototype.md)
+Both can “save the state of an object” and “restore it later.”
+
+- Memento Pattern
+
+	Saves a snapshot of the state for later restoration.
+
+- Prototype Pattern
+
+	Creates a new instance.
+
 
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)
