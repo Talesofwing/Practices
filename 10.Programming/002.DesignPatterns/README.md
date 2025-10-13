@@ -12,6 +12,8 @@ This chapter will describe the uses of each pattern with practical examples from
 4. [Chain of Responsibility](docs/ChainOfResponsibility.md)
 5. [Iteartor](docs/Iteartor.md)
 6. [Mediator](docs/Mediator.md)
+7. [Memento](docs/Memento.md)
+8. [Strategy](docs/Strategy.md)
 
 #### Structural Patterns
 1. [Flyweight](docs/Flyweight.md)
@@ -129,6 +131,25 @@ Both can “save the state of an object” and “restore it later.”
 
 	Creates a new instance.
 
+#### The difference between [Strategy](docs/Strategy.md) and [Component](docs/Component.md)
+
+Both patterns abstract behavior, but their focus is different, and they are often used together.
+
+- Strategy Pattern
+
+	- Abstracts behavior, allowing the target’s behavior to be switched.
+
+	- Focuses on the abstraction of behavior.
+
+- Component Pattern
+
+	- Uses a composition of components to give the target concrete behavior.
+
+	- Focuses on the capabilities of the target.
+
+The behaviors within components can be implemented using the [Strategy Pattern](docs/Strategy.md), and components themselves can also be implemented using the [Strategy Pattern](docs/Strategy.md).
+
+In Unity, the `Collider` is an example of a `Component` implemented in the form of a [Strategy Pattern](docs/Strategy.md).
 
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)
