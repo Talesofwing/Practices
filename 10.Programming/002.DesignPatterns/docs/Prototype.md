@@ -14,8 +14,6 @@ The purpose of the `Prototype Pattern` is to define the type of object to be cre
 
 When using the `Prototype Pattern`, it’s important to consider the distinction between `shallow copy` and `deep copy`.
 
-In C#, `ICloneable` is also based on the `Prototype Pattern`. However, it is explicitly recommended not to use it, since it doesn’t specify whether the copy is shallow or deep.
-
 In C#, `ICloneable` is considered to follow the `Prototype Pattern`. However, it is explicitly recommended not to use it, since it does not specify whether the copy is `shallow` or `deep`.
 
 Additionally, in Unity, `Prefab` is an application of the `Prototype Pattern`.
