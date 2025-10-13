@@ -5,9 +5,10 @@
 using namespace zer0;
 
 void draw_triangle() {
+	std::cout << "Start rendering (Triangle)..." << std::endl;
+
 	TGAImage framebuffer(64, 64, TGAImage::RGB);
 
-	std::cout << "Draw Triangle" << std::endl;
 	int ax = 7, ay = 3;
 	int bx = 12, by = 37;
 	int cx = 62, cy = 53;
@@ -18,10 +19,14 @@ void draw_triangle() {
 
 	Rasterizer::Triangle(p1, p2, p3, framebuffer, TGAColor::blue);
 
-	framebuffer.write_tga_file("../_results/Lesson1-triangle.tga");
+	framebuffer.write_tga_file("../_results/Lesson1/triangle.tga");
+
+	std::cout << "Finish rendering..." << std::endl;
 }
 
 void speed_test() {
+	std::cout << "Start rendering (Speed Test)..." << std::endl;
+
 	TGAImage framebuffer(64, 64, TGAImage::RGB);
 	TGAImage framebuffer2(64, 64, TGAImage::RGB);
 
@@ -37,7 +42,7 @@ void speed_test() {
 	}
 	timer.Stop();
 	timer.Display();
-	framebuffer.write_tga_file("../_results/Lesson1-speedtest_with_if.tga");
+	framebuffer.write_tga_file("../_results/Lesson1/speed_test_with_if.tga");
 
 	// without if version (more fast)
 	std::cout << "Draw line(without if)" << std::endl;
@@ -50,19 +55,23 @@ void speed_test() {
 	}
 	timer.Stop();
 	timer.Display();
-	framebuffer2.write_tga_file("../_results/Lesson1-speedtest_without_if.tga");
+	framebuffer2.write_tga_file("../_results/Lesson1/speed_test_without_if.tga");
+
+	std::cout << "Finish rendering..." << std::endl;
 }
 
 void homework() {
+	std::cout << "Start rendering (homework)..." << std::endl;
+
 	constexpr int width = 1024;
 	constexpr int height = 1024;
 
 	TGAImage framebuffer(width, height, TGAImage::RGB);
 
-	std::string path = "../models/diablo3_pose/";
-	//std::string path = "../models/african_head/";
-	std::string filename = "diablo3_pose";
-	//std::string filename = "african_head";
+	//std::string path = "../models/diablo3_pose/";
+	std::string path = "../models/african_head/";
+	//std::string filename = "diablo3_pose";
+	std::string filename = "african_head";
 	mesh obj = ObjLoader::LoadObj(path + filename + ".obj");
 
 	Timer timer;
@@ -94,9 +103,11 @@ void homework() {
 
 	timer.Stop();
 
-	std::string name = "../_results/Lesson1-" + filename + ".tga";
+	std::string name = "../_results/Lesson1/" + filename + ".tga";
 	framebuffer.write_tga_file(name.c_str());
-	std::cout << "Render finished in " << timer.ElapsedSecond() << " seconds";
+	std::cout << "Render finished in " << timer.ElapsedSecond() << " seconds" << std::endl;
+
+	std::cout << "Finish rendering..." << std::endl;
 }
 
 int main(int argc, char** argv) {
