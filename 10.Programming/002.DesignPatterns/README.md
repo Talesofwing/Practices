@@ -49,6 +49,13 @@ The [Command Pattern](docs/Command.md) is intended to encapsulate requests, oper
 
 This allows dynamically switching to a different action.
 
+#### The difference between [Singleton](docs/Singleton.md) and `Static Class`
+
+- Utility functions (stateless): Static Class
+- Requires state + OOP features: Singleton
+- For testing purposes: Avoid using Singleton; use [[Dependency Injection|DI]] instead
+
+
 #### The difference between [State](docs/State.md) and [Strategy](docs/Strategy.md)
 
 The granularity of [State Pattern](docs/State.md) is usually larger; a concrete state not only contains the implementation of certain behaviors, but may also include the logic for switching to other states. In addition, a single state may integrate multiple behaviors.

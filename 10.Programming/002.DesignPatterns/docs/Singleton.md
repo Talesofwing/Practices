@@ -60,8 +60,6 @@
 
 > In summary, the further a project progresses, the harder it becomes to modify a Singleton. However, Singleton is not inherently unusable—it just needs to be applied cautiously and never overused.
 
-### Singleton Pattern vs Static Class
+### References
 
-- Utility Functions (stateless) : Use Static Class
-- Stateful with OOP Features : Use Singleton
-- Testability Concerns : Avoid Singleton and use DI instead
+- [Difference from the Static Class](../README.md#the-difference-between-singleton-and-static-class)
