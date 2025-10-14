@@ -30,7 +30,8 @@ This chapter will describe the uses of each pattern with practical examples from
 
 ##### Behavioral Patterns
 1. [Bytecode](docs/Bytecode.md)
-2. [SubclassSandbox](docs/SubclassSandbox.md)
+2. [Subclass Sandbox](docs/SubclassSandbox.md)
+3. [Type Object](docs/TypeObject.md)
 
 ### Notes
 
@@ -121,6 +122,7 @@ Both deal with the relationship between base classes and subclasses.
 In practice, both patterns can be used together.
 
 #### The difference between [Memento](docs/Memento.md) and [Prototype](docs/Prototype.md)
+
 Both can “save the state of an object” and “restore it later.”
 
 - Memento Pattern
@@ -150,6 +152,28 @@ Both patterns abstract behavior, but their focus is different, and they are ofte
 The behaviors within components can be implemented using the [Strategy Pattern](docs/Strategy.md), and components themselves can also be implemented using the [Strategy Pattern](docs/Strategy.md).
 
 In Unity, the `Collider` is an example of a `Component` implemented in the form of a [Strategy Pattern](docs/Strategy.md).
+
+#### The difference between [Type Object](docs/TypeObject.md) and [Flyweight Pattern](docs/Flyweight.md)
+
+Both patterns involve separating an object’s data.
+
+- Type Object
+
+	Reduces the number of subclasses by using another “object” to represent the concrete object type. Basically, it’s pure data, such as `AttackType`, `MovementType`, `AttackPower`, etc. The concrete object then executes behavior according to this data.
+
+- Flyweight Pattern
+
+	Its core is storage optimization and it doesn’t require being “data-driven.” For example, GPU Instancing.
+
+The two patterns can easily be unintentionally mixed together.
+
+> Personal understanding
+>
+> When reading data from a config table (e.g., Monster), the data can exhibit characteristics of both patterns:
+
+- Monsters of the same type hold the same data, so this data is shared → `Flyweight Pattern`
+
+- The Monster’s type is defined by this data, such as attack style, movement style, attack speed… → `Type Object`
 
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)
