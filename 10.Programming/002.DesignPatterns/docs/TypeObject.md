@@ -1,50 +1,35 @@
-# Strategy Pattern
+# Type Object
 
-> Behavioral Pattern
-
-> **Gof**
+> Game Programming Pattern
 >
-> Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from clients that use it.
+> Allow the flexible creation of new “classes” by creating a single class, each instance of which represents a different type of object.
 
-> **Refactoring guru**
->
-> **Strategy** is a behavioral design pattern that lets you define a family of algorithms, put each of them into a separate class, and make their objects interchangeable.
+The purpose of the `Type Object` pattern is to reduce inheritance by defining a “type” object.
 
-The purpose of the `Strategy Pattern` is to abstract behavior, allowing it to be switched freely while hiding its internal details.
+In the traditional approach, implementing behavior differences between types might rely on inheritance. For example, you could have Dragon and Orc both inherit from Monster and override attack and movement functions. This can lead to a large number of subclasses.
 
-For example, in game development, a character may have the following behaviors:
-- Attack
-- Move
+With a type object, you create a separate object that stores the concrete attributes of that type, such as:
+
+- Health
+
+- Attack power
+
+- Attack type
+
+- Defense type
+
 - …
 
-These behaviors can have many different types, such as:
-- Ranged attack, melee attack, …
-- No movement, flying, burrowing, …
+In the `Monster` class, you reference a specific type object and perform behavior based on the attributes stored in that object.
 
-Each character has different capabilities.
+This is usually implemented using configuration tables, such as:
 
-In modern development, since most programming languages support functional types, we can directly use functions to replace traditional strategy classes.
-```cpp
-class Context {
-private:
-    std::function<int(int, int)> strategy_;
-public:
-    Context(std::function<int(int, int)> strategy) : strategy_(std::move(strategy)) {}
-    int execute(int a, int b) const {
-        return strategy_(a, b);
-    }
-};
+- Google Sheet
 
-int main() {
-    // Use lambda to define strategy directly
-    Context addContext([](int a, int b) { return a + b; });
-    std::cout << addContext.execute(3, 5) << std::endl;  // 8
+- Excel
 
-    Context multiplyContext([](int a, int b) { return a * b; });
-    std::cout << multiplyContext.execute(3, 5) << std::endl;  // 15
-}
-```
-If the strategy itself has complex internal logic, requires state, or involves multi-step behavior, it is still recommended to use classes rather than lambdas.
+> It can be simply understood as data-driven design.
 
 ### References
-- [Difference from the Component Pattern](../README.md#the-difference-between-strategy-and-component)
+
+- [Difference from the Component Pattern](../README.md#the-difference-between-type-object-and-flyweight-pattern)

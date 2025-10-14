@@ -1,4 +1,4 @@
-# SubclassSandbox
+# Subclass Sandbox
 
 > Game Programming Pattern
 >
