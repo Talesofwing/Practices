@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Lesson1", "TinyRenderer-Lesson1\TinyRenderer-Lesson1.vcxproj", "{5F36A74C-4D77-4B98-904D-AE3AB1B0349C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Common", "TinyRenderer-Common\TinyRenderer-Common.vcxproj", "{A117F155-6478-4034-88A7-B971CA72D1AC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Lesson0", "TinyRenderer-Lesson0\TinyRenderer-Lesson0.vcxproj", "{C68716AC-A265-4C54-8CA5-90B1B5649EEF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Common", "TinyRenderer-Common\TinyRenderer-Common.vcxproj", "{A117F155-6478-4034-88A7-B971CA72D1AC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Lesson1", "TinyRenderer-Lesson1\TinyRenderer-Lesson1.vcxproj", "{5F36A74C-4D77-4B98-904D-AE3AB1B0349C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Lesson2", "TinyRenderer-Lesson2\TinyRenderer-Lesson2.vcxproj", "{E75CDB56-3583-4E71-B894-1489EE9DDACB}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Lesson3", "TinyRenderer-Lesson3\TinyRenderer-Lesson3.vcxproj", "{E75CDB56-3583-4E71-B894-1489EE9DDACB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Lesson3", "TinyRenderer-Lesson3\TinyRenderer-Lesson3.vcxproj", "{60CE7AF5-71DA-4103-BC0D-9F6C212BBE18}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Lesson4", "TinyRenderer-Lesson4\TinyRenderer-Lesson4.vcxproj", "{60CE7AF5-71DA-4103-BC0D-9F6C212BBE18}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Lesson4", "TinyRenderer-Lesson4\TinyRenderer-Lesson4.vcxproj", "{4E0AB177-89CB-4648-B8A9-84E44FA41C22}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Lesson5", "TinyRenderer-Lesson5\TinyRenderer-Lesson5.vcxproj", "{4E0AB177-89CB-4648-B8A9-84E44FA41C22}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Lesson5", "TinyRenderer-Lesson5\TinyRenderer-Lesson5.vcxproj", "{DECC7903-770C-4B5B-90FB-248F289D781B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Lesson6", "TinyRenderer-Lesson6\TinyRenderer-Lesson6.vcxproj", "{DECC7903-770C-4B5B-90FB-248F289D781B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Lesson6", "TinyRenderer-Lesson6\TinyRenderer-Lesson6.vcxproj", "{E93A331E-93D8-454B-AC28-BF121A096CF3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TinyRenderer-Lesson7", "TinyRenderer-Lesson7\TinyRenderer-Lesson7.vcxproj", "{E93A331E-93D8-454B-AC28-BF121A096CF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

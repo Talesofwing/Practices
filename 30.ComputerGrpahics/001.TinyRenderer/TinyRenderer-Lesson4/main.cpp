@@ -1,64 +1,78 @@
-#include "Rasterizer.h"
+#include "tgaimage.h"
 #include "ObjLoader.h"
+#include "Rasterizer.h"
 #include "zer0Math.h"
 
-constexpr int width = 1024;
-constexpr int height = 1024;
+void depth_rasterization() {
+	constexpr int width = 1024;
+	constexpr int height = 1024;
 
-vec3 world(vec3 v) {
-	constexpr double theta = M_PI / 6;
+	TGAImage framebuffer(width, height, TGAImage::RGB);
+	TGAImage depthbuffer(width, height, TGAImage::GRAYSCALE);
 
-	// Non-literal type, because of union
-	mat3x3 m = {
-		std::cos(theta), 0, std::sin(theta),
-		0, 1, 0,
-		-std::sin(theta), 0, std::cos(theta)
-	};
+	//std::string path = "../models/african_head/";
+	 std::string path = "../models/diablo3_pose/";
+	//std::string filename = "african_head";
+	std::string filename = "diablo3_pose";
+	mesh obj = ObjLoader::LoadObj(path + filename + ".obj");
 
-	return m * v;
+	for (int i = 0; i < obj.vertex_indices.size(); i += 3) {
+		vec3 v1 = obj.vertices[obj.vertex_indices[i]];
+		vec3 v2 = obj.vertices[obj.vertex_indices[i + 1]];
+		vec3 v3 = obj.vertices[obj.vertex_indices[i + 2]];
+
+		v1.x *= width;
+		v1.y *= height;
+		v1.z *= 255;
+		v2.x *= width;
+		v2.y *= height;
+		v2.z *= 255;
+		v3.x *= width;
+		v3.y *= height;
+		v3.z *= 255;
+
+		TGAColor rnd((unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255));
+
+		Rasterizer::Triangle(v1, v2, v3, framebuffer, depthbuffer, rnd);
+	}
+
+	//depthbuffer.write_tga_file("../_results/Lesson3-african_head_depthbuffer.tga");
+	//framebuffer.write_tga_file("../_results/Lesson3-african_head.tga");
+
+	depthbuffer.write_tga_file("../_results/Lesson3-diablo3_pose_depthbuffer.tga");
+	framebuffer.write_tga_file("../_results/Lesson3-diablo3_pose.tga");
 }
 
-vec3 proj(vec3 v) {
-	constexpr double c = 5;
+void texture_rasterization() {
+	constexpr int width = 1024;
+	constexpr int height = 1024;
 
-	v.x /= (1 - v.z / c);
-	v.y /= (1 - v.z / c);
-
-	return v;
-}
-
-vec3 viewport(vec3 v) {
-	v.x = (v.x + 1) * 0.5 * width;
-	v.y = (v.y + 1) * 0.5 * height;
-	v.z = (v.z + 1) * 0.5 * 255;
-
-	return v;
-}
-
-vec3 transform(vec3 v) {
-	return viewport(proj(world(v)));
-}
-
-void render() {
 	TGAImage framebuffer(width, height, TGAImage::RGB);
 	TGAImage depthbuffer(width, height, TGAImage::GRAYSCALE);
 	TGAImage texturebuffer;
 	texturebuffer.read_tga_file("../models/african_head/african_head_diffuse.tga");
 
-	Rasterizer::Culling = true;
-	Rasterizer::Wireframe = false;
-
 	std::string path = "../models/african_head/";
 	std::string filename = "african_head";
-	mesh obj = ObjLoader::LoadObj(path + filename + ".obj", false);
+	mesh obj = ObjLoader::LoadObj(path + filename + ".obj");
 
 	for (int i = 0; i < obj.vertex_indices.size(); i += 3) {
-		vec3 v1 = transform(obj.vertices[obj.vertex_indices[i]]);
-		vec3 v2 = transform(obj.vertices[obj.vertex_indices[i + 1]]);
-		vec3 v3 = transform(obj.vertices[obj.vertex_indices[i + 2]]);
+		vec3 v1 = obj.vertices[obj.vertex_indices[i]];
+		vec3 v2 = obj.vertices[obj.vertex_indices[i + 1]];
+		vec3 v3 = obj.vertices[obj.vertex_indices[i + 2]];
 		vec2 uv1 = obj.uvs[obj.uv_indcies[i]];
 		vec2 uv2 = obj.uvs[obj.uv_indcies[i + 1]];
 		vec2 uv3 = obj.uvs[obj.uv_indcies[i + 2]];
+
+		v1.x *= width;
+		v1.y *= height;
+		v1.z *= 255;
+		v2.x *= width;
+		v2.y *= height;
+		v2.z *= 255;
+		v3.x *= width;
+		v3.y *= height;
+		v3.z *= 255;
 
 		Rasterizer::Triangle(v1, v2, v3,
 							 uv1, uv2, uv3,
@@ -66,44 +80,13 @@ void render() {
 							 texturebuffer);
 	}
 
-	depthbuffer.write_tga_file("../_results/Lesson4-african_head_depthbuffer.tga");
-	framebuffer.write_tga_file("../_results/Lesson4-african_head_perspective.tga");
-}
-
-void homework() {
-	TGAImage framebuffer(width, height, TGAImage::RGB);
-	TGAImage depthbuffer(width, height, TGAImage::GRAYSCALE);
-	TGAImage texturebuffer;
-	texturebuffer.read_tga_file("../models/diablo3_pose/diablo3_pose_diffuse.tga");
-
-	Rasterizer::Culling = true;
-	Rasterizer::Wireframe = false;
-
-	std::string path = "../models/diablo3_pose/";
-	std::string filename = "diablo3_pose";
-	mesh obj = ObjLoader::LoadObj(path + filename + ".obj", false);
-
-	for (int i = 0; i < obj.vertex_indices.size(); i += 3) {
-		vec3 v1 = transform(obj.vertices[obj.vertex_indices[i]]);
-		vec3 v2 = transform(obj.vertices[obj.vertex_indices[i + 1]]);
-		vec3 v3 = transform(obj.vertices[obj.vertex_indices[i + 2]]);
-		vec2 uv1 = obj.uvs[obj.uv_indcies[i]];
-		vec2 uv2 = obj.uvs[obj.uv_indcies[i + 1]];
-		vec2 uv3 = obj.uvs[obj.uv_indcies[i + 2]];
-
-		Rasterizer::Triangle(v1, v2, v3,
-							 uv1, uv2, uv3,
-							 framebuffer, depthbuffer,
-							 texturebuffer);
-	}
-
-	depthbuffer.write_tga_file("../_results/Lesson4-diablo3_pose_depthbuffer.tga");
-	framebuffer.write_tga_file("../_results/Lesson4-diablo3_pose_perspective.tga");
+	depthbuffer.write_tga_file("../_results/Lesson3-african_head_depthbuffer.tga");
+	framebuffer.write_tga_file("../_results/Lesson3-african_head_texture.tga");
 }
 
 int main() {
-	std::cout << "===== Lesson 4 =====" << std::endl << std::endl;
+	std::cout << "===== Lesson 3 =====" << std::endl << std::endl;
 
-	render();
-	homework();
+	depth_rasterization();
+	texture_rasterization();
 }

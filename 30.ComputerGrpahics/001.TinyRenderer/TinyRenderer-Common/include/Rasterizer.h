@@ -61,6 +61,7 @@ private:
 	/// </summary>
 	static bool IsCulling(const vec2& p1, const vec2& p2, const vec2& p3);
 	static bool IsInsideTriangle(const vec2& p1, const vec2& p2, const vec2& p3, const vec2& p);
+	static bool IsInsideTriangle_BarycentricArea(const vec2& p1, const vec2& p2, const vec2& p3, const vec2& p);
 
 public:
 	static inline bool Culling = true;

@@ -81,8 +81,8 @@ void Rasterizer::Triangle_Old(vec2 p1, vec2 p2, vec2 p3, TGAImage& framebuffer, 
 		if (p1.y != p2.y) {
 			int segment_height = static_cast<int>(p2.y - p1.y);
 			for (int y = static_cast<int>(p1.y); y <= p2.y; ++y) {
-				int x1 = static_cast<int>(p1.x + (y - p1.y) * (p3.x - p1.x) / total_height);
-				int x2 = static_cast<int>((p1.x + (y - p1.y) * (p2.x - p1.x) / segment_height));
+				int x1 = static_cast<int>(p1.x + (y - p1.y) * (p3.x - p1.x) / total_height);			// Line algorithm (ab)
+				int x2 = static_cast<int>(p1.x + (y - p1.y) * (p2.x - p1.x) / segment_height);
 				for (int x = std::min(x1, x2); x <= std::max(x1, x2); ++x) {
 					framebuffer.set(x, y, color);
 				}
@@ -115,7 +115,7 @@ void Rasterizer::Triangle(const vec2& p1, const vec2& p2, const vec2& p3, TGAIma
 
 		for (int x = std::max(0, xmin); x <= std::min(framebuffer.width() - 1, xmax); ++x) {
 			for (int y = std::max(0, ymin); y <= std::min(framebuffer.height() - 1, ymax); ++y) {
-				if (IsInsideTriangle(p1, p2, p3, vec2(x, y))) {
+				if (IsInsideTriangle_BarycentricArea(p1, p2, p3, vec2(x, y))) {
 					framebuffer.set(x, y, color);
 				}
 			}
@@ -268,4 +268,13 @@ bool Rasterizer::IsInsideTriangle(const vec2& p1, const vec2& p2, const vec2& p3
 	int sign3 = static_cast<int>(p3p1.x * p3p.y - p3p1.y * p3p.x);
 
 	return (sign1 > 0 && sign2 > 0 && sign3 > 0) || (sign1 < 0 && sign2 < 0 && sign3 < 0);
+}
+
+bool Rasterizer::IsInsideTriangle_BarycentricArea(const vec2& p1, const vec2& p2, const vec2& p3, const vec2& p) {
+	// Using barycentric coordinate to test point inclusion in a triangle
+	double a, b, c;
+	std::tie(a, b, c) = CalcBarycentricCoordinates(p1, p2, p3, p);
+
+	if (a < 0 || b < 0 || c < 0) return false;
+	else return true;
 }
