@@ -24,6 +24,11 @@ public:
 	// Triangle
 	static void Triangle_Old(vec2 p1, vec2 p2, vec2 p3, TGAImage& framebuffer, const TGAColor& color);
 
+	// Draw depthbuffer (only) - Chatper 3
+	static void Triangle_With_DepthColor(const vec3& p1, const vec3& p2, const vec3& p3, TGAImage& framebuffer);
+	// Draw full-colored triangles
+	static void Triangle_With_FullColored(const vec2& p1, const vec2& p2, const vec2& p3, TGAImage& framebuffer, const TGAColor& color1, const TGAColor& color2, const TGAColor& color3);
+
 	// Draw frame buffer with color
 	static void Triangle(const vec2& p1, const vec2& p2, const vec2& p3, TGAImage& framebuffer, const TGAColor& color);
 

@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{60ce7af5-71da-4103-bc0d-9f6c212bbe18}</ProjectGuid>
+    <ProjectGuid>{60CE7AF5-71DA-4103-BC0D-9F6C212BBE18}</ProjectGuid>
     <RootNamespace>TinyRendererLesson3</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>TinyRenderer-Lesson4</ProjectName>

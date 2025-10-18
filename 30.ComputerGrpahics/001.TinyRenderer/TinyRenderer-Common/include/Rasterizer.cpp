@@ -102,6 +102,46 @@ void Rasterizer::Triangle_Old(vec2 p1, vec2 p2, vec2 p3, TGAImage& framebuffer, 
 	}
 }
 
+void Rasterizer::Triangle_With_DepthColor(const vec3& p1, const vec3& p2, const vec3& p3, TGAImage& framebuffer) {
+	if (Culling && IsCulling(p1, p2, p3)) return;
+
+	int xmin, ymin, xmax, ymax;
+	std::tie(xmin, ymin, xmax, ymax) = CalcAABB(p1, p2, p3);
+
+	for (int x = std::max(0, xmin); x <= std::min(framebuffer.width() - 1, xmax); ++x) {
+		for (int y = std::max(0, ymin); y <= std::min(framebuffer.height() - 1, ymax); ++y) {
+			double alpha, beta, gamma;
+			std::tie(alpha, beta, gamma) = CalcBarycentricCoordinates(p1, p2, p3, vec2(x, y));
+			if (alpha >= 0 && beta >= 0 && gamma >= 0) {
+				unsigned char z = static_cast<unsigned char>(alpha * p1.z + beta * p2.z + gamma * p3.z);
+				framebuffer.set(x, y, {z});
+			}
+		}
+	}
+}
+
+void Rasterizer::Triangle_With_FullColored(const vec2& p1, const vec2& p2, const vec2& p3, TGAImage& framebuffer, const TGAColor& color1, const TGAColor& color2, const TGAColor& color3) {
+	if (Culling && IsCulling(p1, p2, p3)) return;
+
+	int xmin, ymin, xmax, ymax;
+	std::tie(xmin, ymin, xmax, ymax) = CalcAABB(p1, p2, p3);
+
+	for (int x = std::max(0, xmin); x <= std::min(framebuffer.width() - 1, xmax); ++x) {
+		for (int y = std::max(0, ymin); y <= std::min(framebuffer.height() - 1, ymax); ++y) {
+			double alpha, beta, gamma;
+			std::tie(alpha, beta, gamma) = CalcBarycentricCoordinates(p1, p2, p3, vec2(x, y));
+			if (alpha >= 0 && beta >= 0 && gamma >= 0) {
+				TGAColor color;
+				color.bgra[0] = alpha * color1.bgra[0] + beta * color2.bgra[0] + gamma * color3.bgra[0];
+				color.bgra[1] = alpha * color1.bgra[1] + beta * color2.bgra[1] + gamma * color3.bgra[1];
+				color.bgra[2] = alpha * color1.bgra[2] + beta * color2.bgra[2] + gamma * color3.bgra[2];
+
+				framebuffer.set(x, y, color);
+			}
+		}
+	}
+}
+
 void Rasterizer::Triangle(const vec2& p1, const vec2& p2, const vec2& p3, TGAImage& framebuffer, const TGAColor& color) {
 	if (Wireframe) {
 		Line_With_If(p1, p2, framebuffer, color);
