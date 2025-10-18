@@ -183,7 +183,7 @@ void Rasterizer::Triangle(
 				double alpha, beta, gamma;
 				std::tie(alpha, beta, gamma) = CalcBarycentricCoordinates(p1, p2, p3, vec2(x, y));
 				if (alpha >= 0 && beta >= 0 && gamma >= 0) {
-					unsigned char z = static_cast<unsigned char> ((alpha * p1.z + beta * p2.z + gamma * p3.z) * 255);
+					unsigned char z = static_cast<unsigned char> ((alpha * p1.z + beta * p2.z + gamma * p3.z));
 					if (z > depthbuffer.get(x, y)[0]) {
 						depthbuffer.set(x, y, {z});
 						framebuffer.set(x, y, color);
