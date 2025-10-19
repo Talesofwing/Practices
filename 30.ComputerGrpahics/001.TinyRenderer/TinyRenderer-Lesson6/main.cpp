@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "Rasterizer.h"
 #include "ObjLoader.h"
 #include "zer0Math.h"
@@ -7,98 +9,76 @@ constexpr int height = 1024;
 
 vec3 eye(-1, 0, 2);
 vec3 up(0, 1, 0);
-vec3 center(0, 0, 0);
-
-vec3 view(vec3 v) {
-	vec3 z = (eye - center).normalize();	// right-handed coordinate
-	vec3 x = cross(up, z).normalize();
-	vec3 y = cross(z, x).normalize();
-	mat4x4 m {
-		x.x, x.y, x.z, -dot(x, center),
-		y.x, y.y, y.z, -dot(y, center),
-		z.x, z.y, z.z, -dot(z, center),
-		0, 0, 0., 1
-	};
-
-	return m * v;
-}
-
-vec4 proj(vec3 v) {
-	double f = (eye - center).length();
-	mat4x4 m {
-		1, 0, 0, 0,
-		0, 1, 0, 0,
-		0, 0, 1, 0,
-		0, 0, -1 / f, 1
-	};
-
-	return m * v;
-}
-
-vec3 ndc(vec4 v) {
-	v /= v.w;
-	return v;
-}
-
-vec3 viewport(vec4 v) {
-	mat4x4 m {
-		width * 0.5, 0, 0, width * 0.5,
-		0, height * 0.5, 0, height * 0.5,
-		0, 0, 1, 0,
-		0, 0, 0, 1
-	};
-
-	return m * v;
-}
-
-vec3 transform(vec3 v) {
-	return viewport(ndc(proj(view(v))));
-}
+vec3 lookAt(0, 0, 0);
 
 void perspective_mode() {
 	TGAImage framebuffer(width, height, TGAImage::RGB);
-	TGAImage depthbuffer(width, height, TGAImage::GRAYSCALE);
+	std::vector<double> depthbuffer(width * height, std::numeric_limits<double>::lowest());
 
 	std::string path = "../models/african_head/";
 	std::string filename = "african_head";
 	mesh obj = ObjLoader::LoadObj(path + filename + ".obj", false);
 
 	for (int i = 0; i < obj.vertex_indices.size(); i += 3) {
-		vec3 v1 = transform(obj.vertices[obj.vertex_indices[i]]);
-		vec3 v2 = transform(obj.vertices[obj.vertex_indices[i + 1]]);
-		vec3 v3 = transform(obj.vertices[obj.vertex_indices[i + 2]]);
+		vec3 v1 = transform(obj.vertices[obj.vertex_indices[i]], eye, up, lookAt, width, height);
+		vec3 v2 = transform(obj.vertices[obj.vertex_indices[i + 1]], eye, up, lookAt, width, height);
+		vec3 v3 = transform(obj.vertices[obj.vertex_indices[i + 2]], eye, up, lookAt, width, height);
 
 		TGAColor rnd((unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255));
 
 		Rasterizer::Triangle(v1, v2, v3, framebuffer, depthbuffer, rnd);
 	}
 
-	depthbuffer.write_tga_file("../_results/Lesson5-african_head_depthbuffer.tga");
-	framebuffer.write_tga_file("../_results/Lesson5-african_head_perspective.tga");
+	framebuffer.write_tga_file("../_results/Lesson6/african_head_perspective.tga");
 
 	TGAImage framebuffer2(width, height, TGAImage::RGB);
-	TGAImage depthbuffer2(width, height, TGAImage::GRAYSCALE);
+	std::vector<double> depthbuffer2(width * height, std::numeric_limits<double>::lowest());
 
-	path = "../models/diablo3_pose/";
-	filename = "diablo3_pose";
-	obj = ObjLoader::LoadObj(path + filename + ".obj", false);
+	std::string path2 = "../models/diablo3_pose/";
+	std::string filename2 = "diablo3_pose";
+	mesh obj2 = ObjLoader::LoadObj(path2 + filename2 + ".obj", false);
 
-	for (int i = 0; i < obj.vertex_indices.size(); i += 3) {
-		vec3 v1 = transform(obj.vertices[obj.vertex_indices[i]]);
-		vec3 v2 = transform(obj.vertices[obj.vertex_indices[i + 1]]);
-		vec3 v3 = transform(obj.vertices[obj.vertex_indices[i + 2]]);
+	for (int i = 0; i < obj2.vertex_indices.size(); i += 3) {
+		vec3 v1 = transform(obj2.vertices[obj2.vertex_indices[i]], eye, up, lookAt, width, height);
+		vec3 v2 = transform(obj2.vertices[obj2.vertex_indices[i + 1]], eye, up, lookAt, width, height);
+		vec3 v3 = transform(obj2.vertices[obj2.vertex_indices[i + 2]], eye, up, lookAt, width, height);
 
 		TGAColor rnd((unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255));
 
 		Rasterizer::Triangle(v1, v2, v3, framebuffer2, depthbuffer2, rnd);
 	}
 
-	depthbuffer2.write_tga_file("../_results/Lesson5-diablo3_pose_depthbuffer.tga");
-	framebuffer2.write_tga_file("../_results/Lesson5-diablo3_pose_perspective.tga");
+	framebuffer2.write_tga_file("../_results/Lesson6/diablo3_pose_perspective.tga");
+}
+
+void draw_triangle() {
+	Rasterizer::Culling = false;
+
+	TGAImage framebuffer(width, height, TGAImage::RGB);
+	std::vector<double> depthbuffer(width * height, std::numeric_limits<double>::lowest());
+
+	vec3 v1(0, 0, -2);
+	vec3 v2(0, 1, -1);
+	vec3 v3(0.5, 0.5, -5);
+	v1 = transform(v1, eye, up, lookAt, width, height);
+	v2 = transform(v2, eye, up, lookAt, width, height);
+	v3 = transform(v3, eye, up, lookAt, width, height);
+	Rasterizer::Triangle(v1, v2, v3, framebuffer, depthbuffer, TGAColor::blue);
+
+	vec3 v4(0, 0, -5);
+	vec3 v5(0, 1, -3);
+	vec3 v6(0.5, 0.5, -10);
+	v4 = transform(v4, eye, up, lookAt, width, height);
+	v5 = transform(v5, eye, up, lookAt, width, height);
+	v6 = transform(v6, eye, up, lookAt, width, height);
+	Rasterizer::Triangle(v4, v5, v6, framebuffer, depthbuffer, TGAColor::red);
+
+	framebuffer.write_tga_file("../_results/Lesson6/triangle.tga");
 }
 
 int main() {
-	std::cout << "===== Lesson 5 =====" << std::endl << std::endl;
+	std::cout << "===== Lesson 6 =====" << std::endl << std::endl;
 
 	perspective_mode();
+	draw_triangle();
 }

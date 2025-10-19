@@ -196,6 +196,39 @@ void Rasterizer::Triangle(
 
 void Rasterizer::Triangle(
 	const vec3& p1, const vec3& p2, const vec3& p3,
+	TGAImage& framebuffer, std::vector<double>& depthbuffer,
+	const TGAColor& color)
+{
+	if (Wireframe) {
+		Line_With_If(p1, p2, framebuffer, color);
+		Line_With_If(p1, p3, framebuffer, color);
+		Line_With_If(p2, p3, framebuffer, color);
+	} else {
+		if (Culling && IsCulling(p1, p2, p3)) return;
+
+		int xmin, ymin, xmax, ymax;
+		std::tie(xmin, ymin, xmax, ymax) = CalcAABB(p1, p2, p3);
+
+		const int width = framebuffer.width();
+		const int height = framebuffer.height();
+		for (int x = std::max(0, xmin); x <= std::min(framebuffer.width() - 1, xmax); ++x) {
+			for (int y = std::max(0, ymin); y <= std::min(framebuffer.height() - 1, ymax); ++y) {
+				double alpha, beta, gamma;
+				std::tie(alpha, beta, gamma) = CalcBarycentricCoordinates(p1, p2, p3, vec2(x, y));
+				if (alpha >= 0 && beta >= 0 && gamma >= 0) {
+					double z = alpha * p1.z + beta * p2.z + gamma * p3.z;
+					if (z > depthbuffer[x + y * width]) {
+						depthbuffer[x + y * width] = z;
+						framebuffer.set(x, y, color);
+					}
+				}
+			}
+		}
+	}
+}
+
+void Rasterizer::Triangle(
+	const vec3& p1, const vec3& p2, const vec3& p3,
 	const vec2& uv1, const vec2& uv2, const vec2& uv3,
 	TGAImage& framebuffer, TGAImage& depthbuffer,
 	const TGAImage& texturebuffer)

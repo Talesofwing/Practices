@@ -39,6 +39,13 @@ public:
 		const TGAColor& color
 	);
 
+	// Draw framebuffer using double depthbuffer
+	static void Triangle(
+		const vec3& p1, const vec3& p2, const vec3& p3,
+		TGAImage& framebuffer, std::vector<double>& depthbuffer,
+		const TGAColor& color
+	);
+
 	// Draw depth buffer & frame buffer with texture
 	static void Triangle(
 		const vec3& p1, const vec3& p2, const vec3& p3,

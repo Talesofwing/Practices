@@ -20,6 +20,8 @@ namespace zer0 {
 		double& operator[](const int i);
 		double operator[] (const int i) const;
 
+		vec<n> operator-() const;
+
 		vec<n> operator+(const vec<n>& other) const;
 		vec<n> operator-(const vec<n>& other) const;
 		vec<n> operator*(const double value) const;
@@ -38,6 +40,7 @@ namespace zer0 {
 		vec<2>() = default;
 		vec<2>(double x, double y);
 		vec<2>(double v);
+		vec<2>(const vec<2>& v);
 		vec<2>(const vec<3>& v);
 		vec<2>(const vec<4>& v);
 
@@ -49,6 +52,8 @@ namespace zer0 {
 
 		double& operator[](const int i);
 		double operator[] (const int i) const;
+
+		vec<2> operator-() const;
 
 		vec<2> operator+(const vec<2>& other) const;
 		vec<2> operator-(const vec<2>& other) const;
@@ -69,6 +74,7 @@ namespace zer0 {
 		vec<3>(double x, double y, double z);
 		vec<3>(double v);
 		vec<3>(const vec<2>& v);
+		vec<3>(const vec<3>& v);
 		vec<3>(const vec<4>& v);
 
 		double length() const;
@@ -78,6 +84,8 @@ namespace zer0 {
 
 		double& operator[](const int i);
 		double operator[] (const int i) const;
+
+		vec<3> operator-() const;
 
 		vec<3> operator+(const vec<3>& other) const;
 		vec<3> operator-(const vec<3>& other) const;
@@ -99,6 +107,7 @@ namespace zer0 {
 		vec<4>(double v);
 		vec<4>(const vec<2>& v);
 		vec<4>(const vec<3>& v);
+		vec<4>(const vec<4>& v);
 
 		double length() const;
 
@@ -107,6 +116,8 @@ namespace zer0 {
 
 		double& operator[](const int i);
 		double operator[] (const int i) const;
+
+		vec<4> operator-() const;
 
 		vec<4> operator+(const vec<4>& other) const;
 		vec<4> operator-(const vec<4>& other) const;
@@ -183,6 +194,8 @@ namespace zer0 {
 	vec<3> operator*(const mat3x3& m, const vec<3>& v);
 	vec<3> operator*(const vec<3>& v, const mat3x3& m);
 
+	std::ostream& operator<<(std::ostream& out, const mat3x3& m);
+
 	struct mat4x4 {
 		static mat4x4 zero() {
 			return {
@@ -217,6 +230,9 @@ namespace zer0 {
 
 	vec<4> operator*(const mat4x4& m, const vec<4>& v);
 	vec<4> operator*(const vec<4>& v, const mat4x4& m);
+	mat4x4 operator*(const mat4x4& m1, const mat4x4& m2);
+
+	std::ostream& operator<<(std::ostream& out, const mat4x4& m);
 
 	// >> Chapter 6 
 	//	Transformation Matrics

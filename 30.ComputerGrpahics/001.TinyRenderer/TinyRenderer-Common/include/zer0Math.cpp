@@ -52,6 +52,15 @@ namespace zer0 {
 	}
 
 	template<int n>
+	vec<n> vec<n>::operator-() const {
+		vec<n> result;
+		for (int i = 0; i < n; ++i)
+			result.data[i] = -data[i];
+
+		return result;
+	}
+
+	template<int n>
 	vec<n> vec<n>::operator+(const vec<n>& other) const {
 		vec<n> result;
 		for (int i = 0; i < n; ++i)
@@ -131,6 +140,8 @@ namespace zer0 {
 
 	vec<2>::vec<2>(double v) : x(v), y(v) {}
 
+	vec<2>::vec<2>(const vec<2>& v) : x(v.x), y(v.y) {}
+
 	vec<2>::vec<2>(const vec<3>& v) : x(v.x), y(v.y) {}
 
 	vec<2>::vec<2>(const vec<4>& v) : x(v.x), y(v.y) {}
@@ -168,6 +179,10 @@ namespace zer0 {
 	double& vec<2>::operator[] (const int i) {
 		assert(i >= 0 && i < 2);
 		return i == 0 ? x : y;
+	}
+
+	vec<2> vec<2>::operator-() const {
+		return vec<2>(-x, -y);
 	}
 
 	vec<2> vec<2>::operator+(const vec<2>& other) const {
@@ -236,7 +251,9 @@ namespace zer0 {
 
 	vec<3>::vec<3>(double v) : x(v), y(v), z(v) {}
 
-	vec<3>::vec<3>(const vec<2>& v) : x(v.x), y(v.y), z(0) {}
+	vec<3>::vec<3>(const vec<2>& v) : x(v.x), y(v.y), z(1) {}
+
+	vec<3>::vec<3>(const vec<3>& v) : x(v.x), y(v.y), z(v.z) {}
 
 	vec<3>::vec<3>(const vec<4>& v) : x(v.x), y(v.y), z(v.z) {}
 
@@ -273,6 +290,10 @@ namespace zer0 {
 		assert(i >= 0 && i < 3);
 		return i == 0 ? x :
 			i == 1 ? y : z;
+	}
+
+	vec<3> vec<3>::operator-() const {
+		return vec<3>(-x, -y, -z);
 	}
 
 	vec<3> vec<3>::operator+(const vec<3>& other) const {
@@ -353,6 +374,8 @@ namespace zer0 {
 
 	vec<4>::vec<4>(const vec<3>& v) : x(v.x), y(v.y), z(v.z), w(1) {}
 
+	vec<4>::vec<4>(const vec<4>& v) : x(v.x), y(v.y), z(v.z), w(v.w) {}
+
 	double vec<4>::length() const {
 		return std::sqrt(x * x + y * y + z * z + w * w);
 	}
@@ -390,6 +413,10 @@ namespace zer0 {
 		return i == 0 ? x :
 			i == 1 ? y :
 			i == 2 ? z : w;
+	}
+
+	vec<4> vec<4>::operator-() const {
+		return vec<4>(-x, -y, -z, -w);
 	}
 
 	vec<4> vec<4>::operator+(const vec<4>& other) const {
@@ -498,6 +525,17 @@ namespace zer0 {
 		return result;
 	}
 
+	std::ostream& operator<<(std::ostream& out, const mat3x3& m) {
+		for (int y = 0; y < 3; ++y) {
+			for (int x = 0; x < 3; ++x) {
+				out << m.mat[y][x] << " ";
+			}
+			out << "\n";
+		}
+
+		return out;
+	}
+
 	vec<4> operator*(const mat4x4& m, const vec<4>& v) {
 		vec<4> result;
 		result.x = m.a * v.x + m.b * v.y + m.c * v.z + m.d * v.w;
@@ -516,21 +554,39 @@ namespace zer0 {
 		return result;
 	}
 
+	mat4x4 operator*(const mat4x4& m1, const mat4x4& m2) {
+		return mat4x4 {
+			m1.a * m2.a + m1.b * m2.e + m1.c * m2.i + m1.d * m2.m, m1.a * m2.b + m1.b * m2.f + m1.c * m2.j + m1.d * m2.n, m1.a * m2.c + m1.b * m2.g + m1.c * m2.k + m1.d * m2.o, m1.a * m2.d + m1.b * m2.h + m1.c * m2.l + m1.d * m2.p,
+			m1.e * m2.a + m1.f * m2.e + m1.g * m2.i + m1.h * m2.m, m1.e * m2.b + m1.f * m2.f + m1.g * m2.j + m1.h * m2.n, m1.e * m2.c + m1.f * m2.g + m1.g * m2.k + m1.h * m2.o, m1.e * m2.d + m1.f * m2.h + m1.g * m2.l + m1.h * m2.p,
+			m1.i * m2.a + m1.j * m2.e + m1.k * m2.i + m1.l * m2.m, m1.i * m2.b + m1.j * m2.f + m1.k * m2.j + m1.l * m2.n, m1.i * m2.c + m1.j * m2.g + m1.k * m2.k + m1.l * m2.o, m1.i * m2.d + m1.j * m2.h + m1.k * m2.l + m1.l * m2.p,
+			m1.m * m2.a + m1.n * m2.e + m1.o * m2.i + m1.p * m2.m, m1.m * m2.b + m1.n * m2.f + m1.o * m2.j + m1.p * m2.n, m1.m * m2.c + m1.n * m2.g + m1.o * m2.k + m1.p * m2.o, m1.m * m2.d + m1.n * m2.h + m1.o * m2.l + m1.p * m2.p
+		};
+	}
+
+	std::ostream& operator<<(std::ostream& out, const mat4x4& m) {
+		for (int y = 0; y < 4; ++y) {
+			for (int x = 0; x < 4; ++x) {
+				out << m.mat[y][x] << " ";
+			}
+			out << "\n";
+		}
+
+		return out;
+	}
+
 	// >> Chapter 6 
 	//	Transformation Matrics
 
-	mat4x4 view(const vec3& eye, const vec3& up, const vec3& center) {
-		vec3 z = (eye - center).normalize();	// right-handed coordinate
+	mat4x4 view(const vec3& eye, const vec3& up, const vec3& lookAt) {
+		vec3 z = (eye - lookAt).normalize();
 		vec3 x = cross(up, z).normalize();
 		vec3 y = cross(z, x).normalize();
-		mat4x4 m {
-			x.x, x.y, x.z, -dot(x, center),
-			y.x, y.y, y.z, -dot(y, center),
-			z.x, z.y, z.z, -dot(z, center),
-			0, 0, 0., 1
+		return {
+			x.x, x.y, x.z, -dot(x, eye),
+			y.x, y.y, y.z, -dot(y, eye),
+			z.x, z.y, z.z, -dot(z, eye),
+			0, 0, 0, 1
 		};
-
-		return m;
 	}
 
 	mat4x4 proj(const double coeff) {
@@ -553,11 +609,11 @@ namespace zer0 {
 
 	vec4 transform(
 		vec4 v,
-		const vec3& eye, const vec3& up, const vec3& center,
+		const vec3& eye, const vec3& up, const vec3& lookAt,
 		const int width, const int height)
 	{
-		mat4x4 vm = view(eye, up, center);
-		mat4x4 pm = proj((eye - center).length());
+		mat4x4 vm = view(eye, up, lookAt);
+		mat4x4 pm = proj((eye - lookAt).length());
 		mat4x4 vpm = viewport(width, height);
 
 		v = pm * (vm * v);
