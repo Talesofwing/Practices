@@ -8,7 +8,6 @@ constexpr int height = 1024;
 vec3 world(vec3 v) {
 	constexpr double theta = M_PI / 6;
 
-	// Non-literal type, because of union
 	mat3x3 m = {
 		std::cos(theta), 0, std::sin(theta),
 		0, 1, 0,
@@ -42,8 +41,6 @@ vec3 transform(vec3 v) {
 void render() {
 	TGAImage framebuffer(width, height, TGAImage::RGB);
 	TGAImage depthbuffer(width, height, TGAImage::GRAYSCALE);
-	TGAImage texturebuffer;
-	texturebuffer.read_tga_file("../models/african_head/african_head_diffuse.tga");
 
 	Rasterizer::Culling = true;
 	Rasterizer::Wireframe = false;
@@ -60,14 +57,15 @@ void render() {
 		vec2 uv2 = obj.uvs[obj.uv_indcies[i + 1]];
 		vec2 uv3 = obj.uvs[obj.uv_indcies[i + 2]];
 
+		TGAColor rnd((unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255));
+
 		Rasterizer::Triangle(v1, v2, v3,
-							 uv1, uv2, uv3,
 							 framebuffer, depthbuffer,
-							 texturebuffer);
+							 rnd);
 	}
 
-	depthbuffer.write_tga_file("../_results/Lesson4-african_head_depthbuffer.tga");
-	framebuffer.write_tga_file("../_results/Lesson4-african_head_perspective.tga");
+	depthbuffer.write_tga_file("../_results/Lesson5/african_head_depthbuffer.tga");
+	framebuffer.write_tga_file("../_results/Lesson5/african_head_perspective.tga");
 }
 
 void homework() {
@@ -91,18 +89,19 @@ void homework() {
 		vec2 uv2 = obj.uvs[obj.uv_indcies[i + 1]];
 		vec2 uv3 = obj.uvs[obj.uv_indcies[i + 2]];
 
+		TGAColor rnd((unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255));
+
 		Rasterizer::Triangle(v1, v2, v3,
-							 uv1, uv2, uv3,
 							 framebuffer, depthbuffer,
-							 texturebuffer);
+							 rnd);
 	}
 
-	depthbuffer.write_tga_file("../_results/Lesson4-diablo3_pose_depthbuffer.tga");
-	framebuffer.write_tga_file("../_results/Lesson4-diablo3_pose_perspective.tga");
+	depthbuffer.write_tga_file("../_results/Lesson5/diablo3_pose_depthbuffer.tga");
+	framebuffer.write_tga_file("../_results/Lesson5/diablo3_pose_perspective.tga");
 }
 
 int main() {
-	std::cout << "===== Lesson 4 =====" << std::endl << std::endl;
+	std::cout << "===== Lesson 5 =====" << std::endl << std::endl;
 
 	render();
 	homework();
