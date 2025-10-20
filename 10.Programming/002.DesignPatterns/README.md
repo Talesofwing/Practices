@@ -14,6 +14,7 @@ This chapter will describe the uses of each pattern with practical examples from
 6. [Mediator](docs/Mediator.md)
 7. [Memento](docs/Memento.md)
 8. [Strategy](docs/Strategy.md)
+9. [TemplateMethod](docs/TemplateMethod.md)
 
 #### Structural Patterns
 1. [Flyweight](docs/Flyweight.md)
@@ -181,6 +182,10 @@ The two patterns can easily be unintentionally mixed together.
 - Monsters of the same type hold the same data, so this data is shared → `Flyweight Pattern`
 
 - The Monster’s type is defined by this data, such as attack style, movement style, attack speed… → `Type Object`
+
+#### The difference between [Template Method](docs/TemplateMethod.md) and [Factory Method](docs/Factory.md)
+
+The `Factory Method Pattern` can be described as a specialized form of the `Template Method Pattern`, specifically designed for object creation.
 
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)
