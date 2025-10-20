@@ -15,6 +15,7 @@ This chapter will describe the uses of each pattern with practical examples from
 7. [Memento](docs/Memento.md)
 8. [Strategy](docs/Strategy.md)
 9. [TemplateMethod](docs/TemplateMethod.md)
+10. [Visitor](docs/Visitor.md)
 
 #### Structural Patterns
 1. [Flyweight](docs/Flyweight.md)
