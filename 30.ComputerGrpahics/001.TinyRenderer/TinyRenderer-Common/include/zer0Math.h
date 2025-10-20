@@ -244,7 +244,7 @@ namespace zer0 {
 	mat4x4 viewport(const int width, const int height);
 
 	vec4 transform(
-		vec4 v,
+		const vec4& v,
 		const vec3& eye, const vec3& up, const vec3& center,
 		const int width, const int height
 	);

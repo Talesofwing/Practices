@@ -608,7 +608,7 @@ namespace zer0 {
 	}
 
 	vec4 transform(
-		vec4 v,
+		const vec4& v,
 		const vec3& eye, const vec3& up, const vec3& lookAt,
 		const int width, const int height)
 	{
@@ -616,10 +616,11 @@ namespace zer0 {
 		mat4x4 pm = proj((eye - lookAt).length());
 		mat4x4 vpm = viewport(width, height);
 
-		v = pm * (vm * v);
-		v /= v.w;		// ndc
-		v = vpm * v;
+		vec4 result;
+		result = pm * (vm * v);
+		result /= result.w;		// ndc
+		result = vpm * result;
 
-		return v;
+		return result;
 	}
 }

@@ -46,21 +46,10 @@ public:
 		const TGAColor& color
 	);
 
-	// Draw depth buffer & frame buffer with texture
-	static void Triangle(
-		const vec3& p1, const vec3& p2, const vec3& p3,
-		const vec2& uv1, const vec2& uv2, const vec2& uv3,
-		TGAImage& framebuffer, TGAImage& depthbuffer,
-		const TGAImage& texturebuffer
-	);
-
-	// >> Chapter 6
-
 	// Draw with shader
 	static void Triangle(
-		const mesh& model, const int i1, int i2, int i3,
-		IShader& shader, TGAImage& framebuffer, TGAImage& depthbuffer,
-		std::vector<std::vector<double>>& depth
+		const mesh& model, IShader& shader,
+		TGAImage& framebuffer, std::vector<double> depthbuffer
 	);
 
 private:
