@@ -38,10 +38,6 @@ struct GouraudShader : public IShader {
 	}
 };
 
-void previous() {
-
-}
-
 void render() {
 	light_dir.normalize();
 
@@ -61,6 +57,5 @@ void render() {
 int main() {
 	std::cout << "===== Lesson 7 =====" << std::endl << std::endl;
 
-	previous();
 	render();
 }
