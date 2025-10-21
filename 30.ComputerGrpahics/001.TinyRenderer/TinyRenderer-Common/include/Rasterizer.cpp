@@ -296,6 +296,87 @@ void Rasterizer::Triangle_With_Smooth_Normal(
 	}
 }
 
+void Rasterizer::Triangle_With_Normal_Mapping(
+	const mesh& model, IShader& shader,
+	TGAImage& framebuffer, std::vector<double> depthbuffer,
+	const TGAImage& normalmap)
+{
+	for (int i = 0; i < model.vertex_indices.size(); i += 3) {
+		vec2 uv1 = model.uvs[model.uv_indices[i]];
+		vec2 uv2 = model.uvs[model.uv_indices[i + 1]];
+		vec2 uv3 = model.uvs[model.uv_indices[i + 2]];
+
+		vec3 p1 = shader.vertex(0, model.vertices[model.vertex_indices[i]], uv1);
+		vec3 p2 = shader.vertex(1, model.vertices[model.vertex_indices[i + 1]], uv2);
+		vec3 p3 = shader.vertex(2, model.vertices[model.vertex_indices[i + 2]], uv3);
+
+		if (Culling && IsCulling(p1, p2, p3)) continue;
+
+		int xmin, ymin, xmax, ymax;
+		std::tie(xmin, ymin, xmax, ymax) = CalcAABB(p1, p2, p3);
+		const int width = framebuffer.width();
+		const int height = framebuffer.height();
+		for (int x = std::max(0, xmin); x <= std::min(framebuffer.width() - 1, xmax); ++x) {
+			for (int y = std::max(0, ymin); y <= std::min(framebuffer.height() - 1, ymax); ++y) {
+				double alpha, beta, gamma;
+				std::tie(alpha, beta, gamma) = CalcBarycentricCoordinates(p1, p2, p3, vec2(x, y));
+				if (alpha >= 0 && beta >= 0 && gamma >= 0) {
+					double z = p1.z * alpha + p2.z * beta + p3.z * gamma;
+					if (z > depthbuffer[x + y * width]) {
+						TGAColor color;
+						bool discard = shader.fragment(alpha, beta, gamma, normalmap, color);
+						if (!discard) {
+							depthbuffer[x + y * width] = z;
+							framebuffer.set(x, y, color);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+void Rasterizer::Triangle_With_Normal_Mapping_And_Texture(
+	const mesh& model, IShader& shader,
+	TGAImage& framebuffer, std::vector<double> depthbuffer,
+	const TGAImage& diff_texture, const TGAImage& spec_texture,
+	const TGAImage& normalmap)
+{
+	for (int i = 0; i < model.vertex_indices.size(); i += 3) {
+		vec2 uv1 = model.uvs[model.uv_indices[i]];
+		vec2 uv2 = model.uvs[model.uv_indices[i + 1]];
+		vec2 uv3 = model.uvs[model.uv_indices[i + 2]];
+
+		vec3 p1 = shader.vertex(0, model.vertices[model.vertex_indices[i]], uv1);
+		vec3 p2 = shader.vertex(1, model.vertices[model.vertex_indices[i + 1]], uv2);
+		vec3 p3 = shader.vertex(2, model.vertices[model.vertex_indices[i + 2]], uv3);
+
+		if (Culling && IsCulling(p1, p2, p3)) continue;
+
+		int xmin, ymin, xmax, ymax;
+		std::tie(xmin, ymin, xmax, ymax) = CalcAABB(p1, p2, p3);
+		const int width = framebuffer.width();
+		const int height = framebuffer.height();
+		for (int x = std::max(0, xmin); x <= std::min(framebuffer.width() - 1, xmax); ++x) {
+			for (int y = std::max(0, ymin); y <= std::min(framebuffer.height() - 1, ymax); ++y) {
+				double alpha, beta, gamma;
+				std::tie(alpha, beta, gamma) = CalcBarycentricCoordinates(p1, p2, p3, vec2(x, y));
+				if (alpha >= 0 && beta >= 0 && gamma >= 0) {
+					double z = p1.z * alpha + p2.z * beta + p3.z * gamma;
+					if (z > depthbuffer[x + y * width]) {
+						TGAColor color;
+						bool discard = shader.fragment(alpha, beta, gamma, diff_texture, spec_texture, normalmap, color);
+						if (!discard) {
+							depthbuffer[x + y * width] = z;
+							framebuffer.set(x, y, color);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 std::tuple<int, int, int, int> Rasterizer::CalcAABB(const vec2& p1, const vec2& p2, const vec2& p3) {
 	int xmin, xmax, ymin, ymax;
 	xmin = static_cast<int>(std::min(std::min(p1.x, p2.x), p3.x));

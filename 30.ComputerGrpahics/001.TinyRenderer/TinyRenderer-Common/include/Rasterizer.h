@@ -52,10 +52,25 @@ public:
 		TGAImage& framebuffer, std::vector<double> depthbuffer
 	);
 
-	// Lesson8 - Draw with shader with smooth normal
+	// Draw with shader with smooth normal
 	static void Triangle_With_Smooth_Normal(
 		const mesh& model, IShader& shader,
 		TGAImage& framebuffer, std::vector<double> depthbuffer
+	);
+
+	// Draw with shader with normal map
+	static void Triangle_With_Normal_Mapping(
+		const mesh& model, IShader& shader,
+		TGAImage& framebuffer, std::vector<double> depthbuffer,
+		const TGAImage& normalmap
+	);
+
+	// Draw with shader with normal map & texture
+	static void Triangle_With_Normal_Mapping_And_Texture(
+		const mesh& model, IShader& shader,
+		TGAImage& framebuffer, std::vector<double> depthbuffer,
+		const TGAImage& diff_texture, const TGAImage& spec_texture,
+		const TGAImage& normalmap
 	);
 
 private:

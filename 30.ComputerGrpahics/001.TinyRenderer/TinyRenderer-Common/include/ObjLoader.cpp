@@ -50,12 +50,13 @@ mesh ObjLoader::LoadObj(std::string path, bool fit) {
 			v1--; v2--; v3--;
 			uv1--; uv2--; uv3--;
 			n1--; n2--; n3--;
+
 			m.vertex_indices.emplace_back(v1);
 			m.vertex_indices.emplace_back(v2);
 			m.vertex_indices.emplace_back(v3);
-			m.uv_indcies.emplace_back(uv1);
-			m.uv_indcies.emplace_back(uv2);
-			m.uv_indcies.emplace_back(uv3);
+			m.uv_indices.emplace_back(uv1);
+			m.uv_indices.emplace_back(uv2);
+			m.uv_indices.emplace_back(uv3);
 			m.normals_indices.emplace_back(n1);
 			m.normals_indices.emplace_back(n2);
 			m.normals_indices.emplace_back(n3);
@@ -64,7 +65,6 @@ mesh ObjLoader::LoadObj(std::string path, bool fit) {
 
 			double u, v, w;
 			iss >> u >> v >> w;
-
 			m.uvs.emplace_back(u, 1.0 - v);
 		} else if (prefix == "vn") {
 			// normal

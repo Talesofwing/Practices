@@ -11,6 +11,6 @@ struct mesh {
 	std::vector<vec2> uvs;
 	std::vector<vec3> normals;
 	std::vector<unsigned int> vertex_indices;
-	std::vector<unsigned int> uv_indcies;
+	std::vector<unsigned int> uv_indices;
 	std::vector<unsigned int> normals_indices;
 };

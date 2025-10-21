@@ -53,9 +53,9 @@ void render() {
 		vec3 v1 = transform(obj.vertices[obj.vertex_indices[i]]);
 		vec3 v2 = transform(obj.vertices[obj.vertex_indices[i + 1]]);
 		vec3 v3 = transform(obj.vertices[obj.vertex_indices[i + 2]]);
-		vec2 uv1 = obj.uvs[obj.uv_indcies[i]];
-		vec2 uv2 = obj.uvs[obj.uv_indcies[i + 1]];
-		vec2 uv3 = obj.uvs[obj.uv_indcies[i + 2]];
+		vec2 uv1 = obj.uvs[obj.uv_indices[i]];
+		vec2 uv2 = obj.uvs[obj.uv_indices[i + 1]];
+		vec2 uv3 = obj.uvs[obj.uv_indices[i + 2]];
 
 		TGAColor rnd((unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255));
 
@@ -85,9 +85,9 @@ void homework() {
 		vec3 v1 = transform(obj.vertices[obj.vertex_indices[i]]);
 		vec3 v2 = transform(obj.vertices[obj.vertex_indices[i + 1]]);
 		vec3 v3 = transform(obj.vertices[obj.vertex_indices[i + 2]]);
-		vec2 uv1 = obj.uvs[obj.uv_indcies[i]];
-		vec2 uv2 = obj.uvs[obj.uv_indcies[i + 1]];
-		vec2 uv3 = obj.uvs[obj.uv_indcies[i + 2]];
+		vec2 uv1 = obj.uvs[obj.uv_indices[i]];
+		vec2 uv2 = obj.uvs[obj.uv_indices[i + 1]];
+		vec2 uv3 = obj.uvs[obj.uv_indices[i + 2]];
 
 		TGAColor rnd((unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255), (unsigned char)(rand() % 255));
 
