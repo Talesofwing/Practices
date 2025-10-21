@@ -8,6 +8,7 @@ using namespace zer0;
 
 struct IShader {
 	virtual ~IShader();
-	virtual vec3 vertex(int nthvert, const vec4& p) = 0;
-	virtual bool fragment(double alpha, double beta, double gamma, TGAColor& color) = 0;
+	virtual vec3 vertex(int nthvert, const vec4& p) { return p; }
+	virtual vec3 vertex(int nthvert, const vec4& p, const vec3& n) { return p; }
+	virtual bool fragment(double alpha, double beta, double gamma, TGAColor& color) { return true; }
 };

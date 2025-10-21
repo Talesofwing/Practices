@@ -46,8 +46,14 @@ public:
 		const TGAColor& color
 	);
 
-	// Draw with shader
+	// Draw with shader (without normal)
 	static void Triangle(
+		const mesh& model, IShader& shader,
+		TGAImage& framebuffer, std::vector<double> depthbuffer
+	);
+
+	// Lesson8 - Draw with shader with smooth normal
+	static void Triangle_With_Smooth_Normal(
 		const mesh& model, IShader& shader,
 		TGAImage& framebuffer, std::vector<double> depthbuffer
 	);

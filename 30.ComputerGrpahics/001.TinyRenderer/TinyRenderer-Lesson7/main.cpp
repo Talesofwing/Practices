@@ -16,7 +16,7 @@ struct GouraudShader : public IShader {
 	vec3 points[3];
 
 	virtual vec3 vertex(int nthvert, const vec4& p) {
-		points[nthvert] = p;
+		points[nthvert] = view(eye, up, lookAt) * p;
 
 		return transform(p, eye, up, lookAt, width, height);
 	}
@@ -25,6 +25,7 @@ struct GouraudShader : public IShader {
 		vec3 n = cross(points[1] - points[0], points[2] - points[0]);
 		n.normalized();
 		vec3 r = (n * dot(light_dir, n) * 2 - light_dir);
+		r.normalized();
 
 		double ambient = .3;
 		double diff = std::max(0.0, dot(n, light_dir));
@@ -51,7 +52,7 @@ void render() {
 	GouraudShader shader;
 	Rasterizer::Triangle(obj, shader, framebuffer, depthbuffer);
 
-	framebuffer.write_tga_file("../_results/Lesson7/african_head_perspective.tga");
+	framebuffer.write_tga_file("../_results/Lesson7/african_head.tga");
 }
 
 int main() {
