@@ -347,9 +347,9 @@ void Rasterizer::Triangle_With_Normal_Mapping_And_Texture(
 		vec2 uv2 = model.uvs[model.uv_indices[i + 1]];
 		vec2 uv3 = model.uvs[model.uv_indices[i + 2]];
 
-		vec3 p1 = shader.vertex(0, model.vertices[model.vertex_indices[i]], uv1);
-		vec3 p2 = shader.vertex(1, model.vertices[model.vertex_indices[i + 1]], uv2);
-		vec3 p3 = shader.vertex(2, model.vertices[model.vertex_indices[i + 2]], uv3);
+		vec3 p1 = shader.vertex(0, model.vertices[model.vertex_indices[i]], uv1, model.normals[model.normals_indices[i]]);
+		vec3 p2 = shader.vertex(1, model.vertices[model.vertex_indices[i + 1]], uv2, model.normals[model.normals_indices[i + 1]]);
+		vec3 p3 = shader.vertex(2, model.vertices[model.vertex_indices[i + 2]], uv3, model.normals[model.normals_indices[i + 2]]);
 
 		if (Culling && IsCulling(p1, p2, p3)) continue;
 

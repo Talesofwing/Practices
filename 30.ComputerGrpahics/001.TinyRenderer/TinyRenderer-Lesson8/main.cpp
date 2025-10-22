@@ -57,10 +57,18 @@ struct GouraudShader : public IShader {
 		return transform(p, eye, up, lookAt, width, height);
 	}
 
+	virtual vec3 vertex(int nthvert, const vec4& p, const vec2& uv, const vec3& n) {
+		points[nthvert] = view(eye, up, lookAt) * p;
+		uvs[nthvert] = uv;
+		normals[nthvert] = n;
+
+		return transform(p, eye, up, lookAt, width, height);
+	}
+
 	virtual bool fragment(double alpha, double beta, double gamma, const TGAImage& nm, TGAColor& color) {
 		vec2 uv = uvs[0] * alpha + uvs[1] * beta + uvs[2] * gamma;
 
-		TGAColor c = nm.get(uv[0] * nm.width(), uv[1] * nm.height());
+		TGAColor c = nm.get(std::clamp((int)(uv[0] * nm.width()), 0, nm.width() - 1), std::clamp((int)(uv[1] * nm.height()), 0, nm.height() - 1));
 		vec3 n = vec3((double)c[2], (double)c[1], (double)c[0]) * 2.0/255.0 - vec3(1, 1, 1);
 
 		// I was too lazy to implement the inverse matrix calculation,
@@ -91,7 +99,7 @@ struct GouraudShader : public IShader {
 	virtual bool fragment(double alpha, double beta, double gamma, const TGAImage& diff_texture, const TGAImage& spec_texture, const TGAImage& nm, TGAColor& color) {
 		vec2 uv = uvs[0] * alpha + uvs[1] * beta + uvs[2] * gamma;
 
-		TGAColor c = nm.get(uv[0] * nm.width(), uv[1] * nm.height());
+		TGAColor c = nm.get(std::clamp((int)(uv[0] * nm.width()), 0, nm.width() - 1), std::clamp((int)(uv[1] * nm.height()), 0, nm.height() - 1));
 		vec3 n = vec3((double)c[2], (double)c[1], (double)c[0]) * 2.0 / 255.0 - vec3(1, 1, 1);
 
 		// I was too lazy to implement the inverse matrix calculation,
