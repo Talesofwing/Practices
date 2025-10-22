@@ -125,9 +125,9 @@ struct GouraudShader : public IShader {
 		specColor[1] = specColor[0];
 		specColor[2] = specColor[0];
 
-		color[0] = ambient + diffColor[0] * diff + specColor[0] * spec;
-		color[1] = ambient + diffColor[1] * diff + specColor[1] * spec;
-		color[2] = ambient + diffColor[2] * diff + specColor[2] * spec;
+		color[0] = std::min(255.0, ambient + diffColor[0] * diff + specColor[0] * spec);
+		color[1] = std::min(255.0, ambient + diffColor[1] * diff + specColor[1] * spec);
+		color[2] = std::min(255.0, ambient + diffColor[2] * diff + specColor[2] * spec);
 
 		return false;
 	}
