@@ -1,0 +1,9 @@
+_build/
+_imgs/
+
+run.bat
+build.py
+
+__pycache__/
+
+.vscode/
