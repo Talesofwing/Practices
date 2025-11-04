@@ -19,6 +19,7 @@ This chapter will describe the uses of each pattern with practical examples from
 
 #### Structural Patterns
 1. [Flyweight](docs/Flyweight.md)
+2. [Adapter](docs/Adapter.md)
 
 #### Creational Patterns
 1. [Prototype](docs/Prototype.md)
@@ -187,6 +188,18 @@ The two patterns can easily be unintentionally mixed together.
 #### The difference between [Template Method](docs/TemplateMethod.md) and [Factory Method](docs/Factory.md)
 
 The `Factory Method Pattern` can be described as a specialized form of the `Template Method Pattern`, specifically designed for object creation.
+
+#### The difference between [Adapter Pattern](docs/Adapter.md) and [Decorator Pattern](docs/Decorator.md)
+
+Both patterns can add new functionality to a class through inheritance, but their design philosophies and use cases are fundamentally different.
+
+- Adapter Pattern
+
+	Unifies different or incompatible interfaces by converting them into the format expected by the system.
+
+- Decorator Pattern
+
+	Does not convert interfaces; it simply extends the existing interface by adding new behaviors.
 
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)
