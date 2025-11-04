@@ -21,3 +21,6 @@ When working with an existing class where it’s inconvenient or impossible to d
 This approach is conceptually similar to the [Decorator Pattern](./Decorator.md)—see [Adapter vs. Decorator](../README.md#the-difference-between-adapter-pattern-and-decorator-pattern) for a detailed comparison.
 
 The Adapter Pattern is typically used in the later stages of a project. At that point, new classes or third-party libraries may not integrate seamlessly with existing code. In such cases, the `Adapter Pattern` provides an elegant way to make them work together without major refactoring.
+
+### References
+- [Difference from the Decorator Pattern](../README.md#the-difference-between-adapter-pattern-and-decorator-pattern)
