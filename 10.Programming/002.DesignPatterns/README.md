@@ -2,7 +2,9 @@
 
 Whether in team development or solo development, clean and elegant code is always pleasing to the eye. Moreover, both game development and application development are ongoing processes. If the code architecture is not well designed, it will cause many problems in subsequent updates and development. Therefore, learning **Design Patterns** is an important task.
 
-This chapter will describe the uses of each pattern with practical examples from game development. In addition, The chapter will provide personal insights, as well as some difficulties and thoughts encountered during the learning process, all of which will be described in a straightforward manner.
+> Design patterns not only describe code structures but also convey the underlying design intentions and the problems they aim to solve.
+>
+> Therefore, understanding their core concepts is the key to truly mastering design patterns.
 
 ### Contents
 #### Behavioral Patterns
@@ -20,6 +22,7 @@ This chapter will describe the uses of each pattern with practical examples from
 #### Structural Patterns
 1. [Flyweight](docs/Flyweight.md)
 2. [Adapter](docs/Adapter.md)
+3. [Bridge](docs/Bridge.md)
 
 #### Creational Patterns
 1. [Prototype](docs/Prototype.md)
@@ -200,6 +203,32 @@ Both patterns can add new functionality to a class through inheritance, but thei
 - Decorator Pattern
 
 	Does not convert interfaces; it simply extends the existing interface by adding new behaviors.
+
+#### The difference between [Bridge Pattern](docs/Bridge.md) and [Strategy Pattern](docs/Strategy.md)
+
+The `Bridge Pattern` can also be switched at runtime, making it structurally similar to the `Strategy Pattern`. However, while their structures are nearly identical, their core concepts and the problems they aim to solve are different.
+
+- Bridge Pattern
+
+	A structural pattern that separates "abstraction" from "implementation" so that both can evolve independently.
+
+- Strategy Pattern
+
+	A behavioral pattern used to encapsulate interchangeable "algorithms" or "behaviors."
+
+> In simple terms: the `Bridge Pattern` separates concerns at the system level, while the `Strategy Pattern` separates concerns at the behavioral level.
+
+#### The difference between [Bridge Pattern](docs/Bridge.md) and [Adapter Pattern](docs/Adapter.md)
+
+Both are structural patterns and share a similar code structure, but their core concepts and the problems they aim to solve are different.
+
+- Bridge Pattern
+	- Separates abstraction from implementation, allowing both to evolve independently.
+	- Considered during the early design phase as an architectural separation.
+	- Not concerned with compatibility issues.
+- Adapter Pattern
+	- Enables previously incompatible interfaces to work together.
+	- Used to integrate third-party or legacy code.
 
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)
