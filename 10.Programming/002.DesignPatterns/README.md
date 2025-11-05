@@ -230,6 +230,19 @@ Both are structural patterns and share a similar code structure, but their core 
 	- Enables previously incompatible interfaces to work together.
 	- Used to integrate third-party or legacy code.
 
+#### The difference between [Component](docs/Component.md) and [Strategy Pattern](docs/Strategy.md)
+
+Both involve the encapsulation and abstraction of behavior, but their core problems and use cases differ, with boundaries often overlapping.
+
+- Component
+	- Usually contains its own state and behavior, being more complete and independent, resembling a plug-and-play module.
+	- Can be reused across multiple different objects, supporting dynamic composition and extension of functionality.
+	- Focuses on the "composition of object capabilities," often representing a certain ability or attribute.
+- Strategy Pattern
+	- Typically encapsulates algorithmic behavior, containing little or no internal state.
+	- Usually designed for behavior variations specific to a particular object and can be switched at runtime.
+	- Emphasizes the "switching of algorithmic behavior," solving multiple strategy implementations for the same problem.
+
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)
 - [Game Programming Patterns](https://gameprogrammingpatterns.com/)
