@@ -32,4 +32,4 @@ This is usually implemented using configuration tables, such as:
 
 ### References
 
-- [Difference from the Component Pattern](../README.md#the-difference-between-type-object-and-flyweight-pattern)
+- [Difference from the Flyweight Pattern](../README.md#the-difference-between-type-object-and-flyweight-pattern)
