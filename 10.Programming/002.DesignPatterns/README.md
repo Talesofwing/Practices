@@ -27,6 +27,7 @@ Whether in team development or solo development, clean and elegant code is alway
 3. [Bridge](docs/Bridge.md)
 4. [Composite](docs/Composite.md)
 5. [Decorator](docs/Decorator.md)
+6. [Facade](docs/Facade.md)
 
 #### Creational Patterns
 1. [Prototype](docs/Prototype.md)
