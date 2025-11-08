@@ -5,6 +5,8 @@ Whether in team development or solo development, clean and elegant code is alway
 > Design patterns not only describe code structures but also convey the underlying design intentions and the problems they aim to solve.
 >
 > Therefore, understanding their core concepts is the key to truly mastering design patterns.
+>
+> In addition, design patterns are merely guidelines and recommendations, not concrete solutions, and should be applied flexibly.
 
 ### Contents
 #### Behavioral Patterns
@@ -23,6 +25,8 @@ Whether in team development or solo development, clean and elegant code is alway
 1. [Flyweight](docs/Flyweight.md)
 2. [Adapter](docs/Adapter.md)
 3. [Bridge](docs/Bridge.md)
+4. [Composite](docs/Composite.md)
+5. [Decorator](docs/Decorator.md)
 
 #### Creational Patterns
 1. [Prototype](docs/Prototype.md)
@@ -78,17 +82,6 @@ The granularity of [Strategy Pattern](docs/Strategy.md) is usually smaller; each
 For example, a sorting Context can choose between `Quick Sort`, `Merge Sort`, etc. Each strategy is single-purpose and independent.
 
 > In short, the [State Pattern](docs/State.md) is like a less constrained version of the [Strategy Pattern](docs/Strategy). States are not independent from each other and can change the Context’s state.
-
-#### The difference between [CoR](docs/ChainOfResponsibility.md) and [Decorator](docs/Decorator.md)
-
-Both patterns look like they chain multiple objects together, but their purposes are different:
-
-- CoR (Chain of Responsibility)
-
-	Each Handler can choose to handle a request or pass it to the next one; emphasizes responsibility delegation, and execution is optional.
-- Decorator
-
-	Each Decorator is only responsible for enhancing or modifying the original functionality; emphasizes functionality accumulation, and execution usually occurs.
 
 #### The difference between [Bytecode](docs/Bytecode.md) and [Interpreter](docs/Interpreter.md)
 
@@ -222,6 +215,24 @@ Both involve the encapsulation and abstraction of behavior, but their core probl
 	- Typically encapsulates algorithmic behavior, containing little or no internal state.
 	- Usually designed for behavior variations specific to a particular object and can be switched at runtime.
 	- Emphasizes the "switching of algorithmic behavior," solving multiple strategy implementations for the same problem.
+
+#### The difference between [Decorator](docs/Decorator.md) and [Chain of Responsibility Pattern](docs/ChainOfResponsibility.md)
+
+Both rely on recursion to perform a sequence of actions. However, there are several key differences between them:
+
+- Decorator Pattern
+
+	A decorator does not interrupt the next step.
+
+	It mainly serves to add functionality.
+
+- Chain of Responsibility (CoR)
+
+	CoR handles independent operations and can stop passing the request at any point.
+
+	Its primary goal is to find an object capable of handling the request.
+
+In short, the `Decorator` adds functionality, while the `CoR` aims to find the appropriate handler for an operation.
 
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)
