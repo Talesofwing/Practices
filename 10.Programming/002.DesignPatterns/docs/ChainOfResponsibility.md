@@ -1,4 +1,4 @@
-# State Pattern
+# Chain of Responsibility Pattern
 
 > Behavioral Pattern
 
