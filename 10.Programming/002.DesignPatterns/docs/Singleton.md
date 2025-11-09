@@ -62,4 +62,4 @@
 
 ### References
 
-- [Difference from the Static Class](../README.md#the-difference-between-singleton-and-static-class)
+- [Difference from the Static Class](../README.md#the-difference-between-singleton-pattern-and-static-class)

@@ -15,4 +15,4 @@ The `Facade pattern` provides an external interface for use, but it does not int
 This reduces coupling so that clients are only coupled with the Facade class.
 
 ### References
-- [Difference from the Mediator Pattern](../README.md#the-difference-between-mediator-and-facade)
+- [Difference from the Mediator Pattern](../README.md#the-difference-between-mediator-pattern-and-facade-pattern)

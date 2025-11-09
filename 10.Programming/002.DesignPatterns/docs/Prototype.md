@@ -21,3 +21,6 @@ Additionally, in Unity, `Prefab` is an application of the `Prototype Pattern`.
 In modern development, however, cloning is more often implemented through serialization.
 
 > Implementing `Clone()` can be quite complicated.
+
+### References
+- [Difference from the Memento Pattern](../README.md#the-difference-between-memento-pattern-and-prototype-pattern)

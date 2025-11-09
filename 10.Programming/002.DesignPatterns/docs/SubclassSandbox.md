@@ -60,4 +60,4 @@ From the subclass’s perspective, the base class acts as a kind of [Facade Patt
 If the base class becomes too heavy in responsibility, other patterns—such as the [Component Pattern](Component.md) can be applied to reduce its duties.
 
 ### References
-- [Difference from the Template Pattern](../README.md#the-difference-between-subclass-sandbox-and-template)
+- [Difference from the Template Pattern](../README.md#the-difference-between-subclass-sandbox-and-template-method-pattern)

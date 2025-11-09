@@ -47,6 +47,7 @@ int main() {
 If the strategy itself has complex internal logic, requires state, or involves multi-step behavior, it is still recommended to use classes rather than lambdas.
 
 ### References
-- [Difference from the State Pattern](../README.md#the-difference-between-state-and-strategy)
-- [Difference from the Command Pattern](../README.md#the-difference-between-command-and-strategy)
-- [Difference from the Component Pattern](../README.md#the-difference-between-strategy-and-component)
+- [Difference from the State Pattern](../README.md#the-difference-between-state-pattern-and-strategy-pattern)
+- [Difference from the Command Pattern](../README.md#the-difference-between-command-pattern-and-strategy-pattern)
+- [Difference from the Component Pattern](../README.md#the-difference-between-strategy-pattern-and-component-pattern)
+- [Difference from the Bridge Pattern](../README.md#the-difference-between-bridge-pattern-and-strategy-pattern)

@@ -13,5 +13,5 @@ The purpose of the `Template method pattern` is to consolidate code that shares 
 In other words, the base class provides the framework, and the actual implementation of each method within that framework is handled by the subclasses.
 
 ### References
-- [Difference from the Factory Method Pattern](../README.md)
-- [Difference from the Subclass Sandbox](../README.md#the-difference-between-subclass-sandbox-and-template)
+- [Difference from the Factory Method Pattern](../README.md#the-difference-between-template-method-pattern-and-factory-method-pattern)
+- [Difference from the Subclass Sandbox](../README.md#the-difference-between-subclass-sandbox-and-template-method-pattern)

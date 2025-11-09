@@ -24,3 +24,5 @@ The Adapter Pattern is typically used in the later stages of a project. At that 
 
 ### References
 - [Difference from the Decorator Pattern](../README.md#the-difference-between-adapter-pattern-and-decorator-pattern)
+- [Difference from the Bridge Pattern](../README.md#the-difference-between-bridge-pattern-and-adapter-pattern)
+- [Difference from the Proxy Pattern](../README.md#the-difference-between-proxy-pattern-and-adapter-pattern)

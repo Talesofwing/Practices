@@ -24,4 +24,4 @@ In game development, interactions between entities can also be handled by a `Med
 This design reduces the interaction logic between entities and makes it easier to control and maintain the combat flow.
 
 ### References
-- [Difference from the Facade Pattern](../README.md#the-difference-between-mediator-and-facade)
+- [Difference from the Facade Pattern](../README.md#the-difference-between-mediator-pattern-and-facade-pattern)

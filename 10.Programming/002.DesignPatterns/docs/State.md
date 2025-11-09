@@ -31,4 +31,4 @@ The `State Pattern` has many variations and subtleties; for further learning, yo
 - Planning Systems
 
 ### References
-- [Difference from the Strategy Pattern](../README.md#the-difference-between-state-and-strategy)
+- [Difference from the Strategy Pattern](../README.md#the-difference-between-state-pattern-and-strategy-pattern)

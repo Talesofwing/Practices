@@ -25,4 +25,4 @@ In game development, the `Memento Pattern` is rarely used directly. It is often 
 The `Memento Pattern` can be applied to restore the state of small, self-contained objects. It is conceptually similar to the [Prototype Pattern](Prototype.md).
 
 ### References
-- [Difference from the Prototype Pattern](../README.md#the-difference-between-memento-and-prototype)
+- [Difference from the Prototype Pattern](../README.md#the-difference-between-memento-pattern-and-prototype-pattern)

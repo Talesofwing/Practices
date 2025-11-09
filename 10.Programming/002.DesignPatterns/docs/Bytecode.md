@@ -35,4 +35,4 @@ for cmd in commands:
 ```
 
 ### References
-- [Difference from the Interpreter Pattern](../README.md#the-difference-between-bytecode-and-interpreter)
+- [Difference from the Interpreter Pattern](../README.md#the-difference-between-bytecode-and-interpreter-pattern)

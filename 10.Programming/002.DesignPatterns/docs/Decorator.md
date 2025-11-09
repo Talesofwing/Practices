@@ -13,4 +13,5 @@
 The `Decorator Pattern` involves wrapping an object layer by layer, allowing it to dynamically gain new functionality at runtime. For example, if a sword is fitted with three gems, it is essentially being given three additional layers of functionality. (However, this kind of implementation is not very common in modern game development.)
 
 ### References
+- [Difference from the Adapter Pattern](../README.md#the-difference-between-adapter-pattern-and-strategy-pattern)
 - [Difference from the Chain of Responsibility Pattern](../README.md#the-difference-between-adapter-pattern-and-strategy-pattern)

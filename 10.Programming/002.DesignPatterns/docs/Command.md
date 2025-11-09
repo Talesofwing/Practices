@@ -15,4 +15,4 @@ The purpose of the `Command Pattern` is to encapsulate a `request` as an object,
 In general, the `Invoker` does not create the `Command`; instead, the `Command` is created by the `Client(Command User)` and then passed to the `Invoker` for execution.
 
 ### References
-- [Difference from the Strategy Pattern](../README.md#the-difference-between-command-and-strategy)
+- [Difference from the Strategy Pattern](../README.md#the-difference-between-command-pattern-and-strategy-pattern)

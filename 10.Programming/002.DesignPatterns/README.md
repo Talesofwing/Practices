@@ -28,6 +28,7 @@ Whether in team development or solo development, clean and elegant code is alway
 4. [Composite](docs/Composite.md)
 5. [Decorator](docs/Decorator.md)
 6. [Facade](docs/Facade.md)
+7. [Proxy](docs/Proxy.md)
 
 #### Creational Patterns
 1. [Prototype](docs/Prototype.md)
@@ -46,7 +47,7 @@ Whether in team development or solo development, clean and elegant code is alway
 
 ### Notes
 
-#### The difference between [Command](docs/Command.md) and [Strategy](docs/Strategy.md)
+#### The difference between [Command Pattern](docs/Command.md) and [Strategy Pattern](docs/Strategy.md)
 
 The [Strategy Pattern](docs/Strategy.md) is designed for interchangeable behaviors. For example:
 - Attack: different attack methods
@@ -60,14 +61,13 @@ The [Command Pattern](docs/Command.md) is intended to encapsulate requests, oper
 
 This allows dynamically switching to a different action.
 
-#### The difference between [Singleton](docs/Singleton.md) and `Static Class`
+#### The difference between [Singleton Pattern](docs/Singleton.md) and `Static Class`
 
 - Utility functions (stateless): Static Class
 - Requires state + OOP features: Singleton
 - For testing purposes: Avoid using Singleton; use [[Dependency Injection|DI]] instead
 
-
-#### The difference between [State](docs/State.md) and [Strategy](docs/Strategy.md)
+#### The difference between [State Pattern](docs/State.md) and [Strategy Pattern](docs/Strategy.md)
 
 The granularity of [State Pattern](docs/State.md) is usually larger; a concrete state not only contains the implementation of certain behaviors, but may also include the logic for switching to other states. In addition, a single state may integrate multiple behaviors.
 
@@ -84,7 +84,7 @@ For example, a sorting Context can choose between `Quick Sort`, `Merge Sort`, et
 
 > In short, the [State Pattern](docs/State.md) is like a less constrained version of the [Strategy Pattern](docs/Strategy). States are not independent from each other and can change the Context’s state.
 
-#### The difference between [Bytecode](docs/Bytecode.md) and [Interpreter](docs/Interpreter.md)
+#### The difference between [Bytecode](docs/Bytecode.md) and [Interpreter Pattern](docs/Interpreter.md)
 
 Both are basically designed to solve the same problem, but their core implementations are different.
 
@@ -98,7 +98,7 @@ Both are basically designed to solve the same problem, but their core implementa
 
 Bytecode moves the entire front-end compilation process ahead of time, generating an intermediate format that is more suitable for machine execution.
 
-#### The difference between [Mediator](docs/Mediator.md) and [Facade](docs/Facade.md)
+#### The difference between [Mediator Pattern](docs/Mediator.md) and [Facade Pattern](docs/Facade.md)
 
 Both aim to reduce coupling between components, but their core purposes are different:
 
@@ -110,7 +110,7 @@ Both aim to reduce coupling between components, but their core purposes are diff
 
 	Provides a simplified interface without changing the underlying logic; components can still interact directly and are unaware of the Facade’s existence.
 
-#### The difference between [Subclass Sandbox](docs/SubclassSandbox.md) and [Template](docs/Template.md)
+#### The difference between [Subclass Sandbox](docs/SubclassSandbox.md) and [Template Method Pattern](docs/TemplateMethod.md)
 
 Both deal with the relationship between base classes and subclasses.
 
@@ -128,7 +128,7 @@ Both deal with the relationship between base classes and subclasses.
 
 In practice, both patterns can be used together.
 
-#### The difference between [Memento](docs/Memento.md) and [Prototype](docs/Prototype.md)
+#### The difference between [Memento Pattern](docs/Memento.md) and [Prototype Pattern](docs/Prototype.md)
 
 Both can “save the state of an object” and “restore it later.”
 
@@ -162,7 +162,7 @@ The two patterns can easily be unintentionally mixed together.
 
 - The Monster’s type is defined by this data, such as attack style, movement style, attack speed… → `Type Object`
 
-#### The difference between [Template Method](docs/TemplateMethod.md) and [Factory Method](docs/Factory.md)
+#### The difference between [Template Method Pattern](docs/TemplateMethod.md) and [Factory Method Pattern](docs/Factory.md)
 
 The `Factory Method Pattern` can be described as a specialized form of the `Template Method Pattern`, specifically designed for object creation.
 
@@ -217,7 +217,7 @@ Both involve the encapsulation and abstraction of behavior, but their core probl
 	- Usually designed for behavior variations specific to a particular object and can be switched at runtime.
 	- Emphasizes the "switching of algorithmic behavior," solving multiple strategy implementations for the same problem.
 
-#### The difference between [Decorator](docs/Decorator.md) and [Chain of Responsibility Pattern](docs/ChainOfResponsibility.md)
+#### The difference between [Decorator Pattern](docs/Decorator.md) and [Chain of Responsibility Pattern](docs/ChainOfResponsibility.md)
 
 Both rely on recursion to perform a sequence of actions. However, there are several key differences between them:
 
@@ -234,6 +234,17 @@ Both rely on recursion to perform a sequence of actions. However, there are seve
 	Its primary goal is to find an object capable of handling the request.
 
 In short, the `Decorator` adds functionality, while the `CoR` aims to find the appropriate handler for an operation.
+
+#### The difference between [Proxy Pattern](docs/Proxy.md) and [Adapter Pattern](docs/Adapter.md)
+Both patterns extend the functionality of an existing class by creating a new class, but their purposes are different.
+
+- Proxy Pattern
+
+	Since it uses the same interface as the original service, the interface remains unchanged. The proxy can also be used as a parameter in the same way as originally designed.
+
+- Adapter Pattern
+
+	It may have a different interface. When the existing class’s interface is incompatible with the expected one, the adapter acts as a “converter” that allows the client to use it.
 
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)
