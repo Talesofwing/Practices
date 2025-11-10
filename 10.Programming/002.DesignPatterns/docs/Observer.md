@@ -41,3 +41,6 @@ In the example, a [Mediator pattern](Mediator.md) is also introduced to build an
 - IEvent: used to hold the data of each event
 - Observer: registers events using the `EventBus`
 - Publisher: publishes events using the `EventBus`
+
+### References
+- [Difference from the Event Queue](../README.md#the-difference-between-event-queue-and-observer-pattern)

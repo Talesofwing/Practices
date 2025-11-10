@@ -46,6 +46,10 @@ Whether in team development or solo development, clean and elegant code is alway
 2. [Subclass Sandbox](docs/SubclassSandbox.md)
 3. [Type Object](docs/TypeObject.md)
 
+##### Decoupling Patterns
+1. [Component](docs/Component.md)
+2. [Event Queeu](docs/EventQueue.md)
+
 ### Notes
 
 #### The difference between [Command Pattern](docs/Command.md) and [Strategy Pattern](docs/Strategy.md)
@@ -237,6 +241,7 @@ Both rely on recursion to perform a sequence of actions. However, there are seve
 In short, the `Decorator` adds functionality, while the `CoR` aims to find the appropriate handler for an operation.
 
 #### The difference between [Proxy Pattern](docs/Proxy.md) and [Adapter Pattern](docs/Adapter.md)
+
 Both patterns extend the functionality of an existing class by creating a new class, but their purposes are different.
 
 - Proxy Pattern
@@ -246,6 +251,28 @@ Both patterns extend the functionality of an existing class by creating a new cl
 - Adapter Pattern
 
 	It may have a different interface. When the existing class’s interface is incompatible with the expected one, the adapter acts as a “converter” that allows the client to use it.
+
+#### The difference between [Event Queue](docs/EventQueue.md) and [Observer Pattern](docs/Observer.md)
+
+- Event Queue
+
+	Introduces temporal decoupling, i.e., asynchrony.
+
+- Observer Pattern
+ 
+	A real-time event system.
+
+#### The difference between [Event Queue](docs/EventQueue.md) and [Command Pattern](docs/Command.md)
+
+- Event Queue
+
+	Can consist of events, messages, or requests.
+
+- Command Pattern
+
+	Always represents messages or requests.
+
+For the distinction between events and messages/requests, refer to [Event Queue](docs/EventQueue.md).
 
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)

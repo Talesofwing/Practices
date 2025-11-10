@@ -16,3 +16,4 @@ In general, the `Invoker` does not create the `Command`; instead, the `Command` 
 
 ### References
 - [Difference from the Strategy Pattern](../README.md#the-difference-between-command-pattern-and-strategy-pattern)
+- [Difference from the Event Queue](../README.md#the-difference-between-event-queue-and-command-pattern)

@@ -27,4 +27,4 @@ Design Decision Issues
 
 ### References
 
-- [Difference from the Chain of Responsibility Pattern](../README.md#component)
+- [Difference from the Strategy Pattern](../README.md#the-difference-between-component-and-strategy-pattern)
