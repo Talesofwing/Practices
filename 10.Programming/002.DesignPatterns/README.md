@@ -49,6 +49,7 @@ Whether in team development or solo development, clean and elegant code is alway
 ##### Decoupling Patterns
 1. [Component](docs/Component.md)
 2. [Event Queeu](docs/EventQueue.md)
+3. [Service Locator](docs/ServiceLocator.md)
 
 ### Notes
 
