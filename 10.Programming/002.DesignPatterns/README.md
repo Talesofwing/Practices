@@ -20,6 +20,7 @@ Whether in team development or solo development, clean and elegant code is alway
 8. [Strategy](docs/Strategy.md)
 9. [TemplateMethod](docs/TemplateMethod.md)
 10. [Visitor](docs/Visitor.md)
+11. [Interpreter](docs/Interpreter.md)
 
 #### Structural Patterns
 1. [Flyweight](docs/Flyweight.md)
