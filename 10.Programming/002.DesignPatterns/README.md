@@ -34,6 +34,7 @@ Whether in team development or solo development, clean and elegant code is alway
 #### Creational Patterns
 1. [Prototype](docs/Prototype.md)
 2. [Singleton](docs/Singleton.md)
+3. [Factory Method](docs/FactoryMethod.md)
 
 #### Game Programming Patterns
 ##### Sequencing Patterns
