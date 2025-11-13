@@ -19,3 +19,4 @@ Many designs start by using the `Factory Method Pattern` and later evolve into t
 ### References
 
 - [Difference from the Template Method Pattern](../README.md#the-difference-between-template-method-pattern-and-factory-method-pattern)
+- [Difference from the Abstract Factory Pattern](../README.md#the-difference-between-abstract-factory-pattern-and-factory-method-pattern)

@@ -35,6 +35,8 @@ Whether in team development or solo development, clean and elegant code is alway
 1. [Prototype](docs/Prototype.md)
 2. [Singleton](docs/Singleton.md)
 3. [Factory Method](docs/FactoryMethod.md)
+4. [Abstract Factory](docs/AbstractFactory.md)
+5. [Builder](docs/Builder.md)
 
 #### Game Programming Patterns
 ##### Sequencing Patterns
@@ -169,7 +171,7 @@ The two patterns can easily be unintentionally mixed together.
 
 - The Monster’s type is defined by this data, such as attack style, movement style, attack speed… → `Type Object`
 
-#### The difference between [Template Method Pattern](docs/TemplateMethod.md) and [Factory Method Pattern](docs/Factory.md)
+#### The difference between [Template Method Pattern](docs/TemplateMethod.md) and [Factory Method Pattern](docs/FactoryMethod.md)
 
 The `Factory Method Pattern` can be described as a specialized form of the `Template Method Pattern`, specifically designed for object creation.
 
@@ -275,6 +277,28 @@ Both patterns extend the functionality of an existing class by creating a new cl
 	Always represents messages or requests.
 
 For the distinction between events and messages/requests, refer to [Event Queue](docs/EventQueue.md).
+
+#### The difference between [Abstract Factory Pattern](docs/AbstractFactory.md) and [Factory Method Pattern](docs/FactoryMethod.md)
+
+The `Abstract Factory Pattern` is a class that contains multiple `factory methods` and ensures that the created objects are compatible within the same product family.
+
+#### The difference between [Abstract Factory Pattern](docs/AbstractFactory.md) and [Builder Pattern](docs/Builder.md)
+
+Both are used for object creation, but there are fundamental differences:
+
+- Abstract Factory Pattern
+
+	- Creates a family of related objects
+
+	- Ensures consistency among the created objects
+
+- Builder Pattern
+
+	- Creates a single complex object
+
+	- Avoids having too many parameters in constructors
+
+In simple terms: the `Abstract Factory Pattern` is used to create a group of related objects, while the `Builder Pattern` is used to create one complex object.
 
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)
