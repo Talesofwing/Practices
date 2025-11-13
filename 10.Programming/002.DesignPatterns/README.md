@@ -300,6 +300,11 @@ Both are used for object creation, but there are fundamental differences:
 
 In simple terms: the `Abstract Factory Pattern` is used to create a group of related objects, while the `Builder Pattern` is used to create one complex object.
 
+#### Factory Comparison
+> [REFACTORING GURU](https://refactoring.guru/design-patterns/factory-comparison)
+
+
+
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)
 - [Game Programming Patterns](https://gameprogrammingpatterns.com/)
