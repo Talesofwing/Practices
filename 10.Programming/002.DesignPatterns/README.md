@@ -54,6 +54,9 @@ Whether in team development or solo development, clean and elegant code is alway
 2. [Event Queeu](docs/EventQueue.md)
 3. [Service Locator](docs/ServiceLocator.md)
 
+##### Optimization Patterns
+1. [Data Locality](docs/DataLocality.md)
+
 ### Notes
 
 #### The difference between [Command Pattern](docs/Command.md) and [Strategy Pattern](docs/Strategy.md)
