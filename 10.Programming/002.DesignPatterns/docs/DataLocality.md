@@ -2,7 +2,7 @@
 
 > Game Programming Pattern
 >
-> Avoid unnecessary work by deferring it until the result is needed.
+> Accelerate memory access by arranging data to take advantage of CPU caching.
 
 ### Data Access
 
