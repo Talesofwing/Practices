@@ -57,6 +57,7 @@ Whether in team development or solo development, clean and elegant code is alway
 ##### Optimization Patterns
 1. [Data Locality](docs/DataLocality.md)
 2. [Dirty Flag](docs/DirtyFlag.md)
+3. [Object Pool](docs/ObjectPool.md)
 
 ### Notes
 
