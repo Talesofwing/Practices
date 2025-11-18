@@ -9,7 +9,39 @@ Whether in team development or solo development, clean and elegant code is alway
 > In addition, design patterns are merely guidelines and recommendations, not concrete solutions, and should be applied flexibly.
 
 ### Contents
-#### Behavioral Patterns
+
+#### Gof
+
+##### Principles
+- Single Responsibility Principle (SRP)
+
+	A class should have only one reason to change.
+
+- Law of Demeter (LoD)
+
+	Minimize direct coupling between objects (Principle of Least Knowledge).
+
+- Liskov Substitution Principle (LSP)
+
+	Subtypes must be completely substitutable for their base types without breaking system behavior.
+
+- Open-Closed Principle (OCP)
+
+	Software entities should be open for extension but closed for modification.
+
+- Dependency Inversion Principle (DIP)
+
+	High-level modules should not depend on low-level modules; both should depend on abstractions.
+
+- Interface Segregation Principle (ISP)
+
+	Use multiple specific interfaces rather than a single large, general-purpose interface.
+
+- Composition Over Inheritance Principle (CARP)
+
+	Favor composition or aggregation over inheritance to achieve code reuse.
+
+##### Behavioral Patterns
 1. [Command](docs/Command.md)
 2. [Observer](docs/Observer.md)
 3. [State](docs/State.md)
@@ -22,7 +54,7 @@ Whether in team development or solo development, clean and elegant code is alway
 10. [Visitor](docs/Visitor.md)
 11. [Interpreter](docs/Interpreter.md)
 
-#### Structural Patterns
+##### Structural Patterns
 1. [Flyweight](docs/Flyweight.md)
 2. [Adapter](docs/Adapter.md)
 3. [Bridge](docs/Bridge.md)
@@ -31,7 +63,7 @@ Whether in team development or solo development, clean and elegant code is alway
 6. [Facade](docs/Facade.md)
 7. [Proxy](docs/Proxy.md)
 
-#### Creational Patterns
+##### Creational Patterns
 1. [Prototype](docs/Prototype.md)
 2. [Singleton](docs/Singleton.md)
 3. [Factory Method](docs/FactoryMethod.md)
@@ -60,7 +92,22 @@ Whether in team development or solo development, clean and elegant code is alway
 3. [Object Pool](docs/ObjectPool.md)
 4. [Spatial Partition](docs/SpatialPartition.md)
 
-### Notes
+#### Other Principles
+
+1. Separation of Concerns (SoC)
+
+	Divides different functions or responsibilities within a system into independent modules or parts, where each module focuses on handling a specific concern to reduce complexity, and promote maintainability and reusability.
+
+2. Inversion of Control (IoC)
+
+
+	Transfers the control of the flow or lifecycle of instances to an external framework, container, or coordinator. [Dependency Injection](docs/DependencyInjection.md) is a concrete technique to implement IoC. Additionally, [Service Locator](docs/ServiceLocator.md) is another technique used to realize IoC containers.
+
+#### Other Patterns
+
+1. [Dependency Injection](docs/DependencyInjection.md)
+
+### Difference between Patterns
 
 #### The difference between [Command Pattern](docs/Command.md) and [Strategy Pattern](docs/Strategy.md)
 
@@ -309,7 +356,14 @@ In simple terms: the `Abstract Factory Pattern` is used to create a group of rel
 #### Factory Comparison
 > [REFACTORING GURU](https://refactoring.guru/design-patterns/factory-comparison)
 
+### Difference between Principles
 
+#### SoC vs. SRP
+
+- SRP(Single Responsibility Principle) emphasizes that each module/class/function should have only one responsibility, meaning a class should have only one reason to change. It applies to code units and aims to make the code easier to maintain, modify, and extend.
+- SoC(Separation of Concerns) emphasizes clearly separating different functionalities, logics, or responsibilities into distinct modules or layers within the system, allowing each part to focus on its own concern. It applies to overall architecture or system-level design and reduces dependencies between modules.
+
+In short, the difference lies in the granularity.
 
 ### References
 - [REFACTORING GURU](https://refactoring.guru/)
