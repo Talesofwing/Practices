@@ -361,6 +361,7 @@ In simple terms: the `Abstract Factory Pattern` is used to create a group of rel
 #### SoC vs. SRP
 
 - SRP(Single Responsibility Principle) emphasizes that each module/class/function should have only one responsibility, meaning a class should have only one reason to change. It applies to code units and aims to make the code easier to maintain, modify, and extend.
+
 - SoC(Separation of Concerns) emphasizes clearly separating different functionalities, logics, or responsibilities into distinct modules or layers within the system, allowing each part to focus on its own concern. It applies to overall architecture or system-level design and reduces dependencies between modules.
 
 In short, the difference lies in the granularity.
