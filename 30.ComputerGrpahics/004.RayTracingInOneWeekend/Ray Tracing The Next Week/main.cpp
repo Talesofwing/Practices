@@ -126,7 +126,7 @@ void earth() {
 void perlin_spheres() {
 	hittable_list world;
 
-	auto pertext = make_shared<noise_texture>();
+	auto pertext = make_shared<noise_texture>(4.0);
 	world.add(make_shared<sphere>(point3(0, -1000, 0), 1000, make_shared<lambertian>(pertext)));
 	world.add(make_shared<sphere>(point3(0, 2, 0), 2, make_shared<lambertian>(pertext)));
 
@@ -152,6 +152,6 @@ int main() {
 		case 1: bouncing_spheres();  break;
 		case 2: checkered_spheres(); break;
 		case 3: earth();             break;
-		case 4: perlin_spheres();   break;
+		case 4: perlin_spheres();    break;
 	}
 }
