@@ -75,8 +75,8 @@ public:
 	}
 
 private:
-  // Refractive index in vacuum or air, or the ratio of the material's refractive index over
-  // the refractive index of the enclosing media
+	// Refractive index in vacuum or air, or the ratio of the material's refractive index over
+	// the refractive index of the enclosing media
 	double refraction_index;
 
 	static double reflectance(double cosine, double refraction_index) {
