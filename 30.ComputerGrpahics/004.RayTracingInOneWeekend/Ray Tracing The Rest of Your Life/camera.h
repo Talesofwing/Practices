@@ -64,8 +64,6 @@ private:
 		pixel_samples_scale = 1.0 / (sqrt_spp * sqrt_spp);
 		recip_sqrt_spp = 1.0 / sqrt_spp;
 
-		pixel_samples_scale = 1.0 / samples_per_pixel;
-
 		center = lookfrom;
 
 		// Determine viewport dimensions.
@@ -132,7 +130,7 @@ private:
 		return center + (p[0] * defocus_disk_u) + (p[1] * defocus_disk_v);
 	}
 
-	color ray_color(const ray& r, int depth, const hittable& world, const hittable& lights) {
+	color ray_color(const ray& r, int depth, const hittable& world, const hittable& lights) const {
 		// If we've exceeded the ray bounce limit, no more light is gathered.
 		if (depth <= 0)
 			return color(0, 0, 0);
@@ -142,25 +140,25 @@ private:
 		if (!world.hit(r, interval(0.001, infinity), rec))
 			return background;
 
-		ray scattered;
-		color attenuation;
-		double pdf_value;
+		scatter_record srec;
 		color color_from_emission = rec.mat->emitted(r, rec, rec.u, rec.v, rec.p);
 
-		if (!rec.mat->scatter(r, rec, attenuation, scattered, pdf_value))
+		if (!rec.mat->scatter(r, rec, srec))
 			return color_from_emission;
 
-		auto p0 = make_shared<hittable_pdf>(lights, rec.p);
-        auto p1 = make_shared<cosine_pdf>(rec.normal);
-        mixture_pdf mixed_pdf(p0, p1);
+		if (srec.skip_pdf)
+			return srec.attenuation * ray_color(srec.skip_pdf_ray, depth - 1, world, lights);
 
-        scattered = ray(rec.p, mixed_pdf.generate(), r.time());
-        pdf_value = mixed_pdf.value(scattered.direction());
+		auto light_pdf = make_shared<hittable_pdf>(lights, rec.p);
+		mixture_pdf p(light_pdf, srec.pdf_ptr);
+
+		ray scattered = ray(rec.p, p.generate(), r.time());
+		auto pdf_value = p.value(scattered.direction());
 
         double scattering_pdf = rec.mat->scattering_pdf(r, rec, scattered);
 
 		color sample_color = ray_color(scattered, depth - 1, world, lights);
-		color color_from_scatter = (attenuation * scattering_pdf * sample_color) / pdf_value;
+		color color_from_scatter = (srec.attenuation * scattering_pdf * sample_color) / pdf_value;
 
 		return color_from_emission + color_from_scatter;
 	}
